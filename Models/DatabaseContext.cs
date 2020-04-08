@@ -14,7 +14,6 @@ namespace capstone.Models
     public DbSet<Attack> Attacks { get; set; }
     public DbSet<Money> MoneyPieces { get; set; }
     public DbSet<Equip> Equipment { get; set; }
-    public DbSet<CharacterImage> CharacterImages { get; set; }
 
 
     private string ConvertPostConnectionToConnectionString(string connection)
@@ -29,7 +28,7 @@ namespace capstone.Models
       if (!optionsBuilder.IsConfigured)
       {
         var envConn = Environment.GetEnvironmentVariable("DATABASE_URL");
-        var conn = "server=localhost;database=capstoneDatabase;User Id=postgres;Password=dev";
+        var conn = "server=localhost;database=DND;User Id=postgres;Password=dev";
         if (envConn != null)
         {
           conn = ConvertPostConnectionToConnectionString(envConn);

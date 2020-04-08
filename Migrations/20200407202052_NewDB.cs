@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace capstone.Migrations
 {
-    public partial class CreatedTablesAndNav : Migration
+    public partial class NewDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,8 +16,7 @@ namespace capstone.Migrations
                     UserFirst = table.Column<string>(nullable: true),
                     UserLast = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true),
-                    UserName = table.Column<string>(nullable: true)
+                    HashedPassword = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

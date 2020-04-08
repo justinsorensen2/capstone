@@ -23,13 +23,13 @@ namespace capstone
     public string AlliesOrganizations { get; set; }
     public string BackStory { get; set; }
     public string Treasure { get; set; }
+    public string ImagePath { get; set; }
     //navigation
     public List<Stat> Stats { get; set; } = new List<Stat>();
     public List<Skill> Skills { get; set; } = new List<Skill>();
     public List<Attack> Attacks { get; set; } = new List<Attack>();
     public List<Money> MoneyPieces { get; set; } = new List<Money>();
     public List<Equip> Equipment { get; set; } = new List<Equip>();
-    public List<CharacterImage> CharacterImages { get; set; } = new List<CharacterImage>();
     public int UserId { get; set; }
     public User User { get; set; }
 

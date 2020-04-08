@@ -1,31 +1,28 @@
-import React, { Component, useState } from 'react'
-import Header from '../components/Header'
+import React, { useState } from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
 
 const CreateAccount = () => {
   //create state variables
-  const [newUser, setNewUser] = useState([])
-  const [userName, setUserName] = useState('')
   const [userPass, setUserPass] = useState('')
-  const [firstName, setFirst] = useState('')
-  const [lastName, setLast] = useState('')
+  const [userFirst, setUserFirst] = useState('')
+  const [userLast, setUserLast] = useState('')
   const [email, setEmail] = useState('')
   const [shouldRedirect, setShouldRedirect] = useState(false)
 
-  //set function for tracking user input
-  const Tracker = (e) => {
-    const fieldToUpdate = e.target.name
-    const value = e.target.value
-    console.log(fieldToUpdate, value)
-  }
-  //set function for submitting to API/database
-  const Undecided = async (e) => {
+  //set function for adding user to API
+  const registerNewUser = async e => {
     e.preventDefault()
-    const resp = await axios.post('https://myfutureapi.com/api/users', newUser)
+    const resp = await axios.post('/auth/register', {
+      UserFirst: userFirst,
+      UserLast: userLast,
+      Email: email,
+      UserPass: userPass,
+    })
     console.log(resp)
     if (resp.status === 200) {
       // redirect page to the home
+      localStorage.setItem('token', resp.data.token)
       setShouldRedirect(true)
     } else {
       //display an error message
@@ -36,38 +33,70 @@ const CreateAccount = () => {
     return (
       <Redirect
         to={{
-          pathname: '/Home',
-          state: { who: newUser },
+          pathname: `/Home/${email}`,
+          state: { who: email },
         }}
       />
     )
   } else {
     return (
       <>
-        <Header />
-        <form onSubmit={Undecided}>
-          <h3>Please enter your account details.</h3>
-          <h5>
-            First Name:
-            <input name="firstName" type="text" onChange={Tracker} />
-          </h5>
-          <h5>
-            Last Name:
-            <input name="lastName" type="text" onChange={Tracker} />
-          </h5>
-          <h5>
-            Email:
-            <input name="email" type="text" onChange={Tracker} />
-          </h5>
-          <h5>Please note: your email will be your login username.</h5>
-          <h5>
-            Password:
-            <input type="text" onChange={Tracker} />
-          </h5>
-          <button className="LoginButton" onClick={Undecided}>
-            Submit
-          </button>
-        </form>
+        <article className="Register-Flex">
+          <section className="Register-Parent">
+            <div className="Register">
+              <form className="Register-Form" onSubmit={registerNewUser}>
+                <div className="Site-Icon" />
+                <h3>Enter your account details.</h3>
+                <h5>
+                  First Name:
+                  <input
+                    name="userFirst"
+                    value={userFirst}
+                    type="text"
+                    onChange={e => setUserFirst(e.target.value)}
+                  />
+                </h5>
+                <h5>
+                  Last Name:
+                  <input
+                    name="userLast"
+                    value={userLast}
+                    type="text"
+                    onChange={e => setUserLast(e.target.value)}
+                  />
+                </h5>
+                <h5>
+                  Email Address:
+                  <input
+                    name="email"
+                    value={email}
+                    type="text"
+                    onChange={e => setEmail(e.target.value)}
+                  />
+                </h5>
+                <p>
+                  <span>
+                    Please note: your email will be your login username.
+                  </span>
+                </p>
+                <h5>
+                  Password:
+                  <input
+                    name="userPass"
+                    value={userPass}
+                    type="password"
+                    onChange={e => setUserPass(e.target.value)}
+                  />
+                </h5>
+                <div className="Register-Button-Div">
+                  <button className="Register-Button" onClick={registerNewUser}>
+                    Register
+                  </button>
+                </div>
+              </form>
+            </div>
+          </section>
+        </article>
       </>
     )
   }

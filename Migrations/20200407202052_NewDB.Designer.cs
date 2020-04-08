@@ -10,8 +10,8 @@ using capstone.Models;
 namespace capstone.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20200406172111_CreatedTablesAndNav")]
-    partial class CreatedTablesAndNav
+    [Migration("20200407202052_NewDB")]
+    partial class NewDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -423,16 +423,13 @@ namespace capstone.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("HashedPassword")
                         .HasColumnType("text");
 
                     b.Property<string>("UserFirst")
                         .HasColumnType("text");
 
                     b.Property<string>("UserLast")
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserName")
                         .HasColumnType("text");
 
                     b.HasKey("Id");

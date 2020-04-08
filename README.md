@@ -8,6 +8,3 @@ The app will allow the user to:
 3. View created characters (get)
 4. Delete characters (delete)
 5. Update characters (put)
-
-Colors selected with Paletton.
-https://paletton.com/#uid=12R0u0kllllaFw0g0qFqFg0w0aF

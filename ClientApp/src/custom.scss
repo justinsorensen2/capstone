@@ -1,6 +1,11 @@
 :root {
-  font: 16px / 1 sans-serif;
-  font-family: serif;
+  font-family: 'Luminari-Regular', serif;
+}
+
+@font-face {
+  font-family: 'Luminari-Regular';
+  src: url('./fonts/Luminari-Regular-Woff.woff') format('woff'),
+    url('./fonts/Luminari-Regular-Woff2.woff2') format('woff');
 }
 
 html {
@@ -10,10 +15,7 @@ html {
 body {
   margin: 0;
   min-height: 100%;
-}
-
-.Header sub {
-  text-align: center;
+  font-family: 'Luminari-Regular', serif;
 }
 
 header {
@@ -23,23 +25,41 @@ header {
   justify-content: space-around;
   text-align: center;
   height: 6rem;
-  background-color: #10631b;
   text-decoration: none;
   text-decoration-color: none;
+  a {
+    padding: 1rem;
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    height: 100%;
+  }
+  a:link {
+    text-decoration: none;
+    color: black;
+  }
+  a:visited {
+    text-decoration: none;
+    color: black;
+  }
+  a:hover {
+    text-decoration: none;
+    color: black;
+  }
+  a:active {
+    text-decoration: none;
+    color: black;
+  }
 }
 
-.Hero {
+.Header-Button {
+  width: 90%;
+  height: 100%;
   font-size: 2rem;
-  font-weight: bolder;
-  background-color: #10631b;
-  border: solid;
-  border-radius: 0.25rem;
-  border-color: rgb(226, 233, 226);
-  color: black;
-}
-
-a {
-  text-decoration: none;
+  font-weight: bold;
+  border-radius: 1.5rem;
+  background: #ecf0f3;
+  box-shadow: 7px 7px 10px #cbced1, -7px -7px 10px #ffffff;
   color: black;
 }
 
@@ -54,6 +74,14 @@ span {
   border-radius: 2.5rem;
   background: #ecf0f3;
   box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: 0;
+  h2 {
+    padding-top: 1rem;
+    text-align: center;
+  }
 }
 
 .Landing-Flex {
@@ -66,30 +94,18 @@ span {
 .Landing-Parent {
   text-align: center;
   margin-top: 10%;
+  margin-bottom: 10%;
   justify-content: center;
 }
 
 .Site-Icon {
-  object-fit: contain;
-  border-radius: 2rem;
-  background-image: url('./images/creator_icon.jpg');
-}
-
-.Site-Icon-Parent {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.Site-Icon > img {
-  object-fit: contain;
-  height: 12.5%;
-  width: 100%;
-}
-
-.Site-Icon-Parent {
-  width: 30%;
+  background-image: url('./images/icon.jpg');
+  border-radius: 50%;
+  width: 6rem;
+  height: 6rem;
+  margin: 0 auto;
+  box-shadow: 0px 0px 2px #9dd4fd, 0px 0px 0px 5px #ecf0f3, 8px 8px 15px #9dd4fd,
+    -8px -8px 15px #ffffff;
 }
 
 .Landing > h2 {
@@ -104,6 +120,52 @@ span {
   height: 12.5%;
 }
 
+.Landing-Span {
+  color: blue;
+}
+
+img {
+  object-fit: contain;
+}
+
 .Login-Button {
-  height: 14.2857%;
+  height: 3rem;
+  width: 5rem;
+  border-radius: 2rem;
+  background: #9dd4fd;
+  box-shadow: 13px 13px 20px #e1e2e4, -13px -13px 20px #ffffff;
+}
+
+.Register-Form {
+  @extend .Landing;
+  margin: 0;
+}
+
+.Register-Flex {
+  @extend .Landing-Parent;
+}
+
+.Register {
+  @extend .Landing-Flex;
+  h3 {
+    padding-top: 1rem;
+  }
+}
+
+.Register-Button {
+  @extend .Login-Button;
+}
+
+@media (max-width: 800px) {
+  .Header-Button {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 580px) {
+  .Header-Button {
+    font-size: 1rem;
+    font-weight: bold;
+  }
 }

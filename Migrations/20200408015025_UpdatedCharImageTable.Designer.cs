@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using capstone.Models;
@@ -9,9 +10,10 @@ using capstone.Models;
 namespace capstone.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200408015025_UpdatedCharImageTable")]
+    partial class UpdatedCharImageTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,9 +84,6 @@ namespace capstone.Migrations
                     b.Property<string>("Ideals")
                         .HasColumnType("text");
 
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("text");
-
                     b.Property<string>("Languages")
                         .HasColumnType("text");
 
@@ -117,6 +116,29 @@ namespace capstone.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Characters");
+                });
+
+            modelBuilder.Entity("capstone.CharacterImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CharacterId");
+
+                    b.ToTable("CharacterImages");
                 });
 
             modelBuilder.Entity("capstone.Equip", b =>
@@ -429,6 +451,15 @@ namespace capstone.Migrations
                     b.HasOne("capstone.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("capstone.CharacterImage", b =>
+                {
+                    b.HasOne("capstone.Character", "Character")
+                        .WithMany("CharacterImages")
+                        .HasForeignKey("CharacterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

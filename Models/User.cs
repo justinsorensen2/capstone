@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace capstone
 {
@@ -8,8 +9,8 @@ namespace capstone
     public string UserFirst { get; set; }
     public string UserLast { get; set; }
     public string Email { get; set; }
-    public string Password { get; set; }
-    public string UserName { get; set; }
+    [JsonIgnore]
+    public string HashedPassword { get; set; }
 
     //navigation
     public List<Character> Characters = new List<Character>();
