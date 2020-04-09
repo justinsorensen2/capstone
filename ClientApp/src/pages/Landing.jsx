@@ -6,16 +6,16 @@ import axios from 'axios'
 
 //react landing page function
 const Landing = () => {
-  //declare initial state for username and pass
-  const [userName, setUserName] = useState('')
+  //declare initial state for email and pass
+  const [email, setEmail] = useState('')
   const [userPass, setUserPass] = useState('')
   const [shouldRedirect, setShouldRedirect] = useState(false)
 
   //set function for authorization via API and token
   const loginToAPI = async () => {
     const resp = await axios.post('/auth/login', {
-      email: userName,
-      userpass: userPass,
+      Email: email,
+      Password: userPass,
     })
     if (resp.status === 200) {
       console.log(resp.data)
@@ -28,8 +28,8 @@ const Landing = () => {
     return (
       <Redirect
         to={{
-          pathname: `/Home/${userName}`,
-          state: { who: userName },
+          pathname: `/Home/${email}`,
+          state: { who: email },
         }}
       />
     )
@@ -42,11 +42,11 @@ const Landing = () => {
               <div className="Site-Icon" />
               <h2>D&D Character Creator</h2>
               <h5>
-                Username:
+                Email Address:
                 <input
                   type="text"
-                  value={userName}
-                  onChange={e => setUserName(e.target.value)}
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
                 />
               </h5>
               <h5>

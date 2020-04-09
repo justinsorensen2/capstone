@@ -8,6 +8,7 @@ namespace capstone
     public string CharacterFirst { get; set; }
     public string CharacterLast { get; set; }
     public int? CharacterAge { get; set; }
+    public string CharacterRace { get; set; }
     public string CharacterClass { get; set; }
     public bool MultiClass { get; set; }
     public string SecondaryClass { get; set; }

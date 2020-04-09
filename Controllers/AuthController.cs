@@ -38,10 +38,10 @@ namespace capstone.Controllers
       {
         Subject = new ClaimsIdentity(new[]
         {
-            new Claim("id", user.Id.ToString()),
-            new Claim("email", user.Email),
-            new Claim("firstname", user.UserFirst),
-            new Claim("lastname", user.UserLast)
+            new Claim("Id", user.Id.ToString()),
+            new Claim("Email", user.Email),
+            new Claim("UserFirst", user.UserFirst),
+            new Claim("UserLast", user.UserLast)
       }),
         Expires = expirationTime,
         SigningCredentials = new SigningCredentials(
@@ -102,6 +102,7 @@ namespace capstone.Controllers
       {
         return BadRequest("User does not exist");
       }
+      Console.WriteLine("*****************************************" + loginInfo);
       // validate the user's password
       var results = new PasswordHasher<User>().VerifyHashedPassword(user, user.HashedPassword, loginInfo.Password);
       if (results == PasswordVerificationResult.Success)

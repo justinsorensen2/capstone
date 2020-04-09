@@ -28,7 +28,11 @@ const Home = props => {
           {user.characters.length > 0 ? (
             user.characters.map(character => {
               return (
-                <Link to={`/CharacterDetails/${character.id}`}>
+                <Link
+                  to={`/CharacterDetails/${character.id}`}
+                  user={user}
+                  characterId={character.id}
+                >
                   <CharacterLI
                     key={character.id}
                     characterFirst={character.characterFirst}
@@ -44,7 +48,7 @@ const Home = props => {
             <div className="Nothing-Here">
               You have not created any characters. Click{' '}
               <span>
-                <Link to="/CreateCharacter">
+                <Link to="/CreateCharacter" user={user}>
                   <span className="Landing-Span">here</span>
                 </Link>
               </span>{' '}
