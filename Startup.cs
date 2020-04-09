@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -41,6 +42,10 @@ namespace capstone
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+      foreach (var item in Configuration.AsEnumerable())
+      {
+        Console.WriteLine($"{ item.Key} = ${ item.Value}");
+      }
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
