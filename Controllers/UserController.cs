@@ -21,39 +21,34 @@ namespace capstone.Controllers
       _context = context;
     }
 
-    // GET: api/User
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<User>>> GetUsers()
-    {
-      return await _context.Users.ToListAsync();
-    }
-
-    // GET: api/User/{email}
-    [HttpGet("{email}")]
+    // GET: api/user/profile/{email}
+    [HttpGet("/profile/{email}")]
     public async Task<ActionResult<User>> GetUser(string email)
     {
-      var user = await _context.Users.FindAsync(email);
+      var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
 
       if (user == null)
       {
         return NotFound();
       }
 
-      return user;
+      return Ok(user);
     }
 
     // PUT: api/User/5
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see https://aka.ms/RazorPagesCRUD.
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutUser(int id, User user)
+    [HttpPut("{userChanging}")]
+    public async Task<IActionResult> PutUser(User userChanging)
     {
-      if (id != user.Id)
+      var id = _context.Users.FindAsync(userChanging.Id);
+
+      if (id == null)
       {
         return BadRequest();
       }
 
-      _context.Entry(user).State = EntityState.Modified;
+      _context.Entry(userChanging).State = EntityState.Modified;
 
       try
       {
@@ -61,7 +56,7 @@ namespace capstone.Controllers
       }
       catch (DbUpdateConcurrencyException)
       {
-        if (!UserExists(id))
+        if (!UserExists(userChanging.Id))
         {
           return NotFound();
         }

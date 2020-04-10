@@ -1,36 +1,39 @@
-import React, { useState } from 'react'
-import axios from 'axios'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import CharacterLI from '../components/CharacterLI'
+import { useUserProfile } from '../components/UserProfileContext'
 
-const Home = props => {
-  const email = props.match.params.who
-  //set vars for use of state
-  const [user, setUser] = useState()
+const Home = () => {
+  //set var for use of user profile context
+  const userProfile = useUserProfile()
+  console.log(userProfile.user)
 
-  //poll api for user details
-  const getUser = async () => {
-    const response = await axios.get(`/api/User/${email}`)
-    setUser(response.data)
-  }
-
-  if (!user) {
+  if (!userProfile) {
     return <div>Loading...</div>
   }
   return (
     <div>
       <div className="Welcome">
         <div className="Site-Icon"></div>
-        <h4>Welcome back, {user.userFirst}.</h4>
+        <h4>Welcome back, {userProfile.user.userFirst}.</h4>
       </div>
-      <main className="Home-Characters">
-        <ul className="Characters-List">
-          {user.characters.length > 0 ? (
-            user.characters.map(character => {
+      {userProfile.user.Characters !== null ? (
+        <div className="Nothing-Here">
+          You have not created any characters. Click{' '}
+          <span>
+            <Link to="/CreateCharacter">
+              <span className="Landing-Span">here</span>
+            </Link>
+          </span>{' '}
+          to create a character.
+        </div>
+      ) : (
+        <main className="Home-Characters">
+          <ul className="Characters-List">
+            {userProfile.user.Characters.map(character => {
               return (
                 <Link
                   to={`/CharacterDetails/${character.id}`}
-                  user={user}
                   characterId={character.id}
                 >
                   <CharacterLI
@@ -43,20 +46,10 @@ const Home = props => {
                   />
                 </Link>
               )
-            })
-          ) : (
-            <div className="Nothing-Here">
-              You have not created any characters. Click{' '}
-              <span>
-                <Link to="/CreateCharacter" user={user}>
-                  <span className="Landing-Span">here</span>
-                </Link>
-              </span>{' '}
-              to create a character.
-            </div>
-          )}
-        </ul>
-      </main>
+            })}
+          </ul>
+        </main>
+      )}
     </div>
   )
 }

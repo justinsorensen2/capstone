@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import CreateAccount from './CreateAccount'
 import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
+import { useUserProfile } from '../components/UserProfileContext'
 import axios from 'axios'
 
 //react landing page function
@@ -10,6 +11,7 @@ const Landing = () => {
   const [email, setEmail] = useState('')
   const [userPass, setUserPass] = useState('')
   const [shouldRedirect, setShouldRedirect] = useState(false)
+  const userProfile = useUserProfile()
 
   //set function for authorization via API and token
   const loginToAPI = async () => {
@@ -20,6 +22,7 @@ const Landing = () => {
     if (resp.status === 200) {
       console.log(resp.data)
       localStorage.setItem('token', resp.data.token)
+      localStorage.setItem('email', email)
       setShouldRedirect(true)
     }
   }
@@ -28,7 +31,7 @@ const Landing = () => {
     return (
       <Redirect
         to={{
-          pathname: `/Home/${email}`,
+          pathname: `/Home/${userProfile}`,
           state: { who: email },
         }}
       />

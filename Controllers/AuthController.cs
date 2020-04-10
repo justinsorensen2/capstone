@@ -102,7 +102,7 @@ namespace capstone.Controllers
       {
         return BadRequest("User does not exist");
       }
-      Console.WriteLine("*****************************************" + loginInfo);
+      Console.WriteLine(loginInfo);
       // validate the user's password
       var results = new PasswordHasher<User>().VerifyHashedPassword(user, user.HashedPassword, loginInfo.Password);
       if (results == PasswordVerificationResult.Success)

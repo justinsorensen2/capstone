@@ -1,7 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
+import { useUserProfile } from '../components/UserProfileContext'
 
 const CreateCharacter = props => {
+  const token = localStorage.getItem('token')
+  //set var to hold data from user profile context
+  const { userProfile } = useUserProfile()
+  console.log(userProfile)
   //set variables to hold user inputs in state
   const [shouldRedirect, setShouldRedirect] = useState(false)
   const [characterFirst, setCharacterFirst] = useState()
@@ -22,7 +28,8 @@ const CreateCharacter = props => {
   const [alliesOrganizations, setAlliesOrganizations] = useState()
   const [backStory, setBackStory] = useState()
   const [treasure, setTreasure] = useState()
-  const [languages, setLanguages] = useState([
+  const [languages, setLanguages] = useState('')
+  let [language] = [
     { name: 'Common', isChecked: false, category: 'Standard' },
     { name: 'Dwarvish', isChecked: false, category: 'Standard' },
     { name: 'Elvish', isChecked: false, category: 'Standard' },
@@ -39,34 +46,61 @@ const CreateCharacter = props => {
     { name: 'Primordial', isChecked: false, category: 'Exotic' },
     { name: 'Sylvan', isChecked: false, category: 'Exotic' },
     { name: 'Undercommon', isChecked: false, category: 'Exotic' },
-  ])
+  ]
+  console.log(language)
 
-  const addCheckedToString = () => {}
+  //update value of languages when checked
+  const setLanguage = props => {
+    const langName = toString(props)
+    const id = language.indexOf(langName)
+    console.log(langName)
+    language[id].isChecked = true
+  }
+
+  //add the name of the checked language
+  const addCheckedToString = () => {
+    for (let i = 0; (i = language.length); i++) {
+      if (language.isChecked === true) {
+        languages += language.name
+      }
+    }
+    console.log(languages)
+  }
+
+  //run the addCheckedToString function each time language.isChecked changes
+  useEffect(() => {
+    addCheckedToString()
+  }, [language.isChecked])
 
   //axios post to create character
   const createNewCharacter = async e => {
     e.preventDefault()
-    const resp = await axios.post('/character/create', {
-      CharacterFirst: characterFirst,
-      CharacterLast: characterLast,
-      CharacterAge: characterAge,
-      CharacterRace: characterRace,
-      CharacterClass: characterClass,
-      MultiClass: multiClass,
-      SecondaryClass: secondaryClass,
-      PrimaryClassLevel: primaryClassLevel,
-      SecondaryClassLevel: secondaryClassLevel,
-      Languages: languages,
-      OtherProficiencies: otherProficiencies,
-      PersonalityTraits: personalityTraits,
-      Ideals: ideals,
-      Bonds: bonds,
-      Flaws: flaws,
-      FeaturesTraits: featuresTraits,
-      AlliesOrganizations: alliesOrganizations,
-      BackStory: backStory,
-      Treasure: treasure,
-    })
+    const resp = await axios.post(
+      '/character/create',
+      {
+        CharacterFirst: characterFirst,
+        CharacterLast: characterLast,
+        CharacterAge: characterAge,
+        CharacterRace: characterRace,
+        CharacterClass: characterClass,
+        MultiClass: multiClass,
+        SecondaryClass: secondaryClass,
+        PrimaryClassLevel: primaryClassLevel,
+        SecondaryClassLevel: secondaryClassLevel,
+        Languages: languages,
+        OtherProficiencies: otherProficiencies,
+        PersonalityTraits: personalityTraits,
+        Ideals: ideals,
+        Bonds: bonds,
+        Flaws: flaws,
+        FeaturesTraits: featuresTraits,
+        AlliesOrganizations: alliesOrganizations,
+        BackStory: backStory,
+        Treasure: treasure,
+        UserId: userProfile.user.Id,
+      },
+      { userProfile }
+    )
     console.log(resp)
     if (resp.status === 200) {
       // redirect page to the home
@@ -78,6 +112,18 @@ const CreateCharacter = props => {
     }
   }
 
+  //render
+  if (token === undefined) {
+    return (
+      <div>
+        Your session has expired. Please click{' '}
+        <Link to="/">
+          <span>here</span>
+        </Link>{' '}
+        to log back in.
+      </div>
+    )
+  }
   return (
     <div>
       <article className="Create-Char-Flex">
@@ -152,6 +198,14 @@ const CreateCharacter = props => {
                 </select>
               </h5>
               <h5>
+                Class Level:
+                <input
+                  name="primaryClassLevel"
+                  type="text"
+                  onChange={e => setPrimaryClassLevel(e.target.value)}
+                />
+              </h5>
+              <h5>
                 Multi-Class?
                 <input
                   className="Multi-Class"
@@ -170,45 +224,46 @@ const CreateCharacter = props => {
                 />{' '}
                 No
               </h5>
-              <h5>
-                Secondary Class:
-                <select
-                  className="Char-Class"
-                  name="secondaryClass"
-                  type="text"
-                  onChange={e => setSecondaryClass(e.target.value)}
-                >
-                  <option value={null}>{''}</option>
-                  <option value="Barbarian">Barbarian</option>
-                  <option value="Bard">Bard</option>
-                  <option value="Cleric">Cleric</option>
-                  <option value="Druid">Druid</option>
-                  <option value="Fighter">Fighter</option>
-                  <option value="Monk">Monk</option>
-                  <option value="Paladin">Paladin</option>
-                  <option value="Ranger">Ranger</option>
-                  <option value="Rogue">Rogue</option>
-                  <option value="Sorcerer">Sorcerer</option>
-                  <option value="Warlock">Warlock</option>
-                  <option value="Wizard">Wizard</option>
-                </select>
-              </h5>
-              <h5>
-                Primary Class Level:
-                <input
-                  name="primaryClassLevel"
-                  type="text"
-                  onChange={e => setPrimaryClassLevel(e.target.value)}
-                />
-              </h5>
-              <h5>
-                Secondary Class Level:
-                <input
-                  name="secondaryClassLevel"
-                  type="text"
-                  onChange={e => setSecondaryClassLevel(e.target.value)}
-                />
-              </h5>
+              {multiClass === false ? (
+                <>
+                  <h5>Secondary Class: N/A</h5>
+                  <h5>Secondary Class Level: N/A</h5>
+                </>
+              ) : (
+                <>
+                  <h5>
+                    Secondary Class:
+                    <select
+                      className="Char-Class"
+                      name="secondaryClass"
+                      type="text"
+                      onChange={e => setSecondaryClass(e.target.value)}
+                    >
+                      <option value={null}>{''}</option>
+                      <option value="Barbarian">Barbarian</option>
+                      <option value="Bard">Bard</option>
+                      <option value="Cleric">Cleric</option>
+                      <option value="Druid">Druid</option>
+                      <option value="Fighter">Fighter</option>
+                      <option value="Monk">Monk</option>
+                      <option value="Paladin">Paladin</option>
+                      <option value="Ranger">Ranger</option>
+                      <option value="Rogue">Rogue</option>
+                      <option value="Sorcerer">Sorcerer</option>
+                      <option value="Warlock">Warlock</option>
+                      <option value="Wizard">Wizard</option>
+                    </select>
+                  </h5>
+                  <h5>
+                    Secondary Class Level:
+                    <input
+                      name="secondaryClassLevel"
+                      type="text"
+                      onChange={e => setSecondaryClassLevel(e.target.value)}
+                    />
+                  </h5>
+                </>
+              )}
               <div className="Char-Languages">
                 <h5>Languages</h5>
                 <div className="Standard-Languages-Parent">
@@ -218,163 +273,179 @@ const CreateCharacter = props => {
                       <input
                         name="Common"
                         category="Standard"
-                        onClick={addCheckedToString}
+                        onClick={setLanguage('Common')}
                         type="checkbox"
-                        checked={props.isChecked}
+                        checked={language.isChecked}
                       />{' '}
                       Common
                     </li>
                     <li>
                       <input
+                        id="1"
                         name="Dwarvish"
                         category="Standard"
-                        onClick={addCheckedToString}
+                        onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={props.isChecked}
+                        checked={language.isChecked}
                       />{' '}
                       Dwarvish
                     </li>
                     <li>
                       <input
+                        id="2"
                         name="Elvish"
                         category="Standard"
-                        onClick={addCheckedToString}
+                        onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={props.isChecked}
+                        checked={language.isChecked}
                       />{' '}
                       Elvish
                     </li>
                     <li>
                       <input
+                        id="3"
                         name="Giant"
                         category="Standard"
-                        onClick={addCheckedToString}
+                        onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={props.isChecked}
+                        checked={language.isChecked}
                       />{' '}
                       Giant
                     </li>
                     <li>
                       <input
+                        id="4"
                         name="Gnomish"
                         category="Standard"
-                        onClick={addCheckedToString}
+                        onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={props.isChecked}
+                        checked={language.isChecked}
                       />{' '}
                       Gnomish
                     </li>
                     <li>
                       <input
+                        id="5"
                         name="Goblin"
                         category="Standard"
-                        onClick={addCheckedToString}
+                        onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={props.isChecked}
+                        checked={language.isChecked}
                       />{' '}
                       Goblin
                     </li>
                     <li>
                       <input
+                        id="6"
                         name="Halfling"
                         category="Standard"
-                        onClick={addCheckedToString}
+                        onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={props.isChecked}
+                        checked={language.isChecked}
                       />{' '}
                       Halfling
                     </li>
                     <li>
                       <input
+                        id="7"
                         name="Orc"
                         category="Standard"
-                        onClick={addCheckedToString}
+                        onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={props.isChecked}
+                        checked={language.isChecked}
                       />{' '}
                       Orc
                     </li>
                   </ul>
                 </div>
                 <div className="Exotic-Languages-Parent">
+                  Exotic:
                   <ul className="Exotic-Languages">
                     <li>
                       <input
+                        id="8"
                         name="Abyssal"
                         category="Exotic"
-                        onClick={addCheckedToString}
+                        onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={props.isChecked}
+                        checked={language.isChecked}
                       />{' '}
                       Abyssal
                     </li>
                     <li>
                       <input
+                        id="9"
                         name="Celestial"
                         category="Exotic"
-                        onClick={addCheckedToString}
+                        onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={props.isChecked}
+                        checked={language.isChecked}
                       />{' '}
                       Celestial
                     </li>
                     <li>
                       <input
+                        id="10"
                         name="Draconic"
                         category="Exotic"
-                        onClick={addCheckedToString}
+                        onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={props.isChecked}
+                        checked={language.isChecked}
                       />{' '}
                       Draconic
                     </li>
                     <li>
                       <input
+                        id="12"
                         name="Deep Speech"
                         category="Exotic"
-                        onClick={addCheckedToString}
+                        onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={props.isChecked}
+                        checked={language.isChecked}
                       />{' '}
                       Deep Speech
                     </li>
                     <li>
                       <input
+                        id="13"
                         name="Infernal"
                         category="Exotic"
-                        onClick={addCheckedToString}
+                        onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={props.isChecked}
+                        checked={language.isChecked}
                       />{' '}
                       Infernal
                     </li>
                     <li>
                       <input
+                        id="14"
                         name="Primordial"
                         category="Exotic"
-                        onClick={addCheckedToString}
+                        onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={props.isChecked}
+                        checked={language.isChecked}
                       />{' '}
                       Primordial
                     </li>
                     <li>
                       <input
+                        id="15"
                         name="Sylvan"
                         category="Exotic"
-                        onClick={addCheckedToString}
+                        onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={props.isChecked}
+                        checked={language.isChecked}
                       />{' '}
                       Sylvan
                     </li>
                     <li>
                       <input
+                        id="16"
                         name="Undercommon"
                         category="Exotic"
-                        onClick={addCheckedToString}
+                        onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={props.isChecked}
+                        checked={language.isChecked}
                       />{' '}
                       Undercommon
                     </li>

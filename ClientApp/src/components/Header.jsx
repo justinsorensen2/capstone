@@ -9,7 +9,7 @@ const Header = () => {
     <Router>
       <main className="Header">
         <header>
-          <Link to="/Home">
+          <Link to="/Home:user">
             <button className="Header-Button">Home</button>
           </Link>
           <Link to="/CreateCharacter">
@@ -22,7 +22,7 @@ const Header = () => {
       </main>
       <Switch>
         <Route exact path="/Home" component={Home}></Route>
-        <Route exact path="/Account:userId" component={Account}></Route>
+        <Route exact path="/Account:user" component={Account}></Route>
         <Route exact path="/CreateCharacter" page={CreateCharacter}></Route>
       </Switch>
     </Router>

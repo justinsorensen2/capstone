@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
+import { useUserProfile } from '../components/UserProfileContext'
 
 const CreateAccount = () => {
   //create state variables
@@ -23,17 +24,22 @@ const CreateAccount = () => {
     if (resp.status === 200) {
       // redirect page to the home
       localStorage.setItem('token', resp.data.token)
+      localStorage.setItem('email', email)
       setShouldRedirect(true)
     } else {
       //display an error message
       throw new MessageEvent()
     }
   }
+  //set var to hold data from user profile context
+  const { userProfile } = useUserProfile()
+
+  //render
   if (shouldRedirect) {
     return (
       <Redirect
         to={{
-          pathname: `/Home/${email}`,
+          pathname: `/Home/${userProfile.user}`,
           state: { who: email },
         }}
       />
