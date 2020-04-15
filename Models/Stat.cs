@@ -26,6 +26,24 @@ namespace capstone
     public int MaxHP { get; set; }
     public int CurrentHP { get; set; }
     public int TempHP { get; set; }
+    public int StrSavingThrow { get; set; }
+    public bool StrSavingThrowProf { get; set; }
+    public int DexSavingThrow { get; set; }
+    public bool DexSavingThrowProf { get; set; }
+    public int ConSavingThrow { get; set; }
+    public bool ConSavingThrowProf { get; set; }
+    public int IntSavingThrow { get; set; }
+    public bool IntSavingThrowProf { get; set; }
+    public int WisSavingThrow { get; set; }
+    public bool WisSavingThrowProf { get; set; }
+    public int ChaSavingThrow { get; set; }
+    public bool ChaSavingThrowProf { get; set; }
+    public bool DeathSaveSuccess1 { get; set; }
+    public bool DeathSaveSuccess2 { get; set; }
+    public bool DeathSaveSuccess3 { get; set; }
+    public bool DeathSaveFailure1 { get; set; }
+    public bool DeathSaveFailure2 { get; set; }
+    public bool DeathSaveFailure3 { get; set; }
 
     //navigation
     public int CharacterId { get; set; }

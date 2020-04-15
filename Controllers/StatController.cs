@@ -10,101 +10,101 @@ using capstone.Models;
 
 namespace capstone.Controllers
 {
-  [Route("api/[controller]")]
-  [ApiController]
-  public class StatController : ControllerBase
-  {
-    private readonly DatabaseContext _context;
-
-    public StatController(DatabaseContext context)
+    [Route("api/[controller]")]
+    [ApiController]
+    public class StatController : ControllerBase
     {
-      _context = context;
-    }
+        private readonly DatabaseContext _context;
 
-    // GET: api/Stat
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Stat>>> GetStats()
-    {
-      return await _context.Stats.ToListAsync();
-    }
-
-    // GET: api/Stat/5
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Stat>> GetStat(int id)
-    {
-      var stat = await _context.Stats.FindAsync(id);
-
-      if (stat == null)
-      {
-        return NotFound();
-      }
-
-      return stat;
-    }
-
-    // PUT: api/Stat/5
-    // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-    // more details see https://aka.ms/RazorPagesCRUD.
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutStat(int id, Stat stat)
-    {
-      if (id != stat.Id)
-      {
-        return BadRequest();
-      }
-
-      _context.Entry(stat).State = EntityState.Modified;
-
-      try
-      {
-        await _context.SaveChangesAsync();
-      }
-      catch (DbUpdateConcurrencyException)
-      {
-        if (!StatExists(id))
+        public StatController(DatabaseContext context)
         {
-          return NotFound();
+            _context = context;
         }
-        else
+
+        // GET: api/Stat
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Stat>>> GetStats()
         {
-          throw;
+            return await _context.Stats.ToListAsync();
         }
-      }
 
-      return NoContent();
+        // GET: api/Stat/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Stat>> GetStat(int id)
+        {
+            var stat = await _context.Stats.FindAsync(id);
+
+            if (stat == null)
+            {
+                return NotFound();
+            }
+
+            return stat;
+        }
+
+        // PUT: api/Stat/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see https://aka.ms/RazorPagesCRUD.
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutStat(int id, Stat stat)
+        {
+            if (id != stat.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(stat).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!StatExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // POST: api/Stat
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see https://aka.ms/RazorPagesCRUD.
+        [HttpPost]
+        public async Task<ActionResult<Stat>> PostStat(Stat stat)
+        {
+            _context.Stats.Add(stat);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetStat", new { id = stat.Id }, stat);
+        }
+
+        // DELETE: api/Stat/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Stat>> DeleteStat(int id)
+        {
+            var stat = await _context.Stats.FindAsync(id);
+            if (stat == null)
+            {
+                return NotFound();
+            }
+
+            _context.Stats.Remove(stat);
+            await _context.SaveChangesAsync();
+
+            return stat;
+        }
+
+        private bool StatExists(int id)
+        {
+            return _context.Stats.Any(e => e.Id == id);
+        }
     }
-
-    // POST: api/Stat
-    // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-    // more details see https://aka.ms/RazorPagesCRUD.
-    [HttpPost("create")]
-    public async Task<ActionResult<Stat>> PostStat(Stat stat)
-    {
-      _context.Stats.Add(stat);
-      await _context.SaveChangesAsync();
-
-      return CreatedAtAction("GetStat", new { id = stat.Id }, stat);
-    }
-
-    // DELETE: api/Stat/5
-    [HttpDelete("{id}")]
-    public async Task<ActionResult<Stat>> DeleteStat(int id)
-    {
-      var stat = await _context.Stats.FindAsync(id);
-      if (stat == null)
-      {
-        return NotFound();
-      }
-
-      _context.Stats.Remove(stat);
-      await _context.SaveChangesAsync();
-
-      return stat;
-    }
-
-    private bool StatExists(int id)
-    {
-      return _context.Stats.Any(e => e.Id == id);
-    }
-  }
 }

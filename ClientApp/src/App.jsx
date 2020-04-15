@@ -52,7 +52,7 @@ const App = () => {
             <Route exact path="/Home/:user" component={Home}></Route>
             <Route
               exact
-              path="/CharacterDetails/:characterid"
+              path="/CharacterDetails/:characterId"
               component={CharacterDetails}
             ></Route>
             <Route

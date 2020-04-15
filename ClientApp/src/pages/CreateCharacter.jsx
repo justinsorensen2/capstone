@@ -13,6 +13,8 @@ const CreateCharacter = () => {
   const [characterAge, setCharacterAge] = useState()
   const [primaryClassLevel, setPrimaryClassLevel] = useState()
   const [secondaryClassLevel, setSecondaryClassLevel] = useState()
+  const [alignment, setAlignment] = useState()
+  const [alignmentIsValid, setAlignmentIsValid] = useState(true)
   const [newlyCreatedCharId, setNewlyCreatedCharId] = useState()
 
   // const [languages, setLanguages] = useState('')
@@ -72,6 +74,32 @@ const CreateCharacter = () => {
     setSecondaryClassLevel(parseInt(e.target.value))
   }
 
+  const updateAlignment = e => {
+    const alignmentText = e.target.value
+    const alignmentUpper = alignmentText.toUpperCase()
+    if (
+      alignmentUpper === 'LG' ||
+      alignmentUpper === 'NG' ||
+      alignmentUpper === 'CG' ||
+      alignmentUpper === 'LN' ||
+      alignmentUpper === 'N' ||
+      alignmentUpper === 'CN' ||
+      alignmentUpper === 'LE' ||
+      alignmentUpper === 'NE' ||
+      alignmentUpper === 'CE'
+    ) {
+      setAlignment(alignmentUpper)
+      setAlignmentIsValid(true)
+    } else {
+      setAlignmentIsValid(false)
+    }
+  }
+
+  // //use useEffect to set alignment each time isValid changes
+  // useEffect(() => {
+  //   updateAlignment()
+  // }, [alignmentIsValid])
+
   //use api to get user
   const getUser = async email => {
     const resp = await axios.get('api/user/profile/' + email)
@@ -88,7 +116,7 @@ const CreateCharacter = () => {
   //use useEffect to set user each time email changes
   useEffect(() => {
     getUser(email)
-  }, [email])
+  }, [email, alignment])
 
   //create character data from user inputs
   const updateCharacterData = e => {
@@ -117,6 +145,7 @@ const CreateCharacter = () => {
       // redirect page to the stat creator
       console.log(resp.data)
       setNewlyCreatedCharId(resp.data.id)
+
       setShouldRedirect(true)
     } else {
       //display an error message
@@ -159,6 +188,33 @@ const CreateCharacter = () => {
                   onChange={updateCharacterData}
                 />
               </h5>
+              <h5>
+                Alignment:
+                <input
+                  name="alignment"
+                  type="text"
+                  onChange={updateAlignment}
+                />
+              </h5>
+              {alignmentIsValid === false ? (
+                <>
+                  <div>
+                    <h5>
+                      <span>
+                        That is not a valid alignment.<br></br>Please enter one
+                        of: <br></br>LG for lawful good, <br></br>NG for neutral
+                        good, <br></br>CG for chaotic good, <br></br>LN for
+                        lawful neutral, <br></br>N for true neutral,
+                        <br></br>CN for chaotic neutral, <br></br>LE for lawful
+                        evil, <br></br>NE for neutral evil, <br></br>CE for
+                        chaotic evil.
+                      </span>
+                    </h5>
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
               <h5>
                 Age:
                 <input

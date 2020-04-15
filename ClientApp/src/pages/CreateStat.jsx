@@ -27,6 +27,7 @@ const CreateStat = props => {
   const [maxHP, setMaxHP] = useState()
   const [currentHP, setCurrentHP] = useState()
   const [tempHP, setTempHP] = useState()
+  const [baseAC, setBaseAC] = useState(10)
   const [stat, setStat] = useState()
   const [shouldRedirect, setShouldRedirect] = useState(false)
   let rolled = new Array()
@@ -46,12 +47,17 @@ const CreateStat = props => {
     setStrength(score)
   }
 
-  //function to update dex and dexmod state
+  //function to update dex and dexmod state,
+  //then set baseAC and AC
+  //then set initiative bonus
   const updateDex = e => {
     const score = parseInt(e.target.value)
     const mod = Math.floor((score - 10) / 2)
     setDexMod(mod)
     setDexterity(score)
+    setBaseAC(10 + mod)
+    setArmorClass(baseAC)
+    setInitiativeBonus(mod)
   }
 
   //function to update con and conmod state
@@ -84,12 +90,6 @@ const CreateStat = props => {
     const mod = Math.floor((score - 10) / 2)
     setChaMod(mod)
     setCharisma(score)
-  }
-
-  //function to update AC state
-  const updateAC = e => {
-    const score = parseInt(e.target.value)
-    setArmorClass(score)
   }
 
   //function to update initiative state
@@ -144,7 +144,7 @@ const CreateStat = props => {
     })
   }
 
-  //axios post to save stats to character
+  //axios post to save stats to database
   const createNewStat = async e => {
     stat.inspiration = inspiration
     stat.proficiencyBonus = proficiencyBonus
@@ -383,18 +383,8 @@ const CreateStat = props => {
                 />{' '}
                 No{' '}
               </h5>
-              <h5>
-                Armor Class:
-                <input name="armorClass" type="number" onChange={updateAC} />
-              </h5>
-              <h5>
-                Initiative Bonus:
-                <input
-                  name="initiativeBonus"
-                  type="number"
-                  onChange={updateInitiative}
-                />
-              </h5>
+              <h5>Base Armor Class: {armorClass}</h5>
+              <h5>Initiative Bonus: {initiativeBonus}</h5>
               <h5>
                 Base Speed:
                 <input

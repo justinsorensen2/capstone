@@ -22,7 +22,7 @@ const Home = () => {
         <div className="Nothing-Here">
           You have not created any characters. Click{' '}
           <span>
-            <Link to="/CreateCharacter">
+            <Link to="/CreateCharacter/">
               <span className="Landing-Span">here</span>
             </Link>
           </span>{' '}
