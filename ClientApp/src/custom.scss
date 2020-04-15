@@ -156,6 +156,103 @@ img {
   @extend .Login-Button;
 }
 
+.Create-Char-Flex {
+  @extend .Landing-Flex;
+}
+
+.Create-Char-Parent {
+  @extend .Landing-Parent;
+}
+
+.Create-Char-Button {
+  @extend .Login-Button;
+}
+
+.Create-Char-Button-Div {
+  padding-top: 0.5rem;
+}
+
+.Char-Languages-Parent {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+}
+
+.Create-Char-Form {
+  width: 29.875rem;
+  height: auto;
+  padding: 3.75rem 2.188rem 2.188rem 2.188rem;
+  border-radius: 2.5rem;
+  background: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0;
+  h2 {
+    padding-top: 1rem;
+    text-align: center;
+  }
+  h3 {
+    padding-top: 2rem;
+  }
+  h5 {
+    padding-top: 0.5rem;
+  }
+}
+
+.Create-Stat-Flex {
+  @extend .Landing-Flex;
+}
+
+.Create-Stat-Parent {
+  @extend .Landing-Parent;
+}
+
+.Create-Stat-Button {
+  @extend .Login-Button;
+}
+
+.Create-Stat-Button-Div {
+  padding-top: 0.5rem;
+}
+
+.Create-Stat-Form {
+  width: 29.875rem;
+  height: auto;
+  padding: 3.75rem 2.188rem 2.188rem 2.188rem;
+  border-radius: 2.5rem;
+  background: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0;
+  h2 {
+    padding-top: 1rem;
+    text-align: center;
+  }
+  h3 {
+    padding-top: 2rem;
+  }
+  h5 {
+    padding-top: 0.5rem;
+  }
+}
+
+.Roll-Stat-Button {
+  @extend .Login-Button;
+}
+
+.Roll-Stat-Button-Div {
+  padding-top: 0.5rem;
+}
+
+ul {
+  list-style: none;
+}
+
 @media (max-width: 800px) {
   .Header-Button {
     font-size: 1.5rem;

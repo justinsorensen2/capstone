@@ -145,7 +145,7 @@ const CreateCharacter = () => {
                 />
               </h5>
               <h5>
-                Last Name(optional):
+                Last Name:
                 <input
                   name="characterLast"
                   type="text"
@@ -270,289 +270,291 @@ const CreateCharacter = () => {
               )}
               <div className="Char-Languages">
                 <h5>Languages</h5>
-                <div className="Standard-Languages-Parent">
-                  Standard:
-                  <ul className="Standard-Languages">
-                    <li>
-                      <input
-                        name="Common"
-                        category="Standard"
-                        // onClick={e => setLanguage(e.target.id)}
-                        type="checkbox"
-                        // checked={language.isChecked}
-                      />{' '}
-                      Common
-                    </li>
-                    <li>
-                      <input
-                        id="1"
-                        name="Dwarvish"
-                        category="Standard"
-                        // onClick={e => setLanguage(e.target.id)}
-                        type="checkbox"
-                        // checked={language.isChecked}
-                      />{' '}
-                      Dwarvish
-                    </li>
-                    <li>
-                      <input
-                        id="2"
-                        name="Elvish"
-                        category="Standard"
-                        // onClick={e => setLanguage(e.target.id)}
-                        type="checkbox"
-                        // checked={language.isChecked}
-                      />{' '}
-                      Elvish
-                    </li>
-                    <li>
-                      <input
-                        id="3"
-                        name="Giant"
-                        category="Standard"
-                        // onClick={e => setLanguage(e.target.id)}
-                        type="checkbox"
-                        // checked={language.isChecked}
-                      />{' '}
-                      Giant
-                    </li>
-                    <li>
-                      <input
-                        id="4"
-                        name="Gnomish"
-                        category="Standard"
-                        // onClick={e => setLanguage(e.target.id)}
-                        type="checkbox"
-                        // checked={language.isChecked}
-                      />{' '}
-                      Gnomish
-                    </li>
-                    <li>
-                      <input
-                        id="5"
-                        name="Goblin"
-                        category="Standard"
-                        // onClick={e => setLanguage(e.target.id)}
-                        type="checkbox"
-                        // checked={language.isChecked}
-                      />{' '}
-                      Goblin
-                    </li>
-                    <li>
-                      <input
-                        id="6"
-                        name="Halfling"
-                        category="Standard"
-                        // onClick={e => setLanguage(e.target.id)}
-                        type="checkbox"
-                        // checked={language.isChecked}
-                      />{' '}
-                      Halfling
-                    </li>
-                    <li>
-                      <input
-                        id="7"
-                        name="Orc"
-                        category="Standard"
-                        // onClick={e => setLanguage(e.target.id)}
-                        type="checkbox"
-                        // checked={language.isChecked}
-                      />{' '}
-                      Orc
-                    </li>
-                  </ul>
-                </div>
-                <div className="Exotic-Languages-Parent">
-                  Exotic:
-                  <ul className="Exotic-Languages">
-                    <li>
-                      <input
-                        id="8"
-                        name="Abyssal"
-                        category="Exotic"
-                        // onClick={e => setLanguage(e.target.id)}
-                        type="checkbox"
-                        // checked={language.isChecked}
-                      />{' '}
-                      Abyssal
-                    </li>
-                    <li>
-                      <input
-                        id="9"
-                        name="Celestial"
-                        category="Exotic"
-                        // onClick={e => setLanguage(e.target.id)}
-                        type="checkbox"
-                        // checked={language.isChecked}
-                      />{' '}
-                      Celestial
-                    </li>
-                    <li>
-                      <input
-                        id="10"
-                        name="Draconic"
-                        category="Exotic"
-                        // onClick={e => setLanguage(e.target.id)}
-                        type="checkbox"
-                        // checked={language.isChecked}
-                      />{' '}
-                      Draconic
-                    </li>
-                    <li>
-                      <input
-                        id="12"
-                        name="Deep Speech"
-                        category="Exotic"
-                        // onClick={e => setLanguage(e.target.id)}
-                        type="checkbox"
-                        // checked={language.isChecked}
-                      />{' '}
-                      Deep Speech
-                    </li>
-                    <li>
-                      <input
-                        id="13"
-                        name="Infernal"
-                        category="Exotic"
-                        // onClick={e => setLanguage(e.target.id)}
-                        type="checkbox"
-                        // checked={language.isChecked}
-                      />{' '}
-                      Infernal
-                    </li>
-                    <li>
-                      <input
-                        id="14"
-                        name="Primordial"
-                        category="Exotic"
-                        // onClick={e => setLanguage(e.target.id)}
-                        type="checkbox"
-                        // checked={language.isChecked}
-                      />{' '}
-                      Primordial
-                    </li>
-                    <li>
-                      <input
-                        id="15"
-                        name="Sylvan"
-                        category="Exotic"
-                        // onClick={e => setLanguage(e.target.id)}
-                        type="checkbox"
-                        // checked={language.isChecked}
-                      />{' '}
-                      Sylvan
-                    </li>
-                    <li>
-                      <input
-                        id="16"
-                        name="Undercommon"
-                        category="Exotic"
-                        // onClick={e => setLanguage(e.target.id)}
-                        type="checkbox"
-                        // checked={language.isChecked}
-                      />{' '}
-                      Undercommon
-                    </li>
-                  </ul>
-                </div>
-                <div className="Char-Personality-Traits">
-                  <h5>Personality Traits:</h5>
-                  <div className="Personality-Traits-Parent">
-                    <input
-                      type="text area"
-                      name="personalityTraits"
-                      className="Personality-Traits"
-                      onChange={updateCharacterData}
-                    />
+                <div className="Char-Languages-Parent">
+                  <div className="Standard-Languages-Parent">
+                    Standard:
+                    <ul className="Standard-Languages">
+                      <li>
+                        <input
+                          name="Common"
+                          category="Standard"
+                          // onClick={e => setLanguage(e.target.id)}
+                          type="checkbox"
+                          // checked={language.isChecked}
+                        />{' '}
+                        Common
+                      </li>
+                      <li>
+                        <input
+                          id="1"
+                          name="Dwarvish"
+                          category="Standard"
+                          // onClick={e => setLanguage(e.target.id)}
+                          type="checkbox"
+                          // checked={language.isChecked}
+                        />{' '}
+                        Dwarvish
+                      </li>
+                      <li>
+                        <input
+                          id="2"
+                          name="Elvish"
+                          category="Standard"
+                          // onClick={e => setLanguage(e.target.id)}
+                          type="checkbox"
+                          // checked={language.isChecked}
+                        />{' '}
+                        Elvish
+                      </li>
+                      <li>
+                        <input
+                          id="3"
+                          name="Giant"
+                          category="Standard"
+                          // onClick={e => setLanguage(e.target.id)}
+                          type="checkbox"
+                          // checked={language.isChecked}
+                        />{' '}
+                        Giant
+                      </li>
+                      <li>
+                        <input
+                          id="4"
+                          name="Gnomish"
+                          category="Standard"
+                          // onClick={e => setLanguage(e.target.id)}
+                          type="checkbox"
+                          // checked={language.isChecked}
+                        />{' '}
+                        Gnomish
+                      </li>
+                      <li>
+                        <input
+                          id="5"
+                          name="Goblin"
+                          category="Standard"
+                          // onClick={e => setLanguage(e.target.id)}
+                          type="checkbox"
+                          // checked={language.isChecked}
+                        />{' '}
+                        Goblin
+                      </li>
+                      <li>
+                        <input
+                          id="6"
+                          name="Halfling"
+                          category="Standard"
+                          // onClick={e => setLanguage(e.target.id)}
+                          type="checkbox"
+                          // checked={language.isChecked}
+                        />{' '}
+                        Halfling
+                      </li>
+                      <li>
+                        <input
+                          id="7"
+                          name="Orc"
+                          category="Standard"
+                          // onClick={e => setLanguage(e.target.id)}
+                          type="checkbox"
+                          // checked={language.isChecked}
+                        />{' '}
+                        Orc
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="Exotic-Languages-Parent">
+                    Exotic:
+                    <ul className="Exotic-Languages">
+                      <li>
+                        <input
+                          id="8"
+                          name="Abyssal"
+                          category="Exotic"
+                          // onClick={e => setLanguage(e.target.id)}
+                          type="checkbox"
+                          // checked={language.isChecked}
+                        />{' '}
+                        Abyssal
+                      </li>
+                      <li>
+                        <input
+                          id="9"
+                          name="Celestial"
+                          category="Exotic"
+                          // onClick={e => setLanguage(e.target.id)}
+                          type="checkbox"
+                          // checked={language.isChecked}
+                        />{' '}
+                        Celestial
+                      </li>
+                      <li>
+                        <input
+                          id="10"
+                          name="Draconic"
+                          category="Exotic"
+                          // onClick={e => setLanguage(e.target.id)}
+                          type="checkbox"
+                          // checked={language.isChecked}
+                        />{' '}
+                        Draconic
+                      </li>
+                      <li>
+                        <input
+                          id="12"
+                          name="Deep Speech"
+                          category="Exotic"
+                          // onClick={e => setLanguage(e.target.id)}
+                          type="checkbox"
+                          // checked={language.isChecked}
+                        />{' '}
+                        Deep Speech
+                      </li>
+                      <li>
+                        <input
+                          id="13"
+                          name="Infernal"
+                          category="Exotic"
+                          // onClick={e => setLanguage(e.target.id)}
+                          type="checkbox"
+                          // checked={language.isChecked}
+                        />{' '}
+                        Infernal
+                      </li>
+                      <li>
+                        <input
+                          id="14"
+                          name="Primordial"
+                          category="Exotic"
+                          // onClick={e => setLanguage(e.target.id)}
+                          type="checkbox"
+                          // checked={language.isChecked}
+                        />{' '}
+                        Primordial
+                      </li>
+                      <li>
+                        <input
+                          id="15"
+                          name="Sylvan"
+                          category="Exotic"
+                          // onClick={e => setLanguage(e.target.id)}
+                          type="checkbox"
+                          // checked={language.isChecked}
+                        />{' '}
+                        Sylvan
+                      </li>
+                      <li>
+                        <input
+                          id="16"
+                          name="Undercommon"
+                          category="Exotic"
+                          // onClick={e => setLanguage(e.target.id)}
+                          type="checkbox"
+                          // checked={language.isChecked}
+                        />{' '}
+                        Undercommon
+                      </li>
+                    </ul>
                   </div>
                 </div>
-                <div className="Char-Ideals">
-                  <h5>Ideals:</h5>
-                  <div className="Ideals-Parent">
-                    <input
-                      name="ideals"
-                      type="text area"
-                      className="Ideals"
-                      onChange={updateCharacterData}
-                    />
-                  </div>
+              </div>
+              <div className="Char-Personality-Traits">
+                <h5>Personality Traits:</h5>
+                <div className="Personality-Traits-Parent">
+                  <input
+                    type="text area"
+                    name="personalityTraits"
+                    className="Personality-Traits"
+                    onChange={updateCharacterData}
+                  />
                 </div>
-                <div className="Char-Bonds">
-                  <h5>Bonds:</h5>
-                  <div className="Bonds-Parent">
-                    <input
-                      name="bonds"
-                      type="text area"
-                      className="Bonds"
-                      onChange={updateCharacterData}
-                    />
-                  </div>
+              </div>
+              <div className="Char-Ideals">
+                <h5>Ideals:</h5>
+                <div className="Ideals-Parent">
+                  <input
+                    name="ideals"
+                    type="text area"
+                    className="Ideals"
+                    onChange={updateCharacterData}
+                  />
                 </div>
-                <div className="Char-Flaws">
-                  <h5>Flaws:</h5>
-                  <div className="Flaws-Parent">
-                    <input
-                      name="flaws"
-                      type="text area"
-                      className="Flaws"
-                      onChange={updateCharacterData}
-                    />
-                  </div>
+              </div>
+              <div className="Char-Bonds">
+                <h5>Bonds:</h5>
+                <div className="Bonds-Parent">
+                  <input
+                    name="bonds"
+                    type="text area"
+                    className="Bonds"
+                    onChange={updateCharacterData}
+                  />
                 </div>
-                <div className="Char-Features-Traits">
-                  <h5>Features and Traits:</h5>
-                  <div className="Features-Traits-Parent">
-                    <input
-                      name="featuresTraits"
-                      type="text area"
-                      className="Features-Traits"
-                      onChange={updateCharacterData}
-                    />
-                  </div>
+              </div>
+              <div className="Char-Flaws">
+                <h5>Flaws:</h5>
+                <div className="Flaws-Parent">
+                  <input
+                    name="flaws"
+                    type="text area"
+                    className="Flaws"
+                    onChange={updateCharacterData}
+                  />
                 </div>
-                <div className="Char-BackStory">
-                  <h5>Backstory:</h5>
-                  <div className="BackStory-Parent">
-                    <input
-                      name="backStory"
-                      type="text area"
-                      className="BackStory"
-                      onChange={updateCharacterData}
-                    />
-                  </div>
+              </div>
+              <div className="Char-Features-Traits">
+                <h5>Features and Traits:</h5>
+                <div className="Features-Traits-Parent">
+                  <input
+                    name="featuresTraits"
+                    type="text area"
+                    className="Features-Traits"
+                    onChange={updateCharacterData}
+                  />
                 </div>
-                <div className="Char-Allies-Orgs">
-                  <h5>Allies and Organizations:</h5>
-                  <div className="Allies-Orgs-Parent">
-                    <input
-                      name="alliesOrganizations"
-                      type="text area"
-                      className="Allies-Orgs"
-                      onChange={updateCharacterData}
-                    />
-                  </div>
+              </div>
+              <div className="Char-BackStory">
+                <h5>Backstory:</h5>
+                <div className="BackStory-Parent">
+                  <input
+                    name="backStory"
+                    type="text area"
+                    className="BackStory"
+                    onChange={updateCharacterData}
+                  />
                 </div>
-                <div className="Char-Other-Proficiencies">
-                  <h5>Other Proficiencies:</h5>
-                  <div className="Other-Proficiencies-Parent">
-                    <input
-                      name="otherProficiencies"
-                      type="text area"
-                      className="Other-Proficiencies"
-                      onChange={updateCharacterData}
-                    />
-                  </div>
+              </div>
+              <div className="Char-Allies-Orgs">
+                <h5>Allies and Organizations:</h5>
+                <div className="Allies-Orgs-Parent">
+                  <input
+                    name="alliesOrganizations"
+                    type="text area"
+                    className="Allies-Orgs"
+                    onChange={updateCharacterData}
+                  />
                 </div>
-                <div className="Char-Treasure">
-                  <h5>Treasure:</h5>
-                  <div className="Treasure-Parent">
-                    <input
-                      name="treasure"
-                      type="text area"
-                      className="Treasure"
-                      onChange={updateCharacterData}
-                    />
-                  </div>
+              </div>
+              <div className="Char-Other-Proficiencies">
+                <h5>Other Proficiencies:</h5>
+                <div className="Other-Proficiencies-Parent">
+                  <input
+                    name="otherProficiencies"
+                    type="text area"
+                    className="Other-Proficiencies"
+                    onChange={updateCharacterData}
+                  />
+                </div>
+              </div>
+              <div className="Char-Treasure">
+                <h5>Treasure:</h5>
+                <div className="Treasure-Parent">
+                  <input
+                    name="treasure"
+                    type="text area"
+                    className="Treasure"
+                    onChange={updateCharacterData}
+                  />
                 </div>
               </div>
               <div className="Create-Char-Button-Div">
