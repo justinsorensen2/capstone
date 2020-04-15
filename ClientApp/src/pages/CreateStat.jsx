@@ -17,6 +17,7 @@ const CreateStat = props => {
   const [wisdom, setWisdom] = useState()
   const [chaMod, setChaMod] = useState()
   const [charisma, setCharisma] = useState()
+  const [proficiencyBonus, setProficiencyBonus] = useState()
   const [inspiration, setInspiration] = useState()
   const [armorClass, setArmorClass] = useState()
   const [initiativeBonus, setInitiativeBonus] = useState()
@@ -40,7 +41,7 @@ const CreateStat = props => {
   //function to update str and strmod state
   const updateStr = e => {
     const score = parseInt(e.target.value)
-    const mod = Math.floor((score + 10) / 2)
+    const mod = Math.floor((score - 10) / 2)
     setStrMod(mod)
     setStrength(score)
   }
@@ -48,7 +49,7 @@ const CreateStat = props => {
   //function to update dex and dexmod state
   const updateDex = e => {
     const score = parseInt(e.target.value)
-    const mod = Math.floor((score + 10) / 2)
+    const mod = Math.floor((score - 10) / 2)
     setDexMod(mod)
     setDexterity(score)
   }
@@ -56,7 +57,7 @@ const CreateStat = props => {
   //function to update con and conmod state
   const updateCon = e => {
     const score = parseInt(e.target.value)
-    const mod = Math.floor((score + 10) / 2)
+    const mod = Math.floor((score - 10) / 2)
     setConMod(mod)
     setConstitution(score)
   }
@@ -64,7 +65,7 @@ const CreateStat = props => {
   //function to update int and intmod state
   const updateInt = e => {
     const score = parseInt(e.target.value)
-    const mod = Math.floor((score + 10) / 2)
+    const mod = Math.floor((score - 10) / 2)
     setIntMod(mod)
     setIntelligence(score)
   }
@@ -72,7 +73,7 @@ const CreateStat = props => {
   //function to update wis and wismod state
   const updateWis = e => {
     const score = parseInt(e.target.value)
-    const mod = Math.floor((score + 10) / 2)
+    const mod = Math.floor((score - 10) / 2)
     setWisMod(mod)
     setWisdom(score)
   }
@@ -80,7 +81,7 @@ const CreateStat = props => {
   //function to update cha and chamod state
   const updateCha = e => {
     const score = parseInt(e.target.value)
-    const mod = Math.floor((score + 10) / 2)
+    const mod = Math.floor((score - 10) / 2)
     setChaMod(mod)
     setCharisma(score)
   }
@@ -146,12 +147,35 @@ const CreateStat = props => {
   //axios post to save stats to character
   const createNewStat = async e => {
     stat.inspiration = inspiration
+    stat.proficiencyBonus = proficiencyBonus
+    stat.armorClass = armorClass
+    stat.initiativeBonus = initiativeBonus
+    stat.baseSpeed = baseSpeed
+    stat.totalHitDie = totalHitDie
+    stat.currentHitDie = currentHitDie
+    stat.maxHP = maxHP
+    stat.currentHP = currentHP
+    stat.tempHP = tempHP
+    stat.strength = strength
+    stat.strMod = strMod
+    stat.dexterity = dexterity
+    stat.dexMod = dexMod
+    stat.constitution = constitution
+    stat.conMod = conMod
+    stat.intelligence = intelligence
+    stat.intMod = intMod
+    stat.wisdom = wisdom
+    stat.wisMod = wisMod
+    stat.charisma = charisma
+    stat.chaMod = chaMod
     stat.characterId = characterId
+
     e.preventDefault()
     const resp = await axios.post('api/stat/create', stat)
     if (resp.status === 200 || resp.status === 201) {
       // redirect page to the skill creation
       setShouldRedirect(true)
+      console.log(resp.data)
     } else {
       //display an error message
       throw new MessageEvent()
@@ -197,14 +221,7 @@ const CreateStat = props => {
 
   //render
   if (shouldRedirect) {
-    return (
-      <Redirect
-        to={{
-          pathname: `/CreateSkill/${characterId}`,
-          state: { who: user },
-        }}
-      />
-    )
+    return <Redirect to={`/CreateSkill/${characterId}`} />
   }
   return (
     <div>
