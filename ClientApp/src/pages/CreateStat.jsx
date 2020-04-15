@@ -1,243 +1,136 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 const CreateStat = props => {
-  const user = props
-  const character = localStorage.getItem('characterPart1')
+  const characterId = props.match.params.id
   const [entryType, setEntryType] = useState('manual')
   const [strMod, setStrMod] = useState()
+  const [strength, setStrength] = useState()
   const [dexMod, setDexMod] = useState()
+  const [dexterity, setDexterity] = useState()
   const [conMod, setConMod] = useState()
+  const [constitution, setConstitution] = useState()
   const [intMod, setIntMod] = useState()
+  const [intelligence, setIntelligence] = useState()
   const [wisMod, setWisMod] = useState()
+  const [wisdom, setWisdom] = useState()
   const [chaMod, setChaMod] = useState()
+  const [charisma, setCharisma] = useState()
   const [inspiration, setInspiration] = useState()
+  const [armorClass, setArmorClass] = useState()
+  const [initiativeBonus, setInitiativeBonus] = useState()
+  const [baseSpeed, setBaseSpeed] = useState()
+  const [totalHitDie, setTotalHitDie] = useState()
+  const [currentHitDie, setCurrentHitDie] = useState()
+  const [maxHP, setMaxHP] = useState()
+  const [currentHP, setCurrentHP] = useState()
+  const [tempHP, setTempHP] = useState()
   const [stat, setStat] = useState()
   const [shouldRedirect, setShouldRedirect] = useState(false)
   let rolled = new Array()
   let droppedLowest = new Array()
 
-  const updateStrMod = e => {
-    const score = e.target.value
-    if (score === 1) {
-      setStrMod(-5)
-    } else if (score === 2 || score === 3) {
-      setStrMod(-4)
-    } else if (score === 4 || score === 5) {
-      setStrMod(-3)
-    } else if (score === 6 || score === 7) {
-      setStrMod(-2)
-    } else if (score === 8 || score === 9) {
-      setStrMod(-1)
-    } else if (score === 10 || score === 11) {
-      setStrMod(0)
-    } else if (score === 12 || score === 13) {
-      setStrMod(1)
-    } else if (score === 14 || score === 15) {
-      setStrMod(2)
-    } else if (score === 16 || score === 17) {
-      setStrMod(3)
-    } else if (score === 18 || score === 19) {
-      setStrMod(4)
-    } else if (score === 20 || score === 21) {
-      setStrMod(5)
-    } else if (score === 22 || score === 23) {
-      setStrMod(6)
-    } else if (score === 24 || score === 25) {
-      setStrMod(7)
-    } else if (score === 26 || score === 27) {
-      setStrMod(8)
-    } else if (score === 28 || score === 29) {
-      setStrMod(9)
-    } else if (score === 30) {
-      setStrMod(10)
-    }
+  //function to update proficiencyBonus state
+  const updateProficiencyBonus = e => {
+    const score = parseInt(e.target.value)
+    setProficiencyBonus(score)
   }
 
-  const updateDexMod = e => {
-    const score = e.target.value
-    if (score === 1) {
-      setDexMod(-5)
-    } else if (score === 2 || score === 3) {
-      setDexMod(-4)
-    } else if (score === 4 || score === 5) {
-      setDexMod(-3)
-    } else if (score === 6 || score === 7) {
-      setDexMod(-2)
-    } else if (score === 8 || score === 9) {
-      setDexMod(-1)
-    } else if (score === 10 || score === 11) {
-      setDexMod(0)
-    } else if (score === 12 || score === 13) {
-      setDexMod(1)
-    } else if (score === 14 || score === 15) {
-      setDexMod(2)
-    } else if (score === 16 || score === 17) {
-      setDexMod(3)
-    } else if (score === 18 || score === 19) {
-      setDexMod(4)
-    } else if (score === 20 || score === 21) {
-      setDexMod(5)
-    } else if (score === 22 || score === 23) {
-      setDexMod(6)
-    } else if (score === 24 || score === 25) {
-      setDexMod(7)
-    } else if (score === 26 || score === 27) {
-      setDexMod(8)
-    } else if (score === 28 || score === 29) {
-      setDexMod(9)
-    } else if (score === 30) {
-      setDexMod(10)
-    }
+  //function to update str and strmod state
+  const updateStr = e => {
+    const score = parseInt(e.target.value)
+    const mod = Math.floor((score + 10) / 2)
+    setStrMod(mod)
+    setStrength(score)
   }
 
-  const updateConMod = e => {
-    const score = e.target.value
-    if (score === 1) {
-      setConMod(-5)
-    } else if (score === 2 || score === 3) {
-      setConMod(-4)
-    } else if (score === 4 || score === 5) {
-      setConMod(-3)
-    } else if (score === 6 || score === 7) {
-      setConMod(-2)
-    } else if (score === 8 || score === 9) {
-      setConMod(-1)
-    } else if (score === 10 || score === 11) {
-      setConMod(0)
-    } else if (score === 12 || score === 13) {
-      setConMod(1)
-    } else if (score === 14 || score === 15) {
-      setConMod(2)
-    } else if (score === 16 || score === 17) {
-      setConMod(3)
-    } else if (score === 18 || score === 19) {
-      setConMod(4)
-    } else if (score === 20 || score === 21) {
-      setConMod(5)
-    } else if (score === 22 || score === 23) {
-      setConMod(6)
-    } else if (score === 24 || score === 25) {
-      setConMod(7)
-    } else if (score === 26 || score === 27) {
-      setConMod(8)
-    } else if (score === 28 || score === 29) {
-      setConMod(9)
-    } else if (score === 30) {
-      setConMod(10)
-    }
+  //function to update dex and dexmod state
+  const updateDex = e => {
+    const score = parseInt(e.target.value)
+    const mod = Math.floor((score + 10) / 2)
+    setDexMod(mod)
+    setDexterity(score)
   }
 
-  const updateIntMod = e => {
-    const score = e.target.value
-    if (score === 1) {
-      setIntMod(-5)
-    } else if (score === 2 || score === 3) {
-      setIntMod(-4)
-    } else if (score === 4 || score === 5) {
-      setIntMod(-3)
-    } else if (score === 6 || score === 7) {
-      setIntMod(-2)
-    } else if (score === 8 || score === 9) {
-      setIntMod(-1)
-    } else if (score === 10 || score === 11) {
-      setIntMod(0)
-    } else if (score === 12 || score === 13) {
-      setIntMod(1)
-    } else if (score === 14 || score === 15) {
-      setIntMod(2)
-    } else if (score === 16 || score === 17) {
-      setIntMod(3)
-    } else if (score === 18 || score === 19) {
-      setIntMod(4)
-    } else if (score === 20 || score === 21) {
-      setIntMod(5)
-    } else if (score === 22 || score === 23) {
-      setIntMod(6)
-    } else if (score === 24 || score === 25) {
-      setIntMod(7)
-    } else if (score === 26 || score === 27) {
-      setIntMod(8)
-    } else if (score === 28 || score === 29) {
-      setIntMod(9)
-    } else if (score === 30) {
-      setIntMod(10)
-    }
+  //function to update con and conmod state
+  const updateCon = e => {
+    const score = parseInt(e.target.value)
+    const mod = Math.floor((score + 10) / 2)
+    setConMod(mod)
+    setConstitution(score)
   }
 
-  const updateWisMod = e => {
-    const score = e.target.value
-    if (score === 1) {
-      setWisMod(-5)
-    } else if (score === 2 || score === 3) {
-      setWisMod(-4)
-    } else if (score === 4 || score === 5) {
-      setWisMod(-3)
-    } else if (score === 6 || score === 7) {
-      setWisMod(-2)
-    } else if (score === 8 || score === 9) {
-      setWisMod(-1)
-    } else if (score === 10 || score === 11) {
-      setWisMod(0)
-    } else if (score === 12 || score === 13) {
-      setWisMod(1)
-    } else if (score === 14 || score === 15) {
-      setWisMod(2)
-    } else if (score === 16 || score === 17) {
-      setWisMod(3)
-    } else if (score === 18 || score === 19) {
-      setWisMod(4)
-    } else if (score === 20 || score === 21) {
-      setWisMod(5)
-    } else if (score === 22 || score === 23) {
-      setWisMod(6)
-    } else if (score === 24 || score === 25) {
-      setWisMod(7)
-    } else if (score === 26 || score === 27) {
-      setWisMod(8)
-    } else if (score === 28 || score === 29) {
-      setWisMod(9)
-    } else if (score === 30) {
-      setWisMod(10)
-    }
+  //function to update int and intmod state
+  const updateInt = e => {
+    const score = parseInt(e.target.value)
+    const mod = Math.floor((score + 10) / 2)
+    setIntMod(mod)
+    setIntelligence(score)
   }
 
-  const updateChaMod = e => {
-    const score = e.target.value
-    if (score === 1) {
-      setChaMod(-5)
-    } else if (score === 2 || score === 3) {
-      setChaMod(-4)
-    } else if (score === 4 || score === 5) {
-      setChaMod(-3)
-    } else if (score === 6 || score === 7) {
-      setChaMod(-2)
-    } else if (score === 8 || score === 9) {
-      setChaMod(-1)
-    } else if (score === 10 || score === 11) {
-      setChaMod(0)
-    } else if (score === 12 || score === 13) {
-      setChaMod(1)
-    } else if (score === 14 || score === 15) {
-      setChaMod(2)
-    } else if (score === 16 || score === 17) {
-      setChaMod(3)
-    } else if (score === 18 || score === 19) {
-      setChaMod(4)
-    } else if (score === 20 || score === 21) {
-      setChaMod(5)
-    } else if (score === 22 || score === 23) {
-      setChaMod(6)
-    } else if (score === 24 || score === 25) {
-      setChaMod(7)
-    } else if (score === 26 || score === 27) {
-      setChaMod(8)
-    } else if (score === 28 || score === 29) {
-      setChaMod(9)
-    } else if (score === 30) {
-      setChaMod(10)
-    }
+  //function to update wis and wismod state
+  const updateWis = e => {
+    const score = parseInt(e.target.value)
+    const mod = Math.floor((score + 10) / 2)
+    setWisMod(mod)
+    setWisdom(score)
+  }
+
+  //function to update cha and chamod state
+  const updateCha = e => {
+    const score = parseInt(e.target.value)
+    const mod = Math.floor((score + 10) / 2)
+    setChaMod(mod)
+    setCharisma(score)
+  }
+
+  //function to update AC state
+  const updateAC = e => {
+    const score = parseInt(e.target.value)
+    setArmorClass(score)
+  }
+
+  //function to update initiative state
+  const updateInitiative = e => {
+    const score = parseInt(e.target.value)
+    setInitiativeBonus(score)
+  }
+
+  //function to update basespeed state
+  const updateBaseSpeed = e => {
+    const score = parseInt(e.target.value)
+    setBaseSpeed(score)
+  }
+
+  //function to update totalHitDie state
+  const updateTotalHitDie = e => {
+    const score = parseInt(e.target.value)
+    setTotalHitDie(score)
+  }
+
+  //function to update currentHitDie state
+  const updateCurrentHitDie = e => {
+    const score = parseInt(e.target.value)
+    setCurrentHitDie(score)
+  }
+
+  //function to update maxHP state
+  const updateMaxHP = e => {
+    const score = parseInt(e.target.value)
+    setMaxHP(score)
+  }
+
+  //function to update currentHP state
+  const updateCurrentHP = e => {
+    const score = parseInt(e.target.value)
+    setCurrentHP(score)
+  }
+
+  //function to update tempHP state
+  const updateTempHP = e => {
+    const score = parseInt(e.target.value)
+    setTempHP(score)
   }
 
   //create stat data from user inputs
@@ -253,20 +146,11 @@ const CreateStat = props => {
   //axios post to save stats to character
   const createNewStat = async e => {
     stat.inspiration = inspiration
-    stat.characterId = character.id
+    stat.characterId = characterId
     e.preventDefault()
-    const resp = await axios.post(
-      'api/stat/create',
-      {
-        stat,
-      },
-      {
-        character,
-      }
-    )
-    if (resp.status === 200) {
-      // redirect page to the home
-      localStorage.setItem('characterPart2', resp.data)
+    const resp = await axios.post('api/stat/create', stat)
+    if (resp.status === 200 || resp.status === 201) {
+      // redirect page to the skill creation
       setShouldRedirect(true)
     } else {
       //display an error message
@@ -305,10 +189,23 @@ const CreateStat = props => {
       Math.round(Math.random() * 6) +
       Math.round(Math.random() * 6)
     rolled.push(score1, score2, score3, score4, score5, score6, score7)
-    var min = Math.min(rolled)
+    var min = Math.min(...rolled)
     droppedLowest = rolled.filter(e => e !== min)
+    console.log(droppedLowest)
+    document.getElementById('btnRoll').disabled = 'disabled'
   }
 
+  //render
+  if (shouldRedirect) {
+    return (
+      <Redirect
+        to={{
+          pathname: `/CreateSkill/${characterId}`,
+          state: { who: user },
+        }}
+      />
+    )
+  }
   return (
     <div>
       <article className="Create-Stat-Flex">
@@ -345,7 +242,7 @@ const CreateStat = props => {
                         name="strength"
                         type="text area"
                         className="Strength"
-                        onChange={e => updateStrMod(e.target.value)}
+                        onChange={updateStr}
                       />
                     </div>
                   </div>
@@ -359,7 +256,7 @@ const CreateStat = props => {
                         name="dexterity"
                         type="text area"
                         className="Dexterity"
-                        onChange={e => updateDexMod(e.target.value)}
+                        onChange={updateDex}
                       />
                     </div>
                   </div>
@@ -373,7 +270,7 @@ const CreateStat = props => {
                         name="constitution"
                         type="text area"
                         className="Constitution"
-                        onChange={e => updateConMod(e.target.value)}
+                        onChange={updateCon}
                       />
                     </div>
                   </div>
@@ -387,7 +284,7 @@ const CreateStat = props => {
                         name="intelligence"
                         type="text area"
                         className="Intelligence"
-                        onChange={e => updateIntMod(e.target.value)}
+                        onChange={updateInt}
                       />
                     </div>
                   </div>
@@ -401,7 +298,7 @@ const CreateStat = props => {
                         name="wisdom"
                         type="text area"
                         className="Wisdom"
-                        onChange={e => updateWisMod(e.target.value)}
+                        onChange={updateWis}
                       />
                     </div>
                   </div>
@@ -415,7 +312,7 @@ const CreateStat = props => {
                         name="charisma"
                         type="text area"
                         className="Charisma"
-                        onChange={e => updateChaMod(e.target.value)}
+                        onChange={updateCha}
                       />
                     </div>
                   </div>
@@ -426,7 +323,12 @@ const CreateStat = props => {
               ) : (
                 <>
                   <div className="Roll-Stat-Button-Div">
-                    <button className="Roll-Stat-Button" onClick={rollStats}>
+                    <button
+                      id="btnRoll"
+                      className="Roll-Stat-Button"
+                      type="button"
+                      onClick={rollStats}
+                    >
                       Roll Stats
                     </button>
                   </div>
@@ -442,7 +344,7 @@ const CreateStat = props => {
                 <input
                   name="proficiencyBonus"
                   type="number"
-                  onChange={updateStatData}
+                  onChange={updateProficiencyBonus}
                 />
               </h5>
               <h5>
@@ -466,18 +368,14 @@ const CreateStat = props => {
               </h5>
               <h5>
                 Armor Class:
-                <input
-                  name="armorClass"
-                  type="number"
-                  onChange={updateStatData}
-                />
+                <input name="armorClass" type="number" onChange={updateAC} />
               </h5>
               <h5>
                 Initiative Bonus:
                 <input
                   name="initiativeBonus"
                   type="number"
-                  onChange={updateStatData}
+                  onChange={updateInitiative}
                 />
               </h5>
               <h5>
@@ -485,7 +383,7 @@ const CreateStat = props => {
                 <input
                   name="baseSpeed"
                   type="number"
-                  onChange={updateStatData}
+                  onChange={updateBaseSpeed}
                 />
               </h5>
               <h5>
@@ -497,7 +395,7 @@ const CreateStat = props => {
                 <input
                   name="totalHitDie"
                   type="number"
-                  onChange={updateStatData}
+                  onChange={updateTotalHitDie}
                 />
               </h5>
               <h5>
@@ -505,24 +403,24 @@ const CreateStat = props => {
                 <input
                   name="currentHitDie"
                   type="number"
-                  onChange={updateStatData}
+                  onChange={updateCurrentHitDie}
                 />
               </h5>
               <h5>
                 Max Hit Points:
-                <input name="maxHP" type="number" onChange={updateStatData} />
+                <input name="maxHP" type="number" onChange={updateMaxHP} />
               </h5>
               <h5>
                 Current Hit Points:
                 <input
                   name="currentHP"
                   type="number"
-                  onChange={updateStatData}
+                  onChange={updateCurrentHP}
                 />
               </h5>
               <h5>
                 Temporary Hit Points:
-                <input name="tempHP" type="number" onChange={updateStatData} />
+                <input name="tempHP" type="number" onChange={updateTempHP} />
               </h5>
               <div className="Create-Stat-Button-Div">
                 <button className="Create-Stat-Button" onClick={createNewStat}>

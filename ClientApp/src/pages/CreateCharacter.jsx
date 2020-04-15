@@ -10,6 +10,11 @@ const CreateCharacter = () => {
   const [multiClass, setMultiClass] = useState()
   const [character, setCharacter] = useState({})
   const [user, setUser] = useState()
+  const [characterAge, setCharacterAge] = useState()
+  const [primaryClassLevel, setPrimaryClassLevel] = useState()
+  const [secondaryClassLevel, setSecondaryClassLevel] = useState()
+  const [newlyCreatedCharId, setNewlyCreatedCharId] = useState()
+
   // const [languages, setLanguages] = useState('')
   // let [language] = [
   //   { name: 'Common', isChecked: false, category: 'Standard' },
@@ -52,6 +57,21 @@ const CreateCharacter = () => {
   //   addCheckedToString()
   // }, [language.isChecked])
 
+  //parse age to int
+  const updateCharacterAge = e => {
+    setCharacterAge(parseInt(e.target.value))
+  }
+
+  //parse primary class level to int
+  const updatePrimaryClassLevel = e => {
+    setPrimaryClassLevel(parseInt(e.target.value))
+  }
+
+  //parse secondary class level to int
+  const updateSecondaryClassLevel = e => {
+    setSecondaryClassLevel(parseInt(e.target.value))
+  }
+
   //use api to get user
   const getUser = async email => {
     const resp = await axios.get('api/user/profile/' + email)
@@ -84,20 +104,19 @@ const CreateCharacter = () => {
   const createNewCharacter = async e => {
     character.multiClass = multiClass
     character.userId = user.id
+    character.characterAge = characterAge
+    character.primaryClassLevel = primaryClassLevel
+    character.secondaryClassLevel = secondaryClassLevel
     e.preventDefault()
     const resp = await axios.post(
       'api/character/create',
-      {
-        character,
-      },
-      {
-        user,
-      }
+      character
       // { userProfile }
     )
-    if (resp.status === 200) {
-      // redirect page to the home
-      localStorage.setItem('characterPart1', resp.data)
+    if (resp.status === 200 || resp.status === 201) {
+      // redirect page to the stat creator
+      console.log(resp.data)
+      setNewlyCreatedCharId(resp.data.id)
       setShouldRedirect(true)
     } else {
       //display an error message
@@ -110,22 +129,10 @@ const CreateCharacter = () => {
     return (
       <Redirect
         to={{
-          pathname: `/CreateStat/${user}`,
-          state: { who: email },
+          pathname: `/CreateStat/${newlyCreatedCharId}`,
+          state: { who: user },
         }}
       />
-    )
-  }
-
-  if (!user) {
-    return (
-      <div>
-        Your session has expired. Please click{' '}
-        <Link to="/">
-          <span>here</span>
-        </Link>{' '}
-        to log back in.
-      </div>
     )
   }
   return (
@@ -156,8 +163,8 @@ const CreateCharacter = () => {
                 Age:
                 <input
                   name="characterAge"
-                  type="text"
-                  onChange={updateCharacterData}
+                  type="number"
+                  onChange={updateCharacterAge}
                 />
               </h5>
               <h5>
@@ -168,6 +175,7 @@ const CreateCharacter = () => {
                   type="text"
                   onChange={updateCharacterData}
                 >
+                  <option value={null}>{''}</option>
                   <option value="Dragonborn">Dragonborn</option>
                   <option value="Dwarf">Dwarf</option>
                   <option value="Elf">Elf</option>
@@ -187,6 +195,7 @@ const CreateCharacter = () => {
                   type="text"
                   onChange={updateCharacterData}
                 >
+                  <option value={null}>{''}</option>
                   <option value="Barbarian">Barbarian</option>
                   <option value="Bard">Bard</option>
                   <option value="Cleric">Cleric</option>
@@ -206,7 +215,7 @@ const CreateCharacter = () => {
                 <input
                   name="primaryClassLevel"
                   type="number"
-                  onChange={updateCharacterData}
+                  onChange={updatePrimaryClassLevel}
                 />
               </h5>
               <h5>
@@ -263,7 +272,7 @@ const CreateCharacter = () => {
                     <input
                       name="secondaryClassLevel"
                       type="number"
-                      onChange={updateCharacterData}
+                      onChange={updateSecondaryClassLevel}
                     />
                   </h5>
                 </>

@@ -78,10 +78,9 @@ namespace capstone.Controllers
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see https://aka.ms/RazorPagesCRUD.
     [HttpPost("create")]
-    public async Task<ActionResult<Character>> PostCharacter([FromQueryAttribute]Character character, User user)
+    public async Task<ActionResult<Character>> PostCharacter(Character character)
     {
       _context.Characters.Add(character);
-      user.Characters.Add(character);
       await _context.SaveChangesAsync();
 
       return CreatedAtAction("GetCharacter", new { id = character.Id }, character);

@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import CharacterDetails from './pages/CharacterDetails'
 import CreateCharacter from './pages/CreateCharacter'
 import CreateStat from './pages/CreateStat'
+import CreateSkill from './pages/CreateSkill'
 import Landing from './pages/Landing'
 import CreateAccount from './pages/CreateAccount'
 import Account from './pages/Account'
@@ -15,7 +16,7 @@ import { UserProfileContext } from './components/UserProfileContext'
 const App = () => {
   //create vars to hold/set user in state
   const [user, setUser] = useState({})
-  //create var and set equal to token
+  //create vars and set equal to token and email from localstorage
   const token = localStorage.getItem('token')
   const email = localStorage.getItem('email')
 
@@ -59,7 +60,13 @@ const App = () => {
               path="/CreateCharacter"
               component={CreateCharacter}
             ></Route>
-            <Route exact path="/CreateStat" component={CreateStat}></Route>
+            <Route exact path="/CreateStat/:id" component={CreateStat}></Route>
+            <Route
+              exact
+              path="/CreateSkill/:id"
+              component={CreateSkill}
+            ></Route>
+
             <Route
               exact
               path="/CreateAccount"
