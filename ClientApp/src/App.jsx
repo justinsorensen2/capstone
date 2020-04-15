@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Home from './pages/Home'
 import CharacterDetails from './pages/CharacterDetails'
 import CreateCharacter from './pages/CreateCharacter'
+import CreateStat from './pages/CreateStat'
 import Landing from './pages/Landing'
 import CreateAccount from './pages/CreateAccount'
 import Account from './pages/Account'
@@ -19,26 +20,26 @@ const App = () => {
   const email = localStorage.getItem('email')
 
   //set function to reload user for UserProfileContext
-  const reloadUser = async () => {
+  const reloadUser = async email => {
     return await axios
-      .get(`/api/user/profile/${email}`, {
+      .get('/api/user/profile/' + email, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then(response => {
-        setUser(response.data.user)
+        setUser(response.data)
         console.log(response.data)
       })
   }
 
-  //set useEffect to reload the user any time the token changes
-  useEffect(() => {
-    reloadUser()
-  }, [token])
-
   //create a var to hold the data from user profile context
   const userProfile = { user: user, reloadUser: reloadUser }
+
+  //set useEffect to reload the user any time the token changes
+  useEffect(() => {
+    reloadUser(email)
+  }, [token])
 
   return (
     <>
@@ -58,6 +59,7 @@ const App = () => {
               path="/CreateCharacter"
               component={CreateCharacter}
             ></Route>
+            <Route exact path="/CreateStat" component={CreateStat}></Route>
             <Route
               exact
               path="/CreateAccount"

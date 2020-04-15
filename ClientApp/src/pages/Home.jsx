@@ -6,7 +6,8 @@ import { useUserProfile } from '../components/UserProfileContext'
 const Home = () => {
   //set var for use of user profile context
   const userProfile = useUserProfile()
-  console.log(userProfile.user)
+  const user = userProfile.user
+  console.log(userProfile)
 
   if (!userProfile) {
     return <div>Loading...</div>
@@ -15,9 +16,9 @@ const Home = () => {
     <div>
       <div className="Welcome">
         <div className="Site-Icon"></div>
-        <h4>Welcome back, {userProfile.user.userFirst}.</h4>
+        <h4>Welcome back, {user.userFirst}.</h4>
       </div>
-      {userProfile.user.Characters !== null ? (
+      {user.Characters !== null ? (
         <div className="Nothing-Here">
           You have not created any characters. Click{' '}
           <span>
@@ -30,7 +31,7 @@ const Home = () => {
       ) : (
         <main className="Home-Characters">
           <ul className="Characters-List">
-            {userProfile.user.Characters.map(character => {
+            {user.Characters.map(character => {
               return (
                 <Link
                   to={`/CharacterDetails/${character.id}`}

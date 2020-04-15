@@ -1,107 +1,100 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
-import { useUserProfile } from '../components/UserProfileContext'
+import { Link, Redirect } from 'react-router-dom'
 
-const CreateCharacter = props => {
-  const token = localStorage.getItem('token')
-  //set var to hold data from user profile context
-  const { userProfile } = useUserProfile()
-  console.log(userProfile)
+const CreateCharacter = () => {
+  const email = localStorage.getItem('email')
+
   //set variables to hold user inputs in state
   const [shouldRedirect, setShouldRedirect] = useState(false)
-  const [characterFirst, setCharacterFirst] = useState()
-  const [characterLast, setCharacterLast] = useState()
-  const [characterAge, setCharacterAge] = useState()
-  const [characterRace, setCharacterRace] = useState()
-  const [characterClass, setCharacterClass] = useState()
   const [multiClass, setMultiClass] = useState()
-  const [secondaryClass, setSecondaryClass] = useState()
-  const [primaryClassLevel, setPrimaryClassLevel] = useState()
-  const [secondaryClassLevel, setSecondaryClassLevel] = useState()
-  const [otherProficiencies, setOtherProficiencies] = useState()
-  const [personalityTraits, setPersonalityTraits] = useState()
-  const [ideals, setIdeals] = useState()
-  const [bonds, setBonds] = useState()
-  const [flaws, setFlaws] = useState()
-  const [featuresTraits, setFeaturesTraits] = useState()
-  const [alliesOrganizations, setAlliesOrganizations] = useState()
-  const [backStory, setBackStory] = useState()
-  const [treasure, setTreasure] = useState()
-  const [languages, setLanguages] = useState('')
-  let [language] = [
-    { name: 'Common', isChecked: false, category: 'Standard' },
-    { name: 'Dwarvish', isChecked: false, category: 'Standard' },
-    { name: 'Elvish', isChecked: false, category: 'Standard' },
-    { name: 'Giant', isChecked: false, category: 'Standard' },
-    { name: 'Gnomish', isChecked: false, category: 'Standard' },
-    { name: 'Goblin', isChecked: false, category: 'Standard' },
-    { name: 'Halfling', isChecked: false, category: 'Standard' },
-    { name: 'Orc', isChecked: false, category: 'Standard' },
-    { name: 'Abyssal', isChecked: false, category: 'Exotic' },
-    { name: 'Celestial', isChecked: false, category: 'Exotic' },
-    { name: 'Draconic', isChecked: false, category: 'Exotic' },
-    { name: 'Deep Speech', isChecked: false, category: 'Exotic' },
-    { name: 'Infernal', isChecked: false, category: 'Exotic' },
-    { name: 'Primordial', isChecked: false, category: 'Exotic' },
-    { name: 'Sylvan', isChecked: false, category: 'Exotic' },
-    { name: 'Undercommon', isChecked: false, category: 'Exotic' },
-  ]
-  console.log(language)
+  const [character, setCharacter] = useState({})
+  const [user, setUser] = useState()
+  // const [languages, setLanguages] = useState('')
+  // let [language] = [
+  //   { name: 'Common', isChecked: false, category: 'Standard' },
+  //   { name: 'Dwarvish', isChecked: false, category: 'Standard' },
+  //   { name: 'Elvish', isChecked: false, category: 'Standard' },
+  //   { name: 'Giant', isChecked: false, category: 'Standard' },
+  //   { name: 'Gnomish', isChecked: false, category: 'Standard' },
+  //   { name: 'Goblin', isChecked: false, category: 'Standard' },
+  //   { name: 'Halfling', isChecked: false, category: 'Standard' },
+  //   { name: 'Orc', isChecked: false, category: 'Standard' },
+  //   { name: 'Abyssal', isChecked: false, category: 'Exotic' },
+  //   { name: 'Celestial', isChecked: false, category: 'Exotic' },
+  //   { name: 'Draconic', isChecked: false, category: 'Exotic' },
+  //   { name: 'Deep Speech', isChecked: false, category: 'Exotic' },
+  //   { name: 'Infernal', isChecked: false, category: 'Exotic' },
+  //   { name: 'Primordial', isChecked: false, category: 'Exotic' },
+  //   { name: 'Sylvan', isChecked: false, category: 'Exotic' },
+  //   { name: 'Undercommon', isChecked: false, category: 'Exotic' },
+  // ]
+  // //update value of languages when checked
+  // const setLanguage = props => {
+  //   const langName = toString(props)
+  //   const id = language.indexOf(langName)
+  //   console.log(langName)
+  //   language[id].isChecked = true
+  // }
 
-  //update value of languages when checked
-  const setLanguage = props => {
-    const langName = toString(props)
-    const id = language.indexOf(langName)
-    console.log(langName)
-    language[id].isChecked = true
-  }
-
-  //add the name of the checked language
-  const addCheckedToString = () => {
-    for (let i = 0; (i = language.length); i++) {
-      if (language.isChecked === true) {
-        languages += language.name
-      }
-    }
-    console.log(languages)
-  }
+  // //add the name of the checked language
+  // const addCheckedToString = () => {
+  //   for (let i = 0; (i = language.length); i++) {
+  //     if (language.isChecked === true) {
+  //       languages += language.name
+  //     }
+  //   }
+  //   console.log(languages)
+  // }
 
   //run the addCheckedToString function each time language.isChecked changes
+  // useEffect(() => {
+  //   addCheckedToString()
+  // }, [language.isChecked])
+
+  //use api to get user
+  const getUser = async email => {
+    const resp = await axios.get('api/user/profile/' + email)
+    if (resp.status === 200) {
+      // redirect page to the home
+      setUser(resp.data)
+    } else {
+      //display an error message
+      throw new MessageEvent()
+    }
+  }
+  console.log(user)
+
+  //use useEffect to set user each time email changes
   useEffect(() => {
-    addCheckedToString()
-  }, [language.isChecked])
+    getUser(email)
+  }, [email])
+
+  //create character data from user inputs
+  const updateCharacterData = e => {
+    const key = e.target.name
+    const value = e.target.value
+    setCharacter(prevCharacter => {
+      prevCharacter[key] = value
+      return prevCharacter
+    })
+  }
 
   //axios post to create character
   const createNewCharacter = async e => {
+    character.multiClass = multiClass
+    character.userId = user.id
     e.preventDefault()
     const resp = await axios.post(
-      '/character/create',
+      'api/character/create',
       {
-        CharacterFirst: characterFirst,
-        CharacterLast: characterLast,
-        CharacterAge: characterAge,
-        CharacterRace: characterRace,
-        CharacterClass: characterClass,
-        MultiClass: multiClass,
-        SecondaryClass: secondaryClass,
-        PrimaryClassLevel: primaryClassLevel,
-        SecondaryClassLevel: secondaryClassLevel,
-        Languages: languages,
-        OtherProficiencies: otherProficiencies,
-        PersonalityTraits: personalityTraits,
-        Ideals: ideals,
-        Bonds: bonds,
-        Flaws: flaws,
-        FeaturesTraits: featuresTraits,
-        AlliesOrganizations: alliesOrganizations,
-        BackStory: backStory,
-        Treasure: treasure,
-        UserId: userProfile.user.Id,
+        character,
       },
-      { userProfile }
+      {
+        user,
+      }
+      // { userProfile }
     )
-    console.log(resp)
     if (resp.status === 200) {
       // redirect page to the home
       localStorage.setItem('characterPart1', resp.data)
@@ -113,7 +106,18 @@ const CreateCharacter = props => {
   }
 
   //render
-  if (token === undefined) {
+  if (shouldRedirect) {
+    return (
+      <Redirect
+        to={{
+          pathname: `/CreateStat/${user}`,
+          state: { who: email },
+        }}
+      />
+    )
+  }
+
+  if (!user) {
     return (
       <div>
         Your session has expired. Please click{' '}
@@ -137,7 +141,7 @@ const CreateCharacter = props => {
                 <input
                   name="characterFirst"
                   type="text"
-                  onChange={e => setCharacterFirst(e.target.value)}
+                  onChange={updateCharacterData}
                 />
               </h5>
               <h5>
@@ -145,7 +149,7 @@ const CreateCharacter = props => {
                 <input
                   name="characterLast"
                   type="text"
-                  onChange={e => setCharacterLast(e.target.value)}
+                  onChange={updateCharacterData}
                 />
               </h5>
               <h5>
@@ -153,7 +157,7 @@ const CreateCharacter = props => {
                 <input
                   name="characterAge"
                   type="text"
-                  onChange={e => setCharacterAge(e.target.value)}
+                  onChange={updateCharacterData}
                 />
               </h5>
               <h5>
@@ -162,7 +166,7 @@ const CreateCharacter = props => {
                   className="Char-Race"
                   name="characterRace"
                   type="text"
-                  onChange={e => setCharacterRace(e.target.value)}
+                  onChange={updateCharacterData}
                 >
                   <option value="Dragonborn">Dragonborn</option>
                   <option value="Dwarf">Dwarf</option>
@@ -181,7 +185,7 @@ const CreateCharacter = props => {
                   className="Char-Class"
                   name="characterClass"
                   type="text"
-                  onChange={e => setCharacterClass(e.target.value)}
+                  onChange={updateCharacterData}
                 >
                   <option value="Barbarian">Barbarian</option>
                   <option value="Bard">Bard</option>
@@ -201,15 +205,15 @@ const CreateCharacter = props => {
                 Class Level:
                 <input
                   name="primaryClassLevel"
-                  type="text"
-                  onChange={e => setPrimaryClassLevel(e.target.value)}
+                  type="number"
+                  onChange={updateCharacterData}
                 />
               </h5>
               <h5>
                 Multi-Class?
                 <input
                   className="Multi-Class"
-                  name="Yes"
+                  name="multiClass"
                   type="radio"
                   checked={multiClass === true}
                   onChange={e => setMultiClass(true)}
@@ -217,7 +221,7 @@ const CreateCharacter = props => {
                 Yes
                 <input
                   className="Multi-Class"
-                  name="No"
+                  name="multiClass"
                   type="radio"
                   checked={multiClass === false}
                   onChange={e => setMultiClass(false)}
@@ -237,7 +241,7 @@ const CreateCharacter = props => {
                       className="Char-Class"
                       name="secondaryClass"
                       type="text"
-                      onChange={e => setSecondaryClass(e.target.value)}
+                      onChange={updateCharacterData}
                     >
                       <option value={null}>{''}</option>
                       <option value="Barbarian">Barbarian</option>
@@ -258,8 +262,8 @@ const CreateCharacter = props => {
                     Secondary Class Level:
                     <input
                       name="secondaryClassLevel"
-                      type="text"
-                      onChange={e => setSecondaryClassLevel(e.target.value)}
+                      type="number"
+                      onChange={updateCharacterData}
                     />
                   </h5>
                 </>
@@ -273,9 +277,9 @@ const CreateCharacter = props => {
                       <input
                         name="Common"
                         category="Standard"
-                        onClick={setLanguage('Common')}
+                        // onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={language.isChecked}
+                        // checked={language.isChecked}
                       />{' '}
                       Common
                     </li>
@@ -284,9 +288,9 @@ const CreateCharacter = props => {
                         id="1"
                         name="Dwarvish"
                         category="Standard"
-                        onClick={e => setLanguage(e.target.id)}
+                        // onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={language.isChecked}
+                        // checked={language.isChecked}
                       />{' '}
                       Dwarvish
                     </li>
@@ -295,9 +299,9 @@ const CreateCharacter = props => {
                         id="2"
                         name="Elvish"
                         category="Standard"
-                        onClick={e => setLanguage(e.target.id)}
+                        // onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={language.isChecked}
+                        // checked={language.isChecked}
                       />{' '}
                       Elvish
                     </li>
@@ -306,9 +310,9 @@ const CreateCharacter = props => {
                         id="3"
                         name="Giant"
                         category="Standard"
-                        onClick={e => setLanguage(e.target.id)}
+                        // onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={language.isChecked}
+                        // checked={language.isChecked}
                       />{' '}
                       Giant
                     </li>
@@ -317,9 +321,9 @@ const CreateCharacter = props => {
                         id="4"
                         name="Gnomish"
                         category="Standard"
-                        onClick={e => setLanguage(e.target.id)}
+                        // onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={language.isChecked}
+                        // checked={language.isChecked}
                       />{' '}
                       Gnomish
                     </li>
@@ -328,9 +332,9 @@ const CreateCharacter = props => {
                         id="5"
                         name="Goblin"
                         category="Standard"
-                        onClick={e => setLanguage(e.target.id)}
+                        // onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={language.isChecked}
+                        // checked={language.isChecked}
                       />{' '}
                       Goblin
                     </li>
@@ -339,9 +343,9 @@ const CreateCharacter = props => {
                         id="6"
                         name="Halfling"
                         category="Standard"
-                        onClick={e => setLanguage(e.target.id)}
+                        // onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={language.isChecked}
+                        // checked={language.isChecked}
                       />{' '}
                       Halfling
                     </li>
@@ -350,9 +354,9 @@ const CreateCharacter = props => {
                         id="7"
                         name="Orc"
                         category="Standard"
-                        onClick={e => setLanguage(e.target.id)}
+                        // onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={language.isChecked}
+                        // checked={language.isChecked}
                       />{' '}
                       Orc
                     </li>
@@ -366,9 +370,9 @@ const CreateCharacter = props => {
                         id="8"
                         name="Abyssal"
                         category="Exotic"
-                        onClick={e => setLanguage(e.target.id)}
+                        // onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={language.isChecked}
+                        // checked={language.isChecked}
                       />{' '}
                       Abyssal
                     </li>
@@ -377,9 +381,9 @@ const CreateCharacter = props => {
                         id="9"
                         name="Celestial"
                         category="Exotic"
-                        onClick={e => setLanguage(e.target.id)}
+                        // onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={language.isChecked}
+                        // checked={language.isChecked}
                       />{' '}
                       Celestial
                     </li>
@@ -388,9 +392,9 @@ const CreateCharacter = props => {
                         id="10"
                         name="Draconic"
                         category="Exotic"
-                        onClick={e => setLanguage(e.target.id)}
+                        // onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={language.isChecked}
+                        // checked={language.isChecked}
                       />{' '}
                       Draconic
                     </li>
@@ -399,9 +403,9 @@ const CreateCharacter = props => {
                         id="12"
                         name="Deep Speech"
                         category="Exotic"
-                        onClick={e => setLanguage(e.target.id)}
+                        // onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={language.isChecked}
+                        // checked={language.isChecked}
                       />{' '}
                       Deep Speech
                     </li>
@@ -410,9 +414,9 @@ const CreateCharacter = props => {
                         id="13"
                         name="Infernal"
                         category="Exotic"
-                        onClick={e => setLanguage(e.target.id)}
+                        // onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={language.isChecked}
+                        // checked={language.isChecked}
                       />{' '}
                       Infernal
                     </li>
@@ -421,9 +425,9 @@ const CreateCharacter = props => {
                         id="14"
                         name="Primordial"
                         category="Exotic"
-                        onClick={e => setLanguage(e.target.id)}
+                        // onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={language.isChecked}
+                        // checked={language.isChecked}
                       />{' '}
                       Primordial
                     </li>
@@ -432,9 +436,9 @@ const CreateCharacter = props => {
                         id="15"
                         name="Sylvan"
                         category="Exotic"
-                        onClick={e => setLanguage(e.target.id)}
+                        // onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={language.isChecked}
+                        // checked={language.isChecked}
                       />{' '}
                       Sylvan
                     </li>
@@ -443,13 +447,112 @@ const CreateCharacter = props => {
                         id="16"
                         name="Undercommon"
                         category="Exotic"
-                        onClick={e => setLanguage(e.target.id)}
+                        // onClick={e => setLanguage(e.target.id)}
                         type="checkbox"
-                        checked={language.isChecked}
+                        // checked={language.isChecked}
                       />{' '}
                       Undercommon
                     </li>
                   </ul>
+                </div>
+                <div className="Char-Personality-Traits">
+                  <h5>Personality Traits:</h5>
+                  <div className="Personality-Traits-Parent">
+                    <input
+                      type="text area"
+                      name="personalityTraits"
+                      className="Personality-Traits"
+                      onChange={updateCharacterData}
+                    />
+                  </div>
+                </div>
+                <div className="Char-Ideals">
+                  <h5>Ideals:</h5>
+                  <div className="Ideals-Parent">
+                    <input
+                      name="ideals"
+                      type="text area"
+                      className="Ideals"
+                      onChange={updateCharacterData}
+                    />
+                  </div>
+                </div>
+                <div className="Char-Bonds">
+                  <h5>Bonds:</h5>
+                  <div className="Bonds-Parent">
+                    <input
+                      name="bonds"
+                      type="text area"
+                      className="Bonds"
+                      onChange={updateCharacterData}
+                    />
+                  </div>
+                </div>
+                <div className="Char-Flaws">
+                  <h5>Flaws:</h5>
+                  <div className="Flaws-Parent">
+                    <input
+                      name="flaws"
+                      type="text area"
+                      className="Flaws"
+                      onChange={updateCharacterData}
+                    />
+                  </div>
+                </div>
+                <div className="Char-Features-Traits">
+                  <h5>Features and Traits:</h5>
+                  <div className="Features-Traits-Parent">
+                    <input
+                      name="featuresTraits"
+                      type="text area"
+                      className="Features-Traits"
+                      onChange={updateCharacterData}
+                    />
+                  </div>
+                </div>
+                <div className="Char-BackStory">
+                  <h5>Backstory:</h5>
+                  <div className="BackStory-Parent">
+                    <input
+                      name="backStory"
+                      type="text area"
+                      className="BackStory"
+                      onChange={updateCharacterData}
+                    />
+                  </div>
+                </div>
+                <div className="Char-Allies-Orgs">
+                  <h5>Allies and Organizations:</h5>
+                  <div className="Allies-Orgs-Parent">
+                    <input
+                      name="alliesOrganizations"
+                      type="text area"
+                      className="Allies-Orgs"
+                      onChange={updateCharacterData}
+                    />
+                  </div>
+                </div>
+                <div className="Char-Other-Proficiencies">
+                  <h5>Other Proficiencies:</h5>
+                  <div className="Other-Proficiencies-Parent">
+                    <input
+                      name="otherProficiencies"
+                      type="text area"
+                      className="Other-Proficiencies"
+                      onChange={updateCharacterData}
+                    />
+                  </div>
+                </div>
+                <div className="Char-Treasure">
+                  <h5>Treasure:</h5>
+                  <div className="Treasure-Parent">
+                    <input
+                      name="treasure"
+                      type="text area"
+                      className="Treasure"
+                      onChange={updateCharacterData}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="Create-Char-Button-Div">

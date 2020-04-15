@@ -22,7 +22,7 @@ namespace capstone.Controllers
     }
 
     // GET: api/user/profile/{email}
-    [HttpGet("/profile/{email}")]
+    [HttpGet("profile/{email}")]
     public async Task<ActionResult<User>> GetUser(string email)
     {
       var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
@@ -38,7 +38,7 @@ namespace capstone.Controllers
     // PUT: api/User/5
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see https://aka.ms/RazorPagesCRUD.
-    [HttpPut("{userChanging}")]
+    [HttpPut("/profile/change/{userChanging}")]
     public async Task<IActionResult> PutUser(User userChanging)
     {
       var id = _context.Users.FindAsync(userChanging.Id);
@@ -82,7 +82,7 @@ namespace capstone.Controllers
     }
 
     // DELETE: api/User/5
-    [HttpDelete("{id}")]
+    [HttpDelete("/profile/delete/{id}")]
     public async Task<ActionResult<User>> DeleteUser(int id)
     {
       var user = await _context.Users.FindAsync(id);
