@@ -26,6 +26,7 @@ namespace capstone
     public string Treasure { get; set; }
     public string ImagePath { get; set; }
     public string Alignment { get; set; }
+    public int Darkvision { get; set; }
     //navigation
     public List<Stat> Stats { get; set; } = new List<Stat>();
     public List<Skill> Skills { get; set; } = new List<Skill>();

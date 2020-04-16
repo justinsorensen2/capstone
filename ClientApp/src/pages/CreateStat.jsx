@@ -28,6 +28,7 @@ const CreateStat = props => {
   const [armorClass, setArmorClass] = useState()
   const [initiativeBonus, setInitiativeBonus] = useState()
   const [baseSpeed, setBaseSpeed] = useState()
+  const [hitDie, setHitDie] = useState()
   const [totalHitDie, setTotalHitDie] = useState()
   const [currentHitDie, setCurrentHitDie] = useState()
   const [hitPointBonus, setHitPointBonus] = useState(0)
@@ -36,17 +37,17 @@ const CreateStat = props => {
   const [tempHP, setTempHP] = useState()
   const [baseAC, setBaseAC] = useState(10)
   const [strSavingThrow, setStrSavingThrow] = useState()
-  const [strSavingThrowProf, setStrSavingThrowProf] = useState(false)
+  const [strSavingThrowProf, setStrSavingThrowProf] = useState()
   const [dexSavingThrow, setDexSavingThrow] = useState()
-  const [dexSavingThrowProf, setDexSavingThrowProf] = useState(false)
+  const [dexSavingThrowProf, setDexSavingThrowProf] = useState()
   const [conSavingThrow, setConSavingThrow] = useState()
-  const [conSavingThrowProf, setConSavingThrowProf] = useState(false)
+  const [conSavingThrowProf, setConSavingThrowProf] = useState()
   const [intSavingThrow, setIntSavingThrow] = useState()
-  const [intSavingThrowProf, setIntSavingThrowProf] = useState(false)
+  const [intSavingThrowProf, setIntSavingThrowProf] = useState()
   const [wisSavingThrow, setWisSavingThrow] = useState()
-  const [wisSavingThrowProf, setWisSavingThrowProf] = useState(false)
+  const [wisSavingThrowProf, setWisSavingThrowProf] = useState()
   const [chaSavingThrow, setChaSavingThrow] = useState()
-  const [chaSavingThrowProf, setChaSavingThrowProf] = useState(false)
+  const [chaSavingThrowProf, setChaSavingThrowProf] = useState()
   const [deathSaveSuccess1, setDeathSaveSuccess1] = useState(false)
   const [deathSaveSuccess2, setDeathSaveSuccess2] = useState(false)
   const [deathSaveSuccess3, setDeathSaveSuccess3] = useState(false)
@@ -80,6 +81,7 @@ const CreateStat = props => {
     const mod = Math.floor((score - 10) / 2)
     setDexMod(mod)
     setDexterity(score)
+    console.log(mod, mod + 10)
     setBaseAC(mod + 10)
     setArmorClass(baseAC)
     setInitiativeBonus(mod)
@@ -132,15 +134,6 @@ const CreateStat = props => {
     }
   }
 
-  //function to update Dex saving throw
-  const updateDexSavingThrow = () => {
-    if (dexSavingThrowProf === false) {
-      setDexSavingThrow(dexMod)
-    } else {
-      setDexSavingThrow(dexMod + proficiencyBonus)
-    }
-  }
-
   //function to update Con saving throw
   const updateConSavingThrow = () => {
     if (conSavingThrowProf === false) {
@@ -176,6 +169,14 @@ const CreateStat = props => {
       setWisSavingThrow(wisMod + proficiencyBonus)
     }
   }
+
+  useEffect(() => {
+    if (dexSavingThrowProf) {
+      setDexSavingThrow(dexMod + proficiencyBonus)
+    } else {
+      setDexSavingThrow(dexMod)
+    }
+  }, [dexSavingThrowProf, dexMod, proficiencyBonus])
 
   //create stat data from user inputs
   const updateStatData = e => {
@@ -352,7 +353,7 @@ const CreateStat = props => {
                         name="dexterity"
                         type="number"
                         className="Dexterity"
-                        onChange={updateDex}
+                        onBlur={updateDex}
                       />
                     </div>
                   </div>
@@ -510,7 +511,7 @@ const CreateStat = props => {
                 />{' '}
                 No{' '}
               </h5>
-              <h5>Base Armor Class: {armorClass}</h5>
+              <h5>Base Armor Class: {baseAC}</h5>
               <h5>Initiative Bonus: {initiativeBonus}</h5>
               <h5>
                 Base Speed:
@@ -538,7 +539,7 @@ const CreateStat = props => {
                   className="Stat-Hit-Die"
                   name="hitDie"
                   type="text"
-                  onChange={updateStatData}
+                  onChange={setHitDie}
                 >
                   <option value={null}>{''}</option>
                   <option value="d12">Barbarian (d12)</option>
@@ -577,6 +578,7 @@ const CreateStat = props => {
                   <input
                     name="hitPointBonus"
                     type="number"
+                    defaultValue="0"
                     className="Hit-Point-Bonus"
                     onChange={e => setHitPointBonus(e.target.value)}
                   />
@@ -603,7 +605,7 @@ const CreateStat = props => {
                 />
               </h5>
               <h5>
-                Strength Saving Throw Proficiency?
+                Strength Saving Throw Proficiency? <br></br>
                 <input
                   className="Str-Saving-Throw-Prof"
                   name="strSavingThrowProf"
@@ -627,31 +629,29 @@ const CreateStat = props => {
               </h5>
               <h5>Strength Saving Throw: {strSavingThrow}</h5>
               <h5>
-                Dexterity Saving Throw Proficiency?
+                Dexterity Saving Throw Proficiency? <br></br>
                 <input
                   className="Dex-Saving-Throw-Prof"
                   name="dexSavingThrowProf"
                   type="radio"
-                  checked={dexSavingThrowProf === true}
-                  onChange={
-                    (e => setDexSavingThrowProf(true), updateDexSavingThrow)
-                  }
+                  value="Yes"
+                  checked={dexSavingThrowProf === true ? 'checked' : ''}
+                  onChange={e => setDexSavingThrowProf(true)}
                 />{' '}
                 Yes{' '}
                 <input
                   className="Dex-Saving-Throw-Prof"
                   name="dexSavingThrowProf"
                   type="radio"
-                  checked={dexSavingThrowProf === false}
-                  onChange={
-                    (e => setDexSavingThrowProf(false), updateDexSavingThrow)
-                  }
+                  value="No"
+                  checked={dexSavingThrowProf === false ? 'checked' : ''}
+                  onChange={e => setDexSavingThrowProf(false)}
                 />{' '}
                 No{' '}
               </h5>
               <h5>Dexterity Saving Throw: {dexSavingThrow}</h5>
               <h5>
-                Constitution Saving Throw Proficiency?
+                Constitution Saving Throw Proficiency? <br></br>
                 <input
                   className="Con-Saving-Throw-Prof"
                   name="conSavingThrowProf"
@@ -675,7 +675,7 @@ const CreateStat = props => {
               </h5>
               <h5>Constitution Saving Throw: {conSavingThrow}</h5>
               <h5>
-                Intelligence Saving Throw Proficiency?
+                Intelligence Saving Throw Proficiency? <br></br>
                 <input
                   className="Int-Saving-Throw-Prof"
                   name="intSavingThrowProf"
@@ -699,7 +699,7 @@ const CreateStat = props => {
               </h5>
               <h5>Intelligence Saving Throw: {intSavingThrow}</h5>
               <h5>
-                Wisdom Saving Throw Proficiency?
+                Wisdom Saving Throw Proficiency? <br></br>
                 <input
                   className="Wis-Saving-Throw-Prof"
                   name="wisSavingThrowProf"
@@ -723,7 +723,7 @@ const CreateStat = props => {
               </h5>
               <h5>Wisdom Saving Throw: {wisSavingThrow}</h5>
               <h5>
-                Charisma Saving Throw Proficiency?
+                Charisma Saving Throw Proficiency? <br></br>
                 <input
                   className="Cha-Saving-Throw-Prof"
                   name="chaSavingThrowProf"

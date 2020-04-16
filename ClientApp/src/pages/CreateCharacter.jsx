@@ -8,11 +8,13 @@ const CreateCharacter = () => {
   //set variables to hold user inputs in state
   const [shouldRedirect, setShouldRedirect] = useState(false)
   const [multiClass, setMultiClass] = useState()
+  const [characterRace, setCharacterRace] = useState()
   const [character, setCharacter] = useState({})
   const [user, setUser] = useState()
   const [characterAge, setCharacterAge] = useState()
   const [primaryClassLevel, setPrimaryClassLevel] = useState()
   const [secondaryClassLevel, setSecondaryClassLevel] = useState()
+  const [darkvision, setDarkvision] = useState()
   const [alignment, setAlignment] = useState()
   const [alignmentIsValid, setAlignmentIsValid] = useState(true)
   const [newlyCreatedCharId, setNewlyCreatedCharId] = useState()
@@ -133,6 +135,7 @@ const CreateCharacter = () => {
     character.multiClass = multiClass
     character.userId = user.id
     character.characterAge = characterAge
+    character.characterRace = characterRace
     character.primaryClassLevel = primaryClassLevel
     character.secondaryClassLevel = secondaryClassLevel
     e.preventDefault()
@@ -229,7 +232,7 @@ const CreateCharacter = () => {
                   className="Char-Race"
                   name="characterRace"
                   type="text"
-                  onChange={updateCharacterData}
+                  onChange={setCharacterRace}
                 >
                   <option value={null}>{''}</option>
                   <option value="Dragonborn">Dragonborn</option>
@@ -622,6 +625,24 @@ const CreateCharacter = () => {
                   />
                 </div>
               </div>
+              {characterRace === 'Gnome' ||
+              'Elf' ||
+              'Half-Elf' ||
+              'Dwarf' ||
+              'Half-Orc' ||
+              'Tiefling' ? (
+                <>
+                  <div className="Darkvision">
+                    <h5>Darkvision: {darkvision}ft.</h5>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="Darkvision">
+                    <h5>Darkvision: 0ft.</h5>
+                  </div>
+                </>
+              )}
               <div className="Create-Char-Button-Div">
                 <button
                   className="Create-Char-Button"
