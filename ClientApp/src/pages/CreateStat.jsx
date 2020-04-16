@@ -125,51 +125,18 @@ const CreateStat = props => {
     setMaxHP(score)
   }
 
-  //function to update Str saving throw
-  const updateStrSavingThrow = () => {
-    if (strSavingThrowProf === false) {
-      setStrSavingThrow(strMod)
-    } else {
+  //call useEffect to update str saving throw
+  //whenever profbon, Mod, or savingthrowprof are updated
+  useEffect(() => {
+    if (strSavingThrowProf) {
       setStrSavingThrow(strMod + proficiencyBonus)
-    }
-  }
-
-  //function to update Con saving throw
-  const updateConSavingThrow = () => {
-    if (conSavingThrowProf === false) {
-      setConSavingThrow(conMod)
     } else {
-      setConSavingThrow(conMod + proficiencyBonus)
+      setStrSavingThrow(strMod)
     }
-  }
+  }, [strSavingThrowProf, strMod, proficiencyBonus])
 
-  //function to update Int saving throw
-  const updateIntSavingThrow = () => {
-    if (intSavingThrowProf === false) {
-      setIntSavingThrow(intMod)
-    } else {
-      setIntSavingThrow(intMod + proficiencyBonus)
-    }
-  }
-
-  //function to update Cha saving throw
-  const updateChaSavingThrow = () => {
-    if (chaSavingThrowProf === false) {
-      setChaSavingThrow(chaMod)
-    } else {
-      setChaSavingThrow(chaMod + proficiencyBonus)
-    }
-  }
-
-  //function to update wis saving throw
-  const updateWisSavingThrow = () => {
-    if (wisSavingThrowProf === false) {
-      setWisSavingThrow(wisMod)
-    } else {
-      setWisSavingThrow(wisMod + proficiencyBonus)
-    }
-  }
-
+  //call useEffect to update dex saving throw
+  //whenever profbon, Mod, or savingthrowprof are updated
   useEffect(() => {
     if (dexSavingThrowProf) {
       setDexSavingThrow(dexMod + proficiencyBonus)
@@ -177,6 +144,46 @@ const CreateStat = props => {
       setDexSavingThrow(dexMod)
     }
   }, [dexSavingThrowProf, dexMod, proficiencyBonus])
+
+  //call useEffect to update con saving throw
+  //whenever profbon, Mod, or savingthrowprof are updated
+  useEffect(() => {
+    if (conSavingThrowProf) {
+      setConSavingThrow(conMod + proficiencyBonus)
+    } else {
+      setConSavingThrow(conMod)
+    }
+  }, [conSavingThrowProf, conMod, proficiencyBonus])
+
+  //call useEffect to update int saving throw
+  //whenever profbon, Mod, or savingthrowprof are updated
+  useEffect(() => {
+    if (intSavingThrowProf) {
+      setIntSavingThrow(intMod + proficiencyBonus)
+    } else {
+      setIntSavingThrow(intMod)
+    }
+  }, [intSavingThrowProf, intMod, proficiencyBonus])
+
+  //call useEffect to update wis saving throw
+  //whenever profbon, Mod, or savingthrowprof are updated
+  useEffect(() => {
+    if (wisSavingThrowProf) {
+      setWisSavingThrow(wisMod + proficiencyBonus)
+    } else {
+      setWisSavingThrow(wisMod)
+    }
+  }, [wisSavingThrowProf, wisMod, proficiencyBonus])
+
+  //call useEffect to update cha saving throw
+  //whenever profbon, Mod, or savingthrowprof are updated
+  useEffect(() => {
+    if (chaSavingThrowProf) {
+      setChaSavingThrow(chaMod + proficiencyBonus)
+    } else {
+      setChaSavingThrow(chaMod)
+    }
+  }, [chaSavingThrowProf, chaMod, proficiencyBonus])
 
   //create stat data from user inputs
   const updateStatData = e => {
@@ -190,9 +197,10 @@ const CreateStat = props => {
 
   //axios post to save stats to database
   const createNewStat = async e => {
+    //set stat items equal to vars created in app
     stat.inspiration = inspiration
     stat.proficiencyBonus = proficiencyBonus
-    stat.armorClass = armorClass
+    stat.armorClass = baseAC
     stat.initiativeBonus = initiativeBonus
     stat.baseSpeed = baseSpeed
     stat.totalHitDie = totalHitDie
@@ -223,9 +231,14 @@ const CreateStat = props => {
     stat.wisSavingThrowProf = wisSavingThrowProf
     stat.wisSavingThrow = wisSavingThrow
     stat.chaSavingThrowProf = chaSavingThrowProf
-    setStat.chaSavingThrow = chaSavingThrow
+    stat.chaSavingThrow = chaSavingThrow
+    stat.deathSaveSuccess1 = deathSaveSuccess1
+    stat.deathSaveSuccess2 = deathSaveSuccess2
+    stat.deathSaveSuccess3 = deathSaveSuccess3
+    stat.deathSaveFailure1 = deathSaveFailure1
+    stat.deathSaveFailure2 = deathSaveFailure2
+    stat.deathSaveFailure3 = deathSaveFailure3
     stat.characterId = characterId
-
     e.preventDefault()
     const resp = await axios.post('api/stat/create', stat)
     if (resp.status === 200 || resp.status === 201) {
@@ -610,20 +623,16 @@ const CreateStat = props => {
                   className="Str-Saving-Throw-Prof"
                   name="strSavingThrowProf"
                   type="radio"
-                  checked={strSavingThrowProf === true}
-                  onChange={
-                    (e => setStrSavingThrowProf(true), updateStrSavingThrow)
-                  }
+                  checked={strSavingThrowProf === true ? 'checked' : ''}
+                  onChange={e => setStrSavingThrowProf(true)}
                 />{' '}
                 Yes{' '}
                 <input
                   className="Str-Saving-Throw-Prof"
                   name="strSavingThrowProf"
                   type="radio"
-                  checked={strSavingThrowProf === false}
-                  onChange={
-                    (e => setStrSavingThrowProf(false), updateStrSavingThrow)
-                  }
+                  checked={strSavingThrowProf === false ? 'checked' : ''}
+                  onChange={e => setStrSavingThrowProf(false)}
                 />{' '}
                 No{' '}
               </h5>
@@ -656,20 +665,16 @@ const CreateStat = props => {
                   className="Con-Saving-Throw-Prof"
                   name="conSavingThrowProf"
                   type="radio"
-                  checked={conSavingThrowProf === true}
-                  onChange={
-                    (e => setConSavingThrowProf(true), updateConSavingThrow)
-                  }
+                  checked={conSavingThrowProf === true ? 'checked' : ''}
+                  onChange={e => setConSavingThrowProf(true)}
                 />{' '}
                 Yes{' '}
                 <input
                   className="Con-Saving-Throw-Prof"
                   name="conSavingThrowProf"
                   type="radio"
-                  checked={conSavingThrowProf === false}
-                  onChange={
-                    (e => setConSavingThrowProf(false), updateConSavingThrow)
-                  }
+                  checked={conSavingThrowProf === false ? 'checked' : ''}
+                  onChange={e => setConSavingThrowProf(false)}
                 />{' '}
                 No{' '}
               </h5>
@@ -680,20 +685,16 @@ const CreateStat = props => {
                   className="Int-Saving-Throw-Prof"
                   name="intSavingThrowProf"
                   type="radio"
-                  checked={intSavingThrowProf === true}
-                  onChange={
-                    (e => setIntSavingThrowProf(true), updateIntSavingThrow)
-                  }
+                  checked={intSavingThrowProf === true ? 'checked' : ''}
+                  onChange={e => setIntSavingThrowProf(true)}
                 />{' '}
                 Yes{' '}
                 <input
                   className="Int-Saving-Throw-Prof"
                   name="intSavingThrowProf"
                   type="radio"
-                  checked={intSavingThrowProf === false}
-                  onChange={
-                    (e => setIntSavingThrowProf(false), updateIntSavingThrow)
-                  }
+                  checked={intSavingThrowProf === false ? 'checked' : ''}
+                  onChange={e => setIntSavingThrowProf(false)}
                 />{' '}
                 No{' '}
               </h5>
@@ -704,20 +705,16 @@ const CreateStat = props => {
                   className="Wis-Saving-Throw-Prof"
                   name="wisSavingThrowProf"
                   type="radio"
-                  checked={wisSavingThrowProf === true}
-                  onChange={
-                    (e => setWisSavingThrowProf(true), updateWisSavingThrow)
-                  }
+                  checked={wisSavingThrowProf === true ? 'checked' : ''}
+                  onChange={e => setWisSavingThrowProf(true)}
                 />{' '}
                 Yes{' '}
                 <input
                   className="Wis-Saving-Throw-Prof"
                   name="wisSavingThrowProf"
                   type="radio"
-                  checked={wisSavingThrowProf === false}
-                  onChange={
-                    (e => setWisSavingThrowProf(false), updateWisSavingThrow)
-                  }
+                  checked={wisSavingThrowProf === false ? 'checked' : ''}
+                  onChange={e => setWisSavingThrowProf(false)}
                 />{' '}
                 No{' '}
               </h5>
@@ -728,20 +725,16 @@ const CreateStat = props => {
                   className="Cha-Saving-Throw-Prof"
                   name="chaSavingThrowProf"
                   type="radio"
-                  checked={chaSavingThrowProf === true}
-                  onChange={
-                    (e => setChaSavingThrowProf(true), updateChaSavingThrow)
-                  }
+                  checked={chaSavingThrowProf === true ? 'checked' : ''}
+                  onChange={e => setChaSavingThrowProf(true)}
                 />{' '}
                 Yes{' '}
                 <input
                   className="Cha-Saving-Throw-Prof"
                   name="chaSavingThrowProf"
                   type="radio"
-                  checked={chaSavingThrowProf === false}
-                  onChange={
-                    (e => setChaSavingThrowProf(false), updateChaSavingThrow)
-                  }
+                  checked={chaSavingThrowProf === false ? 'checked' : ''}
+                  onChange={e => setChaSavingThrowProf(false)}
                 />{' '}
                 No{' '}
               </h5>

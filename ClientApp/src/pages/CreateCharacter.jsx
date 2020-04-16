@@ -120,6 +120,23 @@ const CreateCharacter = () => {
     getUser(email)
   }, [email, alignment])
 
+  //update race and darkvision
+  const updateCharacterRace = e => {
+    setCharacterRace(e.target.value)
+    if (
+      characterRace === 'Gnome' ||
+      'Elf' ||
+      'Half-Elf' ||
+      'Dwarf' ||
+      'Half-Orc' ||
+      'Tiefling'
+    ) {
+      setDarkvision(60)
+    } else {
+      setDarkvision(0)
+    }
+  }
+
   //create character data from user inputs
   const updateCharacterData = e => {
     const key = e.target.name
@@ -232,7 +249,7 @@ const CreateCharacter = () => {
                   className="Char-Race"
                   name="characterRace"
                   type="text"
-                  onChange={setCharacterRace}
+                  onChange={updateCharacterRace}
                 >
                   <option value={null}>{''}</option>
                   <option value="Dragonborn">Dragonborn</option>
@@ -625,24 +642,9 @@ const CreateCharacter = () => {
                   />
                 </div>
               </div>
-              {characterRace === 'Gnome' ||
-              'Elf' ||
-              'Half-Elf' ||
-              'Dwarf' ||
-              'Half-Orc' ||
-              'Tiefling' ? (
-                <>
-                  <div className="Darkvision">
-                    <h5>Darkvision: {darkvision}ft.</h5>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="Darkvision">
-                    <h5>Darkvision: 0ft.</h5>
-                  </div>
-                </>
-              )}
+              <div className="Darkvision">
+                <h5>Darkvision: {darkvision}ft.</h5>
+              </div>
               <div className="Create-Char-Button-Div">
                 <button
                   className="Create-Char-Button"
