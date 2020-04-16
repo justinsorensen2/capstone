@@ -7,16 +7,22 @@ const CreateStat = props => {
   const [entryType, setEntryType] = useState('manual')
   const [strMod, setStrMod] = useState()
   const [strength, setStrength] = useState()
+  const [strBonus, setStrBonus] = useState(0)
   const [dexMod, setDexMod] = useState()
   const [dexterity, setDexterity] = useState()
+  const [dexBonus, setDexBonus] = useState(0)
   const [conMod, setConMod] = useState()
   const [constitution, setConstitution] = useState()
+  const [conBonus, setConBonus] = useState(0)
   const [intMod, setIntMod] = useState()
   const [intelligence, setIntelligence] = useState()
+  const [intBonus, setIntBonus] = useState(0)
   const [wisMod, setWisMod] = useState()
   const [wisdom, setWisdom] = useState()
+  const [wisBonus, setWisBonus] = useState(0)
   const [chaMod, setChaMod] = useState()
   const [charisma, setCharisma] = useState()
+  const [chaBonus, setChaBonus] = useState(0)
   const [proficiencyBonus, setProficiencyBonus] = useState()
   const [inspiration, setInspiration] = useState()
   const [armorClass, setArmorClass] = useState()
@@ -24,10 +30,29 @@ const CreateStat = props => {
   const [baseSpeed, setBaseSpeed] = useState()
   const [totalHitDie, setTotalHitDie] = useState()
   const [currentHitDie, setCurrentHitDie] = useState()
+  const [hitPointBonus, setHitPointBonus] = useState(0)
   const [maxHP, setMaxHP] = useState()
   const [currentHP, setCurrentHP] = useState()
   const [tempHP, setTempHP] = useState()
   const [baseAC, setBaseAC] = useState(10)
+  const [strSavingThrow, setStrSavingThrow] = useState()
+  const [strSavingThrowProf, setStrSavingThrowProf] = useState(false)
+  const [dexSavingThrow, setDexSavingThrow] = useState()
+  const [dexSavingThrowProf, setDexSavingThrowProf] = useState(false)
+  const [conSavingThrow, setConSavingThrow] = useState()
+  const [conSavingThrowProf, setConSavingThrowProf] = useState(false)
+  const [intSavingThrow, setIntSavingThrow] = useState()
+  const [intSavingThrowProf, setIntSavingThrowProf] = useState(false)
+  const [wisSavingThrow, setWisSavingThrow] = useState()
+  const [wisSavingThrowProf, setWisSavingThrowProf] = useState(false)
+  const [chaSavingThrow, setChaSavingThrow] = useState()
+  const [chaSavingThrowProf, setChaSavingThrowProf] = useState(false)
+  const [deathSaveSuccess1, setDeathSaveSuccess1] = useState(false)
+  const [deathSaveSuccess2, setDeathSaveSuccess2] = useState(false)
+  const [deathSaveSuccess3, setDeathSaveSuccess3] = useState(false)
+  const [deathSaveFailure1, setDeathSaveFailure1] = useState(false)
+  const [deathSaveFailure2, setDeathSaveFailure2] = useState(false)
+  const [deathSaveFailure3, setDeathSaveFailure3] = useState(false)
   const [stat, setStat] = useState()
   const [shouldRedirect, setShouldRedirect] = useState(false)
   let rolled = new Array()
@@ -41,7 +66,7 @@ const CreateStat = props => {
 
   //function to update str and strmod state
   const updateStr = e => {
-    const score = parseInt(e.target.value)
+    const score = parseInt(e.target.value) + parseInt(strBonus)
     const mod = Math.floor((score - 10) / 2)
     setStrMod(mod)
     setStrength(score)
@@ -51,18 +76,18 @@ const CreateStat = props => {
   //then set baseAC and AC
   //then set initiative bonus
   const updateDex = e => {
-    const score = parseInt(e.target.value)
+    const score = parseInt(e.target.value) + parseInt(dexBonus)
     const mod = Math.floor((score - 10) / 2)
     setDexMod(mod)
     setDexterity(score)
-    setBaseAC(10 + mod)
+    setBaseAC(mod + 10)
     setArmorClass(baseAC)
     setInitiativeBonus(mod)
   }
 
   //function to update con and conmod state
   const updateCon = e => {
-    const score = parseInt(e.target.value)
+    const score = parseInt(e.target.value) + parseInt(conBonus)
     const mod = Math.floor((score - 10) / 2)
     setConMod(mod)
     setConstitution(score)
@@ -70,7 +95,7 @@ const CreateStat = props => {
 
   //function to update int and intmod state
   const updateInt = e => {
-    const score = parseInt(e.target.value)
+    const score = parseInt(e.target.value) + parseInt(intBonus)
     const mod = Math.floor((score - 10) / 2)
     setIntMod(mod)
     setIntelligence(score)
@@ -78,7 +103,7 @@ const CreateStat = props => {
 
   //function to update wis and wismod state
   const updateWis = e => {
-    const score = parseInt(e.target.value)
+    const score = parseInt(e.target.value) + parseInt(wisBonus)
     const mod = Math.floor((score - 10) / 2)
     setWisMod(mod)
     setWisdom(score)
@@ -86,52 +111,70 @@ const CreateStat = props => {
 
   //function to update cha and chamod state
   const updateCha = e => {
-    const score = parseInt(e.target.value)
+    const score = parseInt(e.target.value) + parseInt(chaBonus)
     const mod = Math.floor((score - 10) / 2)
     setChaMod(mod)
     setCharisma(score)
   }
 
-  //function to update initiative state
-  const updateInitiative = e => {
-    const score = parseInt(e.target.value)
-    setInitiativeBonus(score)
-  }
-
-  //function to update basespeed state
-  const updateBaseSpeed = e => {
-    const score = parseInt(e.target.value)
-    setBaseSpeed(score)
-  }
-
-  //function to update totalHitDie state
-  const updateTotalHitDie = e => {
-    const score = parseInt(e.target.value)
-    setTotalHitDie(score)
-  }
-
-  //function to update currentHitDie state
-  const updateCurrentHitDie = e => {
-    const score = parseInt(e.target.value)
-    setCurrentHitDie(score)
-  }
-
   //function to update maxHP state
   const updateMaxHP = e => {
-    const score = parseInt(e.target.value)
+    const score = parseInt(e.target.value) + hitPointBonus
     setMaxHP(score)
   }
 
-  //function to update currentHP state
-  const updateCurrentHP = e => {
-    const score = parseInt(e.target.value)
-    setCurrentHP(score)
+  //function to update Str saving throw
+  const updateStrSavingThrow = () => {
+    if (strSavingThrowProf === false) {
+      setStrSavingThrow(strMod)
+    } else {
+      setStrSavingThrow(strMod + proficiencyBonus)
+    }
   }
 
-  //function to update tempHP state
-  const updateTempHP = e => {
-    const score = parseInt(e.target.value)
-    setTempHP(score)
+  //function to update Dex saving throw
+  const updateDexSavingThrow = () => {
+    if (dexSavingThrowProf === false) {
+      setDexSavingThrow(dexMod)
+    } else {
+      setDexSavingThrow(dexMod + proficiencyBonus)
+    }
+  }
+
+  //function to update Con saving throw
+  const updateConSavingThrow = () => {
+    if (conSavingThrowProf === false) {
+      setConSavingThrow(conMod)
+    } else {
+      setConSavingThrow(conMod + proficiencyBonus)
+    }
+  }
+
+  //function to update Int saving throw
+  const updateIntSavingThrow = () => {
+    if (intSavingThrowProf === false) {
+      setIntSavingThrow(intMod)
+    } else {
+      setIntSavingThrow(intMod + proficiencyBonus)
+    }
+  }
+
+  //function to update Cha saving throw
+  const updateChaSavingThrow = () => {
+    if (chaSavingThrowProf === false) {
+      setChaSavingThrow(chaMod)
+    } else {
+      setChaSavingThrow(chaMod + proficiencyBonus)
+    }
+  }
+
+  //function to update wis saving throw
+  const updateWisSavingThrow = () => {
+    if (wisSavingThrowProf === false) {
+      setWisSavingThrow(wisMod)
+    } else {
+      setWisSavingThrow(wisMod + proficiencyBonus)
+    }
   }
 
   //create stat data from user inputs
@@ -168,6 +211,18 @@ const CreateStat = props => {
     stat.wisMod = wisMod
     stat.charisma = charisma
     stat.chaMod = chaMod
+    stat.strSavingThrowProf = strSavingThrowProf
+    stat.strSavingThrow = strSavingThrow
+    stat.dexSavingThrowProf = dexSavingThrowProf
+    stat.dexSavingThrow = dexSavingThrow
+    stat.conSavingThrowProf = conSavingThrowProf
+    stat.conSavingThrow = conSavingThrow
+    stat.intSavingThrowProf = intSavingThrowProf
+    stat.intSavingThrow = intSavingThrow
+    stat.wisSavingThrowProf = wisSavingThrowProf
+    stat.wisSavingThrow = wisSavingThrow
+    stat.chaSavingThrowProf = chaSavingThrowProf
+    setStat.chaSavingThrow = chaSavingThrow
     stat.characterId = characterId
 
     e.preventDefault()
@@ -252,12 +307,24 @@ const CreateStat = props => {
               </h5>
               {entryType === 'manual' ? (
                 <>
+                  <div className="Race-Class-Other">
+                    <h5>Race/Class/Other Strength Bonus:</h5>
+                    <div className="Race-Class-Other-Parent">
+                      <input
+                        name="strBonus"
+                        defaultValue="0"
+                        type="number"
+                        className="Strength-Bonus"
+                        onChange={e => setStrBonus(parseInt(e.target.value))}
+                      />
+                    </div>
+                  </div>
                   <div className="Strength-Stat">
                     <h5>Strength:</h5>
                     <div className="Strength-Parent">
                       <input
                         name="strength"
-                        type="text area"
+                        type="number"
                         className="Strength"
                         onChange={updateStr}
                       />
@@ -266,12 +333,24 @@ const CreateStat = props => {
                   <div className="Strength-Mod">
                     <h5>Strength Mod: {strMod}</h5>
                   </div>
+                  <div className="Race-Class-Other">
+                    <h5>Race/Class/Other Dexterity Bonus:</h5>
+                    <div className="Race-Class-Other-Parent">
+                      <input
+                        name="dexBonus"
+                        type="number"
+                        defaultValue="0"
+                        className="Dexterity-Bonus"
+                        onChange={e => setDexBonus(parseInt(e.target.value))}
+                      />
+                    </div>
+                  </div>
                   <div className="Dexterity-Stat">
                     <h5>Dexterity:</h5>
                     <div className="Dexterity-Parent">
                       <input
                         name="dexterity"
-                        type="text area"
+                        type="number"
                         className="Dexterity"
                         onChange={updateDex}
                       />
@@ -280,12 +359,24 @@ const CreateStat = props => {
                   <div className="Dexterity-Mod">
                     <h5>Dexterity Mod: {dexMod}</h5>
                   </div>
+                  <div className="Race-Class-Other">
+                    <h5>Race/Class/Other Constitution Bonus:</h5>
+                    <div className="Race-Class-Other-Parent">
+                      <input
+                        name="conBonus"
+                        type="number"
+                        defaultValue="0"
+                        className="Constitution-Bonus"
+                        onChange={e => setConBonus(parseInt(e.target.value))}
+                      />
+                    </div>
+                  </div>
                   <div className="Constitution-Stat">
                     <h5>Constitution:</h5>
                     <div className="Constitution-Parent">
                       <input
                         name="constitution"
-                        type="text area"
+                        type="number"
                         className="Constitution"
                         onChange={updateCon}
                       />
@@ -294,12 +385,24 @@ const CreateStat = props => {
                   <div className="Constitution-Mod">
                     <h5>Constitution Mod: {conMod}</h5>
                   </div>
+                  <div className="Race-Class-Other">
+                    <h5>Race/Class/Other Intelligence Bonus:</h5>
+                    <div className="Race-Class-Other-Parent">
+                      <input
+                        name="intBonus"
+                        type="number"
+                        defaultValue="0"
+                        className="Intelligence-Bonus"
+                        onChange={e => setIntBonus(parseInt(e.target.value))}
+                      />
+                    </div>
+                  </div>
                   <div className="Intelligence-Stat">
                     <h5>Intelligence:</h5>
                     <div className="Intelligence-Parent">
                       <input
                         name="intelligence"
-                        type="text area"
+                        type="number"
                         className="Intelligence"
                         onChange={updateInt}
                       />
@@ -308,12 +411,24 @@ const CreateStat = props => {
                   <div className="Intelligence-Mod">
                     <h5>Intelligence Mod: {intMod}</h5>
                   </div>
+                  <div className="Race-Class-Other">
+                    <h5>Race/Class/Other Wisdom Bonus:</h5>
+                    <div className="Race-Class-Other-Parent">
+                      <input
+                        name="wisBonus"
+                        type="number"
+                        defaultValue="0"
+                        className="Wisdom-Bonus"
+                        onChange={e => setWisBonus(parseInt(e.target.value))}
+                      />
+                    </div>
+                  </div>
                   <div className="Wisdom-Stat">
                     <h5>Wisdom:</h5>
                     <div className="Wisdom-Parent">
                       <input
                         name="wisdom"
-                        type="text area"
+                        type="number"
                         className="Wisdom"
                         onChange={updateWis}
                       />
@@ -322,12 +437,24 @@ const CreateStat = props => {
                   <div className="Wisdom-Mod">
                     <h5>Wisdom Mod: {wisMod}</h5>
                   </div>
+                  <div className="Race-Class-Other">
+                    <h5>Race/Class/Other Charisma Bonus:</h5>
+                    <div className="Race-Class-Other-Parent">
+                      <input
+                        name="chaBonus"
+                        type="number"
+                        defaultValue="0"
+                        className="Charisma-Bonus"
+                        onChange={e => setChaBonus(e.target.value)}
+                      />
+                    </div>
+                  </div>
                   <div className="Charisma-Stat">
                     <h5>Charisma:</h5>
                     <div className="Charisma-Parent">
                       <input
                         name="charisma"
-                        type="text area"
+                        type="number"
                         className="Charisma"
                         onChange={updateCha}
                       />
@@ -361,7 +488,7 @@ const CreateStat = props => {
                 <input
                   name="proficiencyBonus"
                   type="number"
-                  onChange={updateProficiencyBonus}
+                  onChange={e => setProficiencyBonus(parseInt(e.target.value))}
                 />
               </h5>
               <h5>
@@ -387,22 +514,53 @@ const CreateStat = props => {
               <h5>Initiative Bonus: {initiativeBonus}</h5>
               <h5>
                 Base Speed:
-                <input
+                <select
+                  className="Stat-BaseSpeed"
                   name="baseSpeed"
-                  type="number"
-                  onChange={updateBaseSpeed}
-                />
+                  type="text"
+                  onChange={e => setBaseSpeed(parseInt(e.target.value))}
+                >
+                  <option value={null}>{''}</option>
+                  <option value="30">Dragonborn (30ft)</option>
+                  <option value="25">Dwarf (25ft)</option>
+                  <option value="30">Elf (30ft)</option>
+                  <option value="25">Gnome (25ft)</option>
+                  <option value="20">Half-Elf (30ft)</option>
+                  <option value="25">Halfling (25ft)</option>
+                  <option value="30">Half-Orc (30ft)</option>
+                  <option value="30">Human (30ft)</option>
+                  <option value="30">Tiefling (30ft)</option>
+                </select>
               </h5>
               <h5>
                 Hit Die:
-                <input name="hitDie" type="text" onChange={updateStatData} />
+                <select
+                  className="Stat-Hit-Die"
+                  name="hitDie"
+                  type="text"
+                  onChange={updateStatData}
+                >
+                  <option value={null}>{''}</option>
+                  <option value="d12">Barbarian (d12)</option>
+                  <option value="d8">Bard (d8)</option>
+                  <option value="d8">Cleric (d8)</option>
+                  <option value="d8">Druid (d8)</option>
+                  <option value="d10">Fighter (d10)</option>
+                  <option value="d8">Monk (d8)</option>
+                  <option value="d10">Paladin (d10)</option>
+                  <option value="d10">Ranger (d10)</option>
+                  <option value="d8">Rogue (d8)</option>
+                  <option value="d6">Sorcerer (d6)</option>
+                  <option value="d8">Warlock (d8)</option>
+                  <option value="d6">Wizard (d6)</option>
+                </select>
               </h5>
               <h5>
                 Total Hit Dice:
                 <input
                   name="totalHitDie"
                   type="number"
-                  onChange={updateTotalHitDie}
+                  onChange={e => setTotalHitDie(parseInt(e.target.value))}
                 />
               </h5>
               <h5>
@@ -410,9 +568,20 @@ const CreateStat = props => {
                 <input
                   name="currentHitDie"
                   type="number"
-                  onChange={updateCurrentHitDie}
+                  onChange={e => setCurrentHitDie(parseInt(e.target.value))}
                 />
               </h5>
+              <div className="Race-Class-Other">
+                <h5>Race/Class/Other Hit Point Bonus:</h5>
+                <div className="Race-Class-Other-Parent">
+                  <input
+                    name="hitPointBonus"
+                    type="number"
+                    className="Hit-Point-Bonus"
+                    onChange={e => setHitPointBonus(e.target.value)}
+                  />
+                </div>
+              </div>
               <h5>
                 Max Hit Points:
                 <input name="maxHP" type="number" onChange={updateMaxHP} />
@@ -422,13 +591,161 @@ const CreateStat = props => {
                 <input
                   name="currentHP"
                   type="number"
-                  onChange={updateCurrentHP}
+                  onChange={e => setCurrentHP(parseInt(e.target.value))}
                 />
               </h5>
               <h5>
                 Temporary Hit Points:
-                <input name="tempHP" type="number" onChange={updateTempHP} />
+                <input
+                  name="tempHP"
+                  type="number"
+                  onChange={e => setTempHP(parseInt(e.target.value))}
+                />
               </h5>
+              <h5>
+                Strength Saving Throw Proficiency?
+                <input
+                  className="Str-Saving-Throw-Prof"
+                  name="strSavingThrowProf"
+                  type="radio"
+                  checked={strSavingThrowProf === true}
+                  onChange={
+                    (e => setStrSavingThrowProf(true), updateStrSavingThrow)
+                  }
+                />{' '}
+                Yes{' '}
+                <input
+                  className="Str-Saving-Throw-Prof"
+                  name="strSavingThrowProf"
+                  type="radio"
+                  checked={strSavingThrowProf === false}
+                  onChange={
+                    (e => setStrSavingThrowProf(false), updateStrSavingThrow)
+                  }
+                />{' '}
+                No{' '}
+              </h5>
+              <h5>Strength Saving Throw: {strSavingThrow}</h5>
+              <h5>
+                Dexterity Saving Throw Proficiency?
+                <input
+                  className="Dex-Saving-Throw-Prof"
+                  name="dexSavingThrowProf"
+                  type="radio"
+                  checked={dexSavingThrowProf === true}
+                  onChange={
+                    (e => setDexSavingThrowProf(true), updateDexSavingThrow)
+                  }
+                />{' '}
+                Yes{' '}
+                <input
+                  className="Dex-Saving-Throw-Prof"
+                  name="dexSavingThrowProf"
+                  type="radio"
+                  checked={dexSavingThrowProf === false}
+                  onChange={
+                    (e => setDexSavingThrowProf(false), updateDexSavingThrow)
+                  }
+                />{' '}
+                No{' '}
+              </h5>
+              <h5>Dexterity Saving Throw: {dexSavingThrow}</h5>
+              <h5>
+                Constitution Saving Throw Proficiency?
+                <input
+                  className="Con-Saving-Throw-Prof"
+                  name="conSavingThrowProf"
+                  type="radio"
+                  checked={conSavingThrowProf === true}
+                  onChange={
+                    (e => setConSavingThrowProf(true), updateConSavingThrow)
+                  }
+                />{' '}
+                Yes{' '}
+                <input
+                  className="Con-Saving-Throw-Prof"
+                  name="conSavingThrowProf"
+                  type="radio"
+                  checked={conSavingThrowProf === false}
+                  onChange={
+                    (e => setConSavingThrowProf(false), updateConSavingThrow)
+                  }
+                />{' '}
+                No{' '}
+              </h5>
+              <h5>Constitution Saving Throw: {conSavingThrow}</h5>
+              <h5>
+                Intelligence Saving Throw Proficiency?
+                <input
+                  className="Int-Saving-Throw-Prof"
+                  name="intSavingThrowProf"
+                  type="radio"
+                  checked={intSavingThrowProf === true}
+                  onChange={
+                    (e => setIntSavingThrowProf(true), updateIntSavingThrow)
+                  }
+                />{' '}
+                Yes{' '}
+                <input
+                  className="Int-Saving-Throw-Prof"
+                  name="intSavingThrowProf"
+                  type="radio"
+                  checked={intSavingThrowProf === false}
+                  onChange={
+                    (e => setIntSavingThrowProf(false), updateIntSavingThrow)
+                  }
+                />{' '}
+                No{' '}
+              </h5>
+              <h5>Intelligence Saving Throw: {intSavingThrow}</h5>
+              <h5>
+                Wisdom Saving Throw Proficiency?
+                <input
+                  className="Wis-Saving-Throw-Prof"
+                  name="wisSavingThrowProf"
+                  type="radio"
+                  checked={wisSavingThrowProf === true}
+                  onChange={
+                    (e => setWisSavingThrowProf(true), updateWisSavingThrow)
+                  }
+                />{' '}
+                Yes{' '}
+                <input
+                  className="Wis-Saving-Throw-Prof"
+                  name="wisSavingThrowProf"
+                  type="radio"
+                  checked={wisSavingThrowProf === false}
+                  onChange={
+                    (e => setWisSavingThrowProf(false), updateWisSavingThrow)
+                  }
+                />{' '}
+                No{' '}
+              </h5>
+              <h5>Wisdom Saving Throw: {wisSavingThrow}</h5>
+              <h5>
+                Charisma Saving Throw Proficiency?
+                <input
+                  className="Cha-Saving-Throw-Prof"
+                  name="chaSavingThrowProf"
+                  type="radio"
+                  checked={chaSavingThrowProf === true}
+                  onChange={
+                    (e => setChaSavingThrowProf(true), updateChaSavingThrow)
+                  }
+                />{' '}
+                Yes{' '}
+                <input
+                  className="Cha-Saving-Throw-Prof"
+                  name="chaSavingThrowProf"
+                  type="radio"
+                  checked={chaSavingThrowProf === false}
+                  onChange={
+                    (e => setChaSavingThrowProf(false), updateChaSavingThrow)
+                  }
+                />{' '}
+                No{' '}
+              </h5>
+              <h5>Charisma Saving Throw: {chaSavingThrow}</h5>
               <div className="Create-Stat-Button-Div">
                 <button className="Create-Stat-Button" onClick={createNewStat}>
                   Submit
