@@ -48,14 +48,9 @@ const CreateStat = props => {
   const [wisSavingThrowProf, setWisSavingThrowProf] = useState()
   const [chaSavingThrow, setChaSavingThrow] = useState()
   const [chaSavingThrowProf, setChaSavingThrowProf] = useState()
-  const [deathSaveSuccess1, setDeathSaveSuccess1] = useState(false)
-  const [deathSaveSuccess2, setDeathSaveSuccess2] = useState(false)
-  const [deathSaveSuccess3, setDeathSaveSuccess3] = useState(false)
-  const [deathSaveFailure1, setDeathSaveFailure1] = useState(false)
-  const [deathSaveFailure2, setDeathSaveFailure2] = useState(false)
-  const [deathSaveFailure3, setDeathSaveFailure3] = useState(false)
   const [stat, setStat] = useState()
   const [shouldRedirect, setShouldRedirect] = useState(false)
+  const [submitIsEnabled, setSubmitIsEnabled] = useState(false)
   let rolled = new Array()
   let droppedLowest = new Array()
 
@@ -81,7 +76,6 @@ const CreateStat = props => {
     const mod = Math.floor((score - 10) / 2)
     setDexMod(mod)
     setDexterity(score)
-    console.log(mod, mod + 10)
     setBaseAC(mod + 10)
     setArmorClass(baseAC)
     setInitiativeBonus(mod)
@@ -185,64 +179,55 @@ const CreateStat = props => {
     }
   }, [chaSavingThrowProf, chaMod, proficiencyBonus])
 
-  //create stat data from user inputs
-  const updateStatData = e => {
-    const key = e.target.name
-    const value = e.target.value
-    setStat(prevStat => {
-      prevStat[key] = value
-      return prevStat
+  const updateStat = () => {
+    //set stat items equal to vars created in app
+    setStat({
+      inspiration: inspiration,
+      proficiencyBonus: proficiencyBonus,
+      baseSpeed: baseSpeed,
+      hitDie: hitDie,
+      totalHitDie: totalHitDie,
+      currentHitDie: currentHitDie,
+      currentHP: currentHP,
+      tempHP: tempHP,
+      chaSavingThrowProf: chaSavingThrowProf,
+      chaSavingThrow: chaSavingThrow,
+      wisSavingThrowProf: wisSavingThrowProf,
+      wisSavingThrow: wisSavingThrow,
+      intSavingThrowProf: intSavingThrowProf,
+      intSavingThrow: intSavingThrow,
+      conSavingThrowProf: conSavingThrowProf,
+      conSavingThrow: conSavingThrow,
+      dexSavingThrowProf: dexSavingThrowProf,
+      dexSavingThrow: dexSavingThrow,
+      strSavingThrowProf: strSavingThrowProf,
+      strSavingThrow: strSavingThrow,
+      maxHP: maxHP,
+      charisma: charisma,
+      chaMod: chaMod,
+      wisdom: wisdom,
+      wisMod: wisMod,
+      intelligence: intelligence,
+      intMod: intMod,
+      constitution: constitution,
+      conMod: conMod,
+      dexterity: dexterity,
+      dexMod: dexMod,
+      strength: strength,
+      strMod: strMod,
+      armorClass: baseAC,
+      initiativeBonus: initiativeBonus,
+      characterId: parseInt(characterId),
     })
+    setSubmitIsEnabled(true)
   }
 
   //axios post to save stats to database
   const createNewStat = async e => {
-    //set stat items equal to vars created in app
-    stat.inspiration = inspiration
-    stat.proficiencyBonus = proficiencyBonus
-    stat.armorClass = baseAC
-    stat.initiativeBonus = initiativeBonus
-    stat.baseSpeed = baseSpeed
-    stat.totalHitDie = totalHitDie
-    stat.currentHitDie = currentHitDie
-    stat.maxHP = maxHP
-    stat.currentHP = currentHP
-    stat.tempHP = tempHP
-    stat.strength = strength
-    stat.strMod = strMod
-    stat.dexterity = dexterity
-    stat.dexMod = dexMod
-    stat.constitution = constitution
-    stat.conMod = conMod
-    stat.intelligence = intelligence
-    stat.intMod = intMod
-    stat.wisdom = wisdom
-    stat.wisMod = wisMod
-    stat.charisma = charisma
-    stat.chaMod = chaMod
-    stat.strSavingThrowProf = strSavingThrowProf
-    stat.strSavingThrow = strSavingThrow
-    stat.dexSavingThrowProf = dexSavingThrowProf
-    stat.dexSavingThrow = dexSavingThrow
-    stat.conSavingThrowProf = conSavingThrowProf
-    stat.conSavingThrow = conSavingThrow
-    stat.intSavingThrowProf = intSavingThrowProf
-    stat.intSavingThrow = intSavingThrow
-    stat.wisSavingThrowProf = wisSavingThrowProf
-    stat.wisSavingThrow = wisSavingThrow
-    stat.chaSavingThrowProf = chaSavingThrowProf
-    stat.chaSavingThrow = chaSavingThrow
-    stat.deathSaveSuccess1 = deathSaveSuccess1
-    stat.deathSaveSuccess2 = deathSaveSuccess2
-    stat.deathSaveSuccess3 = deathSaveSuccess3
-    stat.deathSaveFailure1 = deathSaveFailure1
-    stat.deathSaveFailure2 = deathSaveFailure2
-    stat.deathSaveFailure3 = deathSaveFailure3
-    stat.characterId = characterId
     e.preventDefault()
     const resp = await axios.post('api/stat/create', stat)
     if (resp.status === 200 || resp.status === 201) {
-      // redirect page to the skill creation
+      // redirect page to char details
       setShouldRedirect(true)
       console.log(resp.data)
     } else {
@@ -250,6 +235,8 @@ const CreateStat = props => {
       throw new MessageEvent()
     }
   }
+
+  console.log(stat)
 
   //roll for stats
   const rollStats = () => {
@@ -290,7 +277,7 @@ const CreateStat = props => {
 
   //render
   if (shouldRedirect) {
-    return <Redirect to={`/CreateSkill/${characterId}`} />
+    return <Redirect to={`/CharacterDetails/${characterId}`} />
   }
   return (
     <div>
@@ -502,6 +489,7 @@ const CreateStat = props => {
                 <input
                   name="proficiencyBonus"
                   type="number"
+                  defaultValue="0"
                   onChange={e => setProficiencyBonus(parseInt(e.target.value))}
                 />
               </h5>
@@ -552,7 +540,7 @@ const CreateStat = props => {
                   className="Stat-Hit-Die"
                   name="hitDie"
                   type="text"
-                  onChange={setHitDie}
+                  onChange={e => setHitDie(e.target.value)}
                 >
                   <option value={null}>{''}</option>
                   <option value="d12">Barbarian (d12)</option>
@@ -574,6 +562,7 @@ const CreateStat = props => {
                 <input
                   name="totalHitDie"
                   type="number"
+                  defaultValue="0"
                   onChange={e => setTotalHitDie(parseInt(e.target.value))}
                 />
               </h5>
@@ -582,6 +571,7 @@ const CreateStat = props => {
                 <input
                   name="currentHitDie"
                   type="number"
+                  defaultValue="0"
                   onChange={e => setCurrentHitDie(parseInt(e.target.value))}
                 />
               </h5>
@@ -592,6 +582,7 @@ const CreateStat = props => {
                     name="hitPointBonus"
                     type="number"
                     defaultValue="0"
+                    defaultValue="0"
                     className="Hit-Point-Bonus"
                     onChange={e => setHitPointBonus(e.target.value)}
                   />
@@ -599,13 +590,19 @@ const CreateStat = props => {
               </div>
               <h5>
                 Max Hit Points:
-                <input name="maxHP" type="number" onChange={updateMaxHP} />
+                <input
+                  name="maxHP"
+                  type="number"
+                  defaultValue="0"
+                  onChange={updateMaxHP}
+                />
               </h5>
               <h5>
                 Current Hit Points:
                 <input
                   name="currentHP"
                   type="number"
+                  defaultValue="0"
                   onChange={e => setCurrentHP(parseInt(e.target.value))}
                 />
               </h5>
@@ -614,6 +611,7 @@ const CreateStat = props => {
                 <input
                   name="tempHP"
                   type="number"
+                  defaultValue="0"
                   onChange={e => setTempHP(parseInt(e.target.value))}
                 />
               </h5>
@@ -740,7 +738,16 @@ const CreateStat = props => {
               </h5>
               <h5>Charisma Saving Throw: {chaSavingThrow}</h5>
               <div className="Create-Stat-Button-Div">
-                <button className="Create-Stat-Button" onClick={createNewStat}>
+                <button className="Create-Stat-Button" onClick={updateStat}>
+                  Save Stats
+                </button>
+              </div>
+              <div className="Create-Stat-Button-Div">
+                <button
+                  disabled={!submitIsEnabled}
+                  className="Create-Stat-Button"
+                  onClick={createNewStat}
+                >
                   Submit
                 </button>
               </div>
