@@ -25,7 +25,6 @@ const CreateStat = props => {
   const [chaBonus, setChaBonus] = useState(0)
   const [proficiencyBonus, setProficiencyBonus] = useState()
   const [inspiration, setInspiration] = useState()
-  const [armorClass, setArmorClass] = useState()
   const [initiativeBonus, setInitiativeBonus] = useState()
   const [baseSpeed, setBaseSpeed] = useState()
   const [hitDie, setHitDie] = useState()
@@ -77,7 +76,6 @@ const CreateStat = props => {
     setDexMod(mod)
     setDexterity(score)
     setBaseAC(mod + 10)
-    setArmorClass(baseAC)
     setInitiativeBonus(mod)
   }
 

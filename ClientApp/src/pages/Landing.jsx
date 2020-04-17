@@ -31,7 +31,7 @@ const Landing = () => {
     return (
       <Redirect
         to={{
-          pathname: `/Home/${userProfile}`,
+          pathname: `/Home/${userProfile.user.id}`,
           state: { who: email },
         }}
       />

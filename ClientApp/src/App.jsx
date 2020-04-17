@@ -49,10 +49,10 @@ const App = () => {
         <Router>
           <Switch>
             <Route exact path="/" component={Landing}></Route>
-            <Route exact path="/Home/:user" component={Home}></Route>
+            <Route exact path="/Home/:id" component={Home}></Route>
             <Route
               exact
-              path="/CharacterDetails/:characterId"
+              path="/CharacterDetails/:id"
               component={CharacterDetails}
             ></Route>
             <Route

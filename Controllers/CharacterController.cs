@@ -21,13 +21,6 @@ namespace capstone.Controllers
       _context = context;
     }
 
-    // GET: api/Character
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Character>>> GetCharacters()
-    {
-      return await _context.Characters.ToListAsync();
-    }
-
     // GET: api/Character/5
     [HttpGet("{id}")]
     public async Task<ActionResult<Character>> GetCharacter(int id)
@@ -40,6 +33,13 @@ namespace capstone.Controllers
       }
 
       return character;
+    }
+
+    // GET: api/Character
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Character>>> GetCharacters()
+    {
+      return await _context.Characters.ToListAsync();
     }
 
     // PUT: api/Character/5
