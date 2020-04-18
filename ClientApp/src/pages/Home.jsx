@@ -1,13 +1,27 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import CharacterLI from '../components/CharacterLI'
 import { useUserProfile } from '../components/UserProfileContext'
+import axios from 'axios'
 
 const Home = () => {
   //set var for use of user profile context
   const userProfile = useUserProfile()
   const user = userProfile.user
-  console.log(userProfile)
+  const userId = parseInt(user.Id)
+  const [characters, setCharacters] = useState()
+
+  const getCharacters = async userId => {
+    return await axios.get('/api/character/list', userId).then(response => {
+      //set var for character from axios get
+      setCharacters(response.data)
+      console.log('character get' + characters)
+    })
+  }
+
+  useEffect(() => {
+    getCharacters(userId)
+  }, [userProfile])
 
   if (!userProfile) {
     return <div>Loading...</div>
@@ -18,7 +32,7 @@ const Home = () => {
         <div className="Site-Icon"></div>
         <h4>Welcome back, {user.userFirst}.</h4>
       </div>
-      {user.Characters !== null ? (
+      {characters !== null ? (
         <div className="Nothing-Here">
           You have not created any characters. Click{' '}
           <span>
@@ -31,7 +45,7 @@ const Home = () => {
       ) : (
         <main className="Home-Characters">
           <ul className="Characters-List">
-            {user.Characters.map(character => {
+            {characters.map(character => {
               return (
                 <Link
                   to={`/CharacterDetails/${character.id}`}

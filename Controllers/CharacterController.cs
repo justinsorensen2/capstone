@@ -36,10 +36,10 @@ namespace capstone.Controllers
     }
 
     // GET: api/Character
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Character>>> GetCharacters()
+    [HttpGet("list/{userId}")]
+    public async Task<ActionResult<IEnumerable<Character>>> GetCharacters(int userId)
     {
-      return await _context.Characters.ToListAsync();
+      return await _context.Characters.Where(c => c.UserId == userId).ToListAsync();
     }
 
     // PUT: api/Character/5

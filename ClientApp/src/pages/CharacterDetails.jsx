@@ -28,7 +28,8 @@ const CharacterDetails = props => {
   //useEffect to call axios get when page loads
   useEffect(() => {
     getCharacterDetails(characterId)
-  }, [])
+    getStatDetails(characterId)
+  }, [characterId])
 
   //render
   if (!stat) {
@@ -38,7 +39,35 @@ const CharacterDetails = props => {
     <div>
       <article className="Char-Details-Flex">
         <section className="Char-Details-Parent">
-          <div className="Char-Details"></div>
+          <div className="Char-Details">
+            <div className="Name-Class-Level">
+              <div className="Name">
+                Character: {character.characterFirst}
+                {''}
+                {character.characterLast}
+              </div>
+              <div className="Primary-Class">
+                Class: {character.characterClass}
+              </div>
+              <div className="Primary-Class-Level">
+                Class Level: {character.primaryClassLevel}
+              </div>
+              {character.secondaryClass === '' ? (
+                <>
+                  <div></div>
+                </>
+              ) : (
+                <>
+                  <div className="Secondary-Class">
+                    Secondary Class: {character.secondaryClass}
+                  </div>
+                  <div className="Secondary-Class-Level">
+                    Secondary Class Level: {character.secondaryClassLevel}
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
         </section>
       </article>
     </div>
