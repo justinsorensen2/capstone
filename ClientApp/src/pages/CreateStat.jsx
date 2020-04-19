@@ -275,7 +275,7 @@ const CreateStat = props => {
 
   //render
   if (shouldRedirect) {
-    return <Redirect to={`/CharacterDetails/${characterId}`} />
+    return <Redirect to={`/CreateSkill/${characterId}`} />
   }
   return (
     <div>
