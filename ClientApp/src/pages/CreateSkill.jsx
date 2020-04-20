@@ -55,6 +55,11 @@ const CreateSkill = props => {
     })
   }
 
+  //call useEffect to getStats when page loads
+  useEffect(() => {
+    getStatDetails(characterId)
+  }, [])
+
   //call useEffect to update acrobatics
   //whenever acrobaticsProf is updated
   useEffect(() => {
@@ -170,8 +175,10 @@ const CreateSkill = props => {
   useEffect(() => {
     if (perceptionProf) {
       setPerception(stat.wisMod + stat.proficiencyBonus)
+      setPassivePerception(perception + 10)
     } else {
       setPerception(stat.wisMod)
+      setPassivePerception(perception + 10)
     }
   }, [perceptionProf])
 
@@ -665,6 +672,7 @@ const CreateSkill = props => {
                   No{' '}
                 </h5>
                 <h5>Survival: {survival}</h5>
+                <h5>Passive Perception: {passivePerception}</h5>
                 <div className="Create-Skill-Button-Div">
                   <button className="Create-Skill-Button" onClick={updateSkill}>
                     Save Skills
