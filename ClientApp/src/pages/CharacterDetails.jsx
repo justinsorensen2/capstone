@@ -5,8 +5,8 @@ const CharacterDetails = props => {
   //set charId based on props from url
   const characterId = props.match.params.id
 
-  const [character, setCharacter] = useState()
-  const [stat, setStat] = useState()
+  const [character, setCharacter] = useState({})
+  const [stat, setStat] = useState({})
 
   //axios get for character details
   const getCharacterDetails = async characterId => {

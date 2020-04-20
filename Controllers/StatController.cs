@@ -37,9 +37,9 @@ namespace capstone.Controllers
 
     // GET: api/Stat
     [HttpGet("{characterId}")]
-    public async Task<ActionResult<IEnumerable<Stat>>> GetStats(int characterId)
+    public async Task<ActionResult<Stat>> GetStats(int characterId)
     {
-      return await _context.Stats.Where(s => s.CharacterId == characterId).ToListAsync();
+      return await _context.Stats.Where(s => s.CharacterId == characterId).FirstAsync();
     }
 
     // PUT: api/Stat/5

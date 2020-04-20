@@ -21,12 +21,12 @@ namespace capstone.Controllers
       _context = context;
     }
 
-    // GET: api/Skill
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Skill>>> GetSkills()
-    {
-      return await _context.Skills.ToListAsync();
-    }
+    // // GET: api/Skill
+    // [HttpGet]
+    // public async Task<ActionResult<IEnumerable<Skill>>> GetSkills()
+    // {
+    //   return await _context.Skills.ToListAsync();
+    // }
 
     // GET: api/Skill/5
     [HttpGet("{id}")]

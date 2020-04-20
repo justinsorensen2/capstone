@@ -7,7 +7,7 @@ const CreateSkill = props => {
   //set all vars for use of state
   const [skill, setSkill] = useState()
   const [shouldRedirect, setShouldRedirect] = useState(false)
-  const [stat, setStat] = useState()
+  const [stat, setStat] = useState({})
   const [acrobaticsProf, setAcrobaticsProf] = useState()
   const [acrobatics, setAcrobatics] = useState()
   const [animalHandlingProf, setAnimalHandlingProf] = useState()
@@ -64,6 +64,9 @@ const CreateSkill = props => {
   //call useEffect to update acrobatics
   //whenever acrobaticsProf is updated
   useEffect(() => {
+    console.log(stat.dexMod)
+    console.log(stat.proficiencyBonus)
+    console.log(stat)
     if (acrobaticsProf) {
       setAcrobatics(stat.dexMod + stat.proficiencyBonus)
     } else {
