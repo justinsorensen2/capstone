@@ -21,25 +21,25 @@ namespace capstone.Controllers
       _context = context;
     }
 
-    // GET: api/Stat/5
-    [HttpGet("{characterId}")]
-    public async Task<ActionResult<Stat>> GetStat(int characterId)
-    {
-      var stat = await _context.Stats.FindAsync(characterId);
+    // // GET: api/Stat/5
+    // [HttpGet("{characterId}")]
+    // public async Task<ActionResult<Stat>> GetStat(int characterId)
+    // {
+    //   var stat = await _context.Stats.FindAsync(characterId);
 
-      if (stat == null)
-      {
-        return NotFound();
-      }
+    //   if (stat == null)
+    //   {
+    //     return NotFound();
+    //   }
 
-      return stat;
-    }
+    //   return stat;
+    // }
 
     // GET: api/Stat
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Stat>>> GetStats()
+    [HttpGet("{characterId}")]
+    public async Task<ActionResult<IEnumerable<Stat>>> GetStats(int characterId)
     {
-      return await _context.Stats.ToListAsync();
+      return await _context.Stats.Where(s => s.CharacterId == characterId).ToListAsync();
     }
 
     // PUT: api/Stat/5

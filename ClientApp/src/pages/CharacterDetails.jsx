@@ -29,7 +29,7 @@ const CharacterDetails = props => {
   useEffect(() => {
     getCharacterDetails(characterId)
     getStatDetails(characterId)
-  }, [characterId])
+  }, [])
 
   //render
   if (!stat) {
@@ -127,6 +127,25 @@ const CharacterDetails = props => {
                       Proficiency Bonus: {stat.proficiencyBonus}
                     </div>
                   </div>
+                  {character.darkvision >= 1 ? (
+                    <>
+                      {' '}
+                      <div className="Char-Details-Darkvision-Parent">
+                        <div className="Char-Details-Darkvision">
+                          Darkvision: {character.darkvision}ft.
+                        </div>
+                      </div>{' '}
+                    </>
+                  ) : (
+                    <>
+                      {' '}
+                      <div className="Char-Details-Darkvision-Parent">
+                        <div className="Char-Details-Darkvision">
+                          Darkvision: None
+                        </div>
+                      </div>{' '}
+                    </>
+                  )}
                   <div className="Char-Details-Saving-Throws">
                     Saving Throws
                     <div className="Strength-Saving-Throw">

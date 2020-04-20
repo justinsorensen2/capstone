@@ -29,6 +29,7 @@ const App = () => {
         },
       })
       .then(response => {
+        console.log('got here')
         setUser(response.data)
         console.log(response.data)
       })

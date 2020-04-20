@@ -36,7 +36,7 @@ namespace capstone.Controllers
     }
 
     // GET: api/Character
-    [HttpGet("list/{userId}")]
+    [HttpGet("charlist/{userId}")]
     public async Task<ActionResult<IEnumerable<Character>>> GetCharacters(int userId)
     {
       return await _context.Characters.Where(c => c.UserId == userId).ToListAsync();

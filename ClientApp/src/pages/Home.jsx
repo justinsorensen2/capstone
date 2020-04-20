@@ -8,20 +8,25 @@ const Home = () => {
   //set var for use of user profile context
   const userProfile = useUserProfile()
   const user = userProfile.user
-  const userId = parseInt(user.Id)
   const [characters, setCharacters] = useState()
 
   const getCharacters = async userId => {
-    return await axios.get('/api/character/list', userId).then(response => {
-      //set var for character from axios get
-      setCharacters(response.data)
-      console.log('character get' + characters)
-    })
+    return await axios
+      .get(`/api/character/charlist/${userId}`)
+      .then(response => {
+        //set var for character from axios get
+        setCharacters(response.data)
+        console.log('character get' + characters)
+      })
   }
 
   useEffect(() => {
-    getCharacters(userId)
-  }, [userProfile])
+    console.log(userProfile, user)
+    const userId = parseInt(user.id)
+    if (userId) {
+      getCharacters(userId)
+    }
+  }, [])
 
   if (!userProfile) {
     return <div>Loading...</div>
@@ -32,7 +37,7 @@ const Home = () => {
         <div className="Site-Icon"></div>
         <h4>Welcome back, {user.userFirst}.</h4>
       </div>
-      {characters !== null ? (
+      {!characters ? (
         <div className="Nothing-Here">
           You have not created any characters. Click{' '}
           <span>
