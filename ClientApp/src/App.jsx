@@ -9,6 +9,7 @@ import CreateSkill from './pages/CreateSkill'
 import Landing from './pages/Landing'
 import CreateAccount from './pages/CreateAccount'
 import Account from './pages/Account'
+import CharacterUpdate from './pages/CharacterUpdate'
 import './custom.scss'
 import axios from 'axios'
 import { UserProfileContext } from './components/UserProfileContext'
@@ -64,10 +65,14 @@ const App = () => {
             <Route exact path="/CreateStat/:id" component={CreateStat}></Route>
             <Route
               exact
+              path="/CharacterUpdate/:id"
+              component={CharacterUpdate}
+            ></Route>
+            <Route
+              exact
               path="/CreateSkill/:id"
               component={CreateSkill}
             ></Route>
-
             <Route
               exact
               path="/CreateAccount"

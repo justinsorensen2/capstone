@@ -97,11 +97,6 @@ const CreateCharacter = () => {
     }
   }
 
-  // //use useEffect to set alignment each time isValid changes
-  // useEffect(() => {
-  //   updateAlignment()
-  // }, [alignmentIsValid])
-
   //use api to get user
   const getUser = async email => {
     const resp = await axios.get('api/user/profile/' + email)
@@ -113,9 +108,8 @@ const CreateCharacter = () => {
       throw new MessageEvent()
     }
   }
-  console.log(user)
 
-  //use useEffect to set user each time email changes
+  //call useEffect to set user each time email changes
   useEffect(() => {
     getUser(email)
   }, [email, alignment])

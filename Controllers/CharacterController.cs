@@ -45,23 +45,16 @@ namespace capstone.Controllers
     // PUT: api/Character/5
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see https://aka.ms/RazorPagesCRUD.
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutCharacter(int id, Character character)
+    [HttpPut("put")]
+    public async Task<IActionResult> PutCharacter(Character character)
     {
-      if (id != character.Id)
-      {
-        return BadRequest();
-      }
-
-      _context.Entry(character).State = EntityState.Modified;
-
       try
       {
         await _context.SaveChangesAsync();
       }
       catch (DbUpdateConcurrencyException)
       {
-        if (!CharacterExists(id))
+        if (!CharacterExists(character.Id))
         {
           return NotFound();
         }
@@ -71,7 +64,7 @@ namespace capstone.Controllers
         }
       }
 
-      return NoContent();
+      return Ok(character);
     }
 
     // POST: api/Character
