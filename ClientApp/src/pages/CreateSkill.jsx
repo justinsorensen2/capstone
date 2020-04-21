@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Redirect } from 'react-router-dom'
 
 const CreateSkill = props => {
-  const characterId = props.match.params.id
+  const characterId = parseInt(props.match.params.id)
   //set all vars for use of state
   const [skill, setSkill] = useState()
   const [shouldRedirect, setShouldRedirect] = useState(false)
@@ -179,12 +179,15 @@ const CreateSkill = props => {
   useEffect(() => {
     if (perceptionProf) {
       setPerception(stat.wisMod + stat.proficiencyBonus)
-      setPassivePerception(perception + 10)
     } else {
       setPerception(stat.wisMod)
-      setPassivePerception(perception + 10)
     }
   }, [perceptionProf])
+
+  //call useEffect to update passive perception whenever perception changes
+  useEffect(() => {
+    setPassivePerception(perception + 10)
+  }, [perception])
 
   //call useEffect to update performance
   //whenever performanceProf is updated
@@ -210,9 +213,9 @@ const CreateSkill = props => {
   //whenever religionProf is updated
   useEffect(() => {
     if (religionProf) {
-      setReligion(stat.IntMod + stat.proficiencyBonus)
+      setReligion(stat.intMod + stat.proficiencyBonus)
     } else {
-      setReligion(stat.IntMod)
+      setReligion(stat.intMod)
     }
   }, [religionProf])
 

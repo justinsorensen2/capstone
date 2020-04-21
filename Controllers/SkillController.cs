@@ -29,10 +29,10 @@ namespace capstone.Controllers
     // }
 
     // GET: api/Skill/5
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Skill>> GetSkill(int id)
+    [HttpGet("{characterId}")]
+    public async Task<ActionResult<Skill>> GetSkill(int characterId)
     {
-      var skill = await _context.Skills.FindAsync(id);
+      var skill = await _context.Skills.Where(s => s.CharacterId == characterId).FirstAsync();
 
       if (skill == null)
       {

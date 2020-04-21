@@ -7,21 +7,31 @@ const CharacterDetails = props => {
 
   const [character, setCharacter] = useState({})
   const [stat, setStat] = useState({})
+  const [skill, setSkill] = useState({})
 
   //axios get for character details
   const getCharacterDetails = async characterId => {
-    return await axios.get('/api/character/', characterId).then(response => {
+    return await axios.get(`/api/character/${characterId}`).then(response => {
       //set var for character from axios get
       setCharacter(response.data)
       console.log('character get' + response.data)
     })
   }
-
+  // axios get for stat details
   const getStatDetails = async characterId => {
-    return await axios.get('/api/stat/', characterId).then(response => {
+    return await axios.get(`/api/stat/${characterId}`).then(response => {
       //set var for character from axios get
       setStat(response.data)
       console.log('stat get' + response.data)
+    })
+  }
+
+  // axios get for skill details
+  const getSkillDetails = async characterId => {
+    return await axios.get(`/api/skill/${characterId}`).then(response => {
+      //set var for character from axios get
+      setSkill(response.data)
+      console.log('Skill get' + response.data)
     })
   }
 
@@ -29,6 +39,7 @@ const CharacterDetails = props => {
   useEffect(() => {
     getCharacterDetails(characterId)
     getStatDetails(characterId)
+    getSkillDetails(characterId)
   }, [])
 
   //render
@@ -149,92 +160,230 @@ const CharacterDetails = props => {
                   <div className="Char-Details-Saving-Throws">
                     Saving Throws
                     <div className="Strength-Saving-Throw">
-                      Strength: {stat.strSavingThrow} Proficiency?{' '}
-                      {stat.strSavingThrowProf}
+                      Strength Throw: {stat.strSavingThrow} Proficiency?{' '}
+                      <input
+                        name="SSTP"
+                        value={stat.strSavingThrowProf}
+                        type="checkbox"
+                        checked={stat.strSavingThrowProf === true}
+                      ></input>
                     </div>
                     <div className="Dexterity-Saving-Throw">
-                      Dexterity: {stat.dexSavingThrow} Proficiency?{' '}
-                      {stat.dexSavingThrowProf}
+                      Dexterity Throw: {stat.dexSavingThrow} Proficiency?{' '}
+                      <input
+                        name="DSTP"
+                        value={stat.dexSavingThrowProf}
+                        type="checkbox"
+                        checked={stat.dexSavingThrowProf === true}
+                      ></input>
                     </div>
                     <div className="Constitution-Saving-Throw">
-                      Constitution: {stat.conSavingThrow} Proficiency?{' '}
-                      {stat.conSavingThrowProf}
+                      Constitution Throw: {stat.conSavingThrow} Proficiency?{' '}
+                      <input
+                        name="CSTP"
+                        value={stat.conSavingThrowProf}
+                        type="checkbox"
+                        checked={stat.conSavingThrowProf === true}
+                      ></input>
                     </div>
                     <div className="Intelligence-Saving-Throw">
-                      Intelligence: {stat.intSavingThrow} Proficiency?{' '}
-                      {stat.intSavingThrowProf}
+                      Intelligence Throw: {stat.intSavingThrow} Proficiency?{' '}
+                      <input
+                        name="ISTP"
+                        value={stat.intSavingThrowProf}
+                        type="checkbox"
+                        checked={stat.intSavingThrowProf === true}
+                      ></input>
                     </div>
                     <div className="Wisdom-Saving-Throw">
-                      Wisdom: {stat.wisSavingThrow} Proficiency?{' '}
-                      {stat.wisSavingThrowProf}
+                      Wisdom Throw: {stat.wisSavingThrow} Proficiency?{' '}
+                      <input
+                        name="WSTP"
+                        value={stat.wisSavingThrowProf}
+                        type="checkbox"
+                        checked={stat.wisSavingThrowProf === true}
+                      ></input>
                     </div>
                     <div className="Charisma-Saving-Throw">
-                      Charisma: {stat.chaSavingThrow} Proficiency?{' '}
-                      {stat.chaSavingThrowProf}
+                      Charisma Throw: {stat.chaSavingThrow} Proficiency?{' '}
+                      <input
+                        name="CSTP"
+                        value={stat.chaSavingThrowProf}
+                        type="checkbox"
+                        checked={stat.chaSavingThrowProf === true}
+                      ></input>
                     </div>
                   </div>
                 </div>
                 <div className="Skills">
                   Skills
                   <div className="Skills-Acrobatics">
-                    Acrobatics(Dex): ranks Proficiency? y/n
+                    Acrobatics(Dex): {skill.acrobatics} Proficiency?{' '}
+                    <input
+                      name="AcroProf"
+                      value={skill.acrobaticsProf}
+                      type="checkbox"
+                      checked={skill.acrobaticsProf === true}
+                    ></input>
                   </div>
                   <div className="Skills-Animal-Handling">
-                    Animal Handling(Wis): ranks Proficiency? y/n
+                    Animal Handling(Wis): {skill.animalHandling} Proficiency?{' '}
+                    <input
+                      name="AnimProf"
+                      value={skill.animalHandlingProf}
+                      type="checkbox"
+                      checked={skill.animalHandlingProf === true}
+                    ></input>
                   </div>
                   <div className="Skills-Arcana">
-                    Arcana(Int): ranks Proficiency? y/n
+                    Arcana(Int): {skill.arcana} Proficiency?{' '}
+                    <input
+                      name="ArcanaProf"
+                      value={skill.arcanaProf}
+                      type="checkbox"
+                      checked={skill.arcanaProf === true}
+                    ></input>
                   </div>
                   <div className="Skills-Athletics">
-                    Athletics(Str): ranks Proficiency? y/n
+                    Athletics(Str): {skill.athletics} Proficiency?{' '}
+                    <input
+                      name="AthleticsProf"
+                      value={skill.athleticsProf}
+                      type="checkbox"
+                      checked={skill.athleticsProf === true}
+                    ></input>
                   </div>
                   <div className="Skills-Deception">
-                    Deception(Cha): ranks Proficiency? y/n
+                    Deception(Cha): {skill.deception} Proficiency?{' '}
+                    <input
+                      name="DeceptProf"
+                      value={skill.deceptionProf}
+                      type="checkbox"
+                      checked={skill.deceptionProf === true}
+                    ></input>
                   </div>
                   <div className="Skills-History">
-                    History(Int): ranks Proficiency? y/n
+                    History(Int): {skill.history} Proficiency?{' '}
+                    <input
+                      name="HistoryProf"
+                      value={skill.historyProf}
+                      type="checkbox"
+                      checked={skill.historyProf === true}
+                    ></input>
                   </div>
                   <div className="Skills-Insight">
-                    Insight(Wis): ranks Proficiency? y/n
+                    Insight(Wis): {skill.insight} Proficiency?{' '}
+                    <input
+                      name="InsightProf"
+                      value={skill.insightProf}
+                      type="checkbox"
+                      checked={skill.insightProf === true}
+                    ></input>
                   </div>
                   <div className="Skills-Intimidation">
-                    Intimidation(Cha): ranks Proficiency? y/n
+                    Intimidation(Cha): {skill.intimidation} Proficiency?{' '}
+                    <input
+                      name="IntimidationProf"
+                      value={skill.intimidationProf}
+                      type="checkbox"
+                      checked={skill.intimidationProf === true}
+                    ></input>
                   </div>
                   <div className="Skills-Investigation">
-                    Investigation(Int): ranks Proficiency? y/n
+                    Investigation(Int): {skill.investigation} Proficiency?{' '}
+                    <input
+                      name="InvestigationProf"
+                      value={skill.investigationProf}
+                      type="checkbox"
+                      checked={skill.investigationProf === true}
+                    ></input>
                   </div>
                   <div className="Skills-Medicine">
-                    Medicine(Wis): ranks Proficiency? y/n
+                    Medicine(Wis): {skill.medicine} Proficiency?{' '}
+                    <input
+                      name="MedicineProf"
+                      value={skill.medicineProf}
+                      type="checkbox"
+                      checked={skill.medicineProf === true}
+                    ></input>
                   </div>
                   <div className="Skills-Nature">
-                    Nature(Int): ranks Proficiency? y/n
+                    Nature(Int): {skill.nature} Proficiency?{' '}
+                    <input
+                      name="NatureProf"
+                      value={skill.natureProf}
+                      type="checkbox"
+                      checked={skill.natureProf === true}
+                    ></input>
                   </div>
                   <div className="Skills-Perception">
-                    Perception(Wis): ranks Proficiency? y/n
+                    Perception(Wis): {skill.perception} Proficiency?{' '}
+                    <input
+                      name="PerceptionProf"
+                      value={skill.perceptionProf}
+                      type="checkbox"
+                      checked={skill.perceptionProf === true}
+                    ></input>
                   </div>
                   <div className="Skills-Performance">
-                    Performance(Cha): ranks Proficiency? y/n
+                    Performance(Cha): {skill.performance} Proficiency?{' '}
+                    <input
+                      name="PerformanceProf"
+                      value={skill.performanceProf}
+                      type="checkbox"
+                      checked={skill.performanceProf === true}
+                    ></input>
                   </div>
                   <div className="Skills-Persuasion">
-                    Persuasion(Cha): ranks Proficiency? y/n
+                    Persuasion(Cha): {skill.persuasion} Proficiency?{' '}
+                    <input
+                      name="PersuasionProf"
+                      value={skill.persuasionProf}
+                      type="checkbox"
+                      checked={skill.persuasionProf === true}
+                    ></input>
                   </div>
                   <div className="Skills-Religion">
-                    Religion(Int): ranks Proficiency? y/n
+                    Religion(Int): {skill.religion} Proficiency?{' '}
+                    <input
+                      name="ReligionProf"
+                      value={skill.religionProf}
+                      type="checkbox"
+                      checked={skill.religionProf === true}
+                    ></input>
                   </div>
                   <div className="Skills-Sleight-Of-Hand">
-                    Sleight of Hand(Dex): ranks Proficiency? y/n
+                    Sleight of Hand(Dex): {skill.sleightOfHand} Proficiency?{' '}
+                    <input
+                      name="SleightOfHandProf"
+                      value={skill.sleightOfHandProf}
+                      type="checkbox"
+                      checked={skill.sleightOfHandProf === true}
+                    ></input>
                   </div>
                   <div className="Skills-Stealth">
-                    Stealth(Dex): ranks Proficiency? y/n
+                    Stealth(Dex): {skill.stealth} Proficiency?{' '}
+                    <input
+                      name="StealthProf"
+                      value={skill.stealthProf}
+                      type="checkbox"
+                      checked={skill.stealthProf === true}
+                    ></input>
                   </div>
                   <div className="Skills-Survival">
-                    Survival(Wis): ranks Proficiency? y/n
+                    Survival(Wis): {skill.survival} Proficiency?{' '}
+                    <input
+                      name="SurvivalProf"
+                      value={skill.survivalProf}
+                      type="checkbox"
+                      checked={skill.survivalProf === true}
+                    ></input>
                   </div>
                 </div>
               </div>
               <div className="Left-Bar-Perception-And-Lang-And-Other">
                 <div className="Perception">
-                  Passive Wisdom (Perception): 10+Perception
+                  Passive Wisdom (Perception): {skill.passivePerception}
                 </div>
                 {character.languages === null ? (
                   <>
@@ -287,11 +436,45 @@ const CharacterDetails = props => {
                   <div className="Death-Saves">
                     Death Saves
                     <div className="Success">
-                      Successes: {stat.deathSaveSuccess1}{' '}
-                      {stat.deathSaveSuccess2} {stat.deathSaveSuccess3}
+                      Successes:{' '}
+                      <input
+                        name="DSS1"
+                        value={stat.deathSaveSuccess1}
+                        type="checkbox"
+                        checked={stat.deathSaveSuccess1 === true}
+                      ></input>{' '}
+                      <input
+                        name="DSS2"
+                        value={stat.deathSaveSuccess2}
+                        type="checkbox"
+                        checked={stat.deathSaveSuccess2 === true}
+                      ></input>{' '}
+                      <input
+                        name="DSS3"
+                        value={stat.deathSaveSuccess3}
+                        type="checkbox"
+                        checked={stat.deathSaveSuccess3 === true}
+                      ></input>
                       <br></br>
-                      Failures: {stat.deathSaveFailure1}{' '}
-                      {stat.deathSaveFailure2} {stat.deathSaveFailure3}
+                      Failures:{' '}
+                      <input
+                        name="DSF1"
+                        value={stat.deathSaveFailure1}
+                        type="checkbox"
+                        checked={stat.deathSaveFailure1 === true}
+                      ></input>{' '}
+                      <input
+                        name="DSF2"
+                        value={stat.deathSaveFailure2}
+                        type="checkbox"
+                        checked={stat.deathSaveFailure2 === true}
+                      ></input>{' '}
+                      <input
+                        name="DSF3"
+                        value={stat.deathSaveFailure3}
+                        type="checkbox"
+                        checked={stat.deathSaveFailure3 === true}
+                      ></input>{' '}
                     </div>
                   </div>
                 </div>
@@ -323,7 +506,7 @@ const CharacterDetails = props => {
                 <div className="Flaws">Flaws: {character.flaws}</div>
               </div>
               <div className="Features-And-Traits">
-                Features & Traits<br></br>
+                Features & Traits:<br></br>
                 {character.featuresTraits}
               </div>
             </div>
