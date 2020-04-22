@@ -1,31 +1,21 @@
 import React from 'react'
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
-import Home from '../pages/Home'
-import Account from '../pages/Account'
-import CreateCharacter from '../pages/CreateCharacter'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
-    <Router>
-      <main className="Header">
-        <header>
-          <Link to="/Home:user">
-            <button className="Header-Button">Home</button>
-          </Link>
-          <Link to="/CreateCharacter">
-            <button className="Header-Button">Create</button>
-          </Link>
-          <Link to="/Account">
-            <button className="Header-Button">Account</button>
-          </Link>
-        </header>
-      </main>
-      <Switch>
-        <Route exact path="/Home" component={Home}></Route>
-        <Route exact path="/Account:user" component={Account}></Route>
-        <Route exact path="/CreateCharacter" page={CreateCharacter}></Route>
-      </Switch>
-    </Router>
+    <main className="Header">
+      <header>
+        <Link to="/Home:userId">
+          <button className="Header-Button">Home</button>
+        </Link>
+        <Link to="/CreateCharacter:userId">
+          <button className="Header-Button">Create</button>
+        </Link>
+        <Link to="/Account:userId">
+          <button className="Header-Button">Account</button>
+        </Link>
+      </header>
+    </main>
   )
 }
 

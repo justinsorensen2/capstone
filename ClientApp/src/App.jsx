@@ -12,6 +12,7 @@ import Account from './pages/Account'
 import CharacterUpdate from './pages/CharacterUpdate'
 import EquipmentUpdate from './pages/EquipmentUpdate'
 import StatUpdate from './pages/StatUpdate'
+import SkillUpdate from './pages/SkillUpdate'
 import './custom.scss'
 import axios from 'axios'
 import { UserProfileContext } from './components/UserProfileContext'
@@ -40,6 +41,7 @@ const App = () => {
 
   //create a var to hold the data from user profile context
   const userProfile = { user: user, reloadUser: reloadUser }
+  const id = userProfile.user.id
 
   //set useEffect to reload the user any time the token changes
   useEffect(() => {
@@ -49,7 +51,7 @@ const App = () => {
   return (
     <>
       <UserProfileContext.Provider value={userProfile}>
-        <Header></Header>
+        <Header userId={id}></Header>
         <Router>
           <Switch>
             <Route exact path="/" component={Landing}></Route>
@@ -61,7 +63,7 @@ const App = () => {
             ></Route>
             <Route
               exact
-              path="/CreateCharacter"
+              path="/CreateCharacter:id"
               component={CreateCharacter}
             ></Route>
             <Route exact path="/CreateStat/:id" component={CreateStat}></Route>
@@ -91,7 +93,7 @@ const App = () => {
               path="/CreateAccount"
               component={CreateAccount}
             ></Route>
-            <Route exact path="/Account/:user" component={Account}></Route>
+            <Route exact path="/Account/:id" component={Account}></Route>
           </Switch>
         </Router>
       </UserProfileContext.Provider>

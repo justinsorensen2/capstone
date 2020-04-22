@@ -95,6 +95,7 @@ const CharacterDetails = props => {
                   </div>
                   <div className="Race-Alignment-XP">
                     <div className="Race">Race: {character.characterRace}</div>
+                    <div className="Size">Size: {character.size}</div>
                     <div className="Alignment">
                       Alignment: {character.alignment}
                     </div>

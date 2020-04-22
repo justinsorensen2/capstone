@@ -4,17 +4,19 @@ const CharacterLI = props => {
   const character = props
 
   return (
-    <div className="CharacterLI">
-      <img src={character.imagePath} className="Character-Image" />
-      <h5>
-        {character.characterFirst}
-        {''}
-        {character.characterLast}
-      </h5>
-      <p>
-        Primary Class: {character.characterClass} Level:{' '}
-        {character.characterLevel}
-      </p>
+    <div className="Character-List">
+      <div className="Site-Icon" />
+      <div className="Character-List-Item">
+        <h5>
+          {character.characterFirst}
+          {'  '}
+          {character.characterLast}
+        </h5>
+        <p>
+          Primary Class: {character.characterClass} Level:{' '}
+          {character.characterLevel}
+        </p>
+      </div>
     </div>
   )
 }

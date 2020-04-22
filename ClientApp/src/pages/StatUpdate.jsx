@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Redirect } from 'react-router-dom'
 
 const StatUpdate = props => {
   const characterId = parseInt(props.match.params.id)
@@ -42,6 +43,7 @@ const StatUpdate = props => {
   const [chaSavingThrow, setChaSavingThrow] = useState()
   const [chaSavingThrowProf, setChaSavingThrowProf] = useState()
   const [shouldRedirect, setShouldRedirect] = useState(false)
+  const [submitIsEnabled, setSubmitIsEnabled] = useState(false)
 
   // api call to pull in stats from db
   const getStatDetails = async characterId => {
@@ -189,8 +191,8 @@ const StatUpdate = props => {
     setStat({
       inspiration: inspiration,
       proficiencyBonus: proficiencyBonus,
-      baseSpeed: baseSpeed,
-      hitDie: hitDie,
+      baseSpeed: stat.baseSpeed,
+      hitDie: stat.hitDie,
       totalHitDie: totalHitDie,
       currentHitDie: currentHitDie,
       currentHP: currentHP,

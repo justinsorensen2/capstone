@@ -15,6 +15,7 @@ const CreateCharacter = () => {
   const [primaryClassLevel, setPrimaryClassLevel] = useState()
   const [secondaryClassLevel, setSecondaryClassLevel] = useState()
   const [darkvision, setDarkvision] = useState()
+  const [size, setSize] = useState()
   const [alignment, setAlignment] = useState()
   const [alignmentIsValid, setAlignmentIsValid] = useState(true)
   const [newlyCreatedCharId, setNewlyCreatedCharId] = useState()
@@ -128,6 +129,11 @@ const CreateCharacter = () => {
       setDarkvision(60)
     } else {
       setDarkvision(0)
+    }
+    if (characterRace === 'Gnome' || 'Halfling') {
+      setSize('Small')
+    } else {
+      setSize('Medium')
     }
   }
 
@@ -257,6 +263,7 @@ const CreateCharacter = () => {
                   <option value="Tiefling">Tiefling</option>
                 </select>
               </h5>
+              <h5>Size: {size}</h5>
               <h5>
                 Class:
                 <select

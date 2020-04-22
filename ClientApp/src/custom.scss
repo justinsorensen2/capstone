@@ -249,6 +249,20 @@ img {
   padding-top: 0.5rem;
 }
 
+.Character-List {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 29.875rem;
+  padding-top: 2rem;
+}
+
+.Character-List-Item {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
 ul {
   list-style: none;
 }
