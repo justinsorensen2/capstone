@@ -13,6 +13,7 @@ namespace capstone.Models
     public DbSet<Skill> Skills { get; set; }
     public DbSet<Attack> Attacks { get; set; }
     public DbSet<Equip> Equipment { get; set; }
+    public DbSet<Money> MoneyPieces { get; set; }
 
 
     private string ConvertPostConnectionToConnectionString(string connection)
