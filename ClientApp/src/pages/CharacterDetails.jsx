@@ -9,6 +9,7 @@ const CharacterDetails = props => {
   const [character, setCharacter] = useState({})
   const [stat, setStat] = useState({})
   const [skill, setSkill] = useState({})
+  const [equip, setEquip] = useState({})
 
   //axios get for character details
   const getCharacterDetails = async characterId => {
@@ -36,11 +37,21 @@ const CharacterDetails = props => {
     })
   }
 
+  //axios get for Equip details
+  const getEquipDetails = async characterId => {
+    return await axios.get(`/api/equip/${characterId}`).then(response => {
+      //set var for Equip from axios get
+      setEquip(response.data)
+      console.log('Equip get' + response.data)
+    })
+  }
+
   //useEffect to call axios get when page loads
   useEffect(() => {
     getCharacterDetails(characterId)
     getStatDetails(characterId)
     getSkillDetails(characterId)
+    getEquipDetails(characterId)
   }, [])
 
   //render
@@ -532,7 +543,12 @@ const CharacterDetails = props => {
                 </div>
                 <div className="Update-Stat-Button-Div">
                   <Link to={`/StatUpdate/${characterId}`}>
-                    <button name="StatUpdate">Update Stats & Skills</button>
+                    <button name="StatUpdate">Update Stats</button>
+                  </Link>
+                </div>
+                <div className="Update-Skill-Button-Div">
+                  <Link to={`/SkillUpdate/${characterId}`}>
+                    <button name="SkillUpdate">Update Skills</button>
                   </Link>
                 </div>
                 <div className="Update-Equip-Button-Div">

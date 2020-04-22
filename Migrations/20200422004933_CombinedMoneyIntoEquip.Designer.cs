@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using capstone.Models;
@@ -9,9 +10,10 @@ using capstone.Models;
 namespace capstone.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200422004933_CombinedMoneyIntoEquip")]
+    partial class CombinedMoneyIntoEquip
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -170,6 +172,38 @@ namespace capstone.Migrations
                     b.HasIndex("CharacterId");
 
                     b.ToTable("Equipment");
+                });
+
+            modelBuilder.Entity("capstone.Money", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CopperPieces")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ElectrumPieces")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("GoldPieces")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PlatinumPieces")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SilverPieces")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CharacterId");
+
+                    b.ToTable("MoneyPieces");
                 });
 
             modelBuilder.Entity("capstone.Skill", b =>
@@ -486,6 +520,15 @@ namespace capstone.Migrations
                 {
                     b.HasOne("capstone.Character", "Character")
                         .WithMany("Equipment")
+                        .HasForeignKey("CharacterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("capstone.Money", b =>
+                {
+                    b.HasOne("capstone.Character", "Character")
+                        .WithMany()
                         .HasForeignKey("CharacterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

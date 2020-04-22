@@ -12,7 +12,6 @@ namespace capstone.Models
     public DbSet<Stat> Stats { get; set; }
     public DbSet<Skill> Skills { get; set; }
     public DbSet<Attack> Attacks { get; set; }
-    public DbSet<Money> MoneyPieces { get; set; }
     public DbSet<Equip> Equipment { get; set; }
 
 

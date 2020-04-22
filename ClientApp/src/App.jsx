@@ -10,6 +10,8 @@ import Landing from './pages/Landing'
 import CreateAccount from './pages/CreateAccount'
 import Account from './pages/Account'
 import CharacterUpdate from './pages/CharacterUpdate'
+import EquipmentUpdate from './pages/EquipmentUpdate'
+import StatUpdate from './pages/StatUpdate'
 import './custom.scss'
 import axios from 'axios'
 import { UserProfileContext } from './components/UserProfileContext'
@@ -67,6 +69,17 @@ const App = () => {
               exact
               path="/CharacterUpdate/:id"
               component={CharacterUpdate}
+            ></Route>
+            <Route exact path="/StatUpdate/:id" component={StatUpdate}></Route>
+            <Route
+              exact
+              path="/SkillUpdate/:id"
+              component={SkillUpdate}
+            ></Route>
+            <Route
+              exact
+              path="/EquipmentUpdate/:id"
+              component={EquipmentUpdate}
             ></Route>
             <Route
               exact
