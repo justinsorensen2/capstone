@@ -50,22 +50,47 @@ const StatUpdate = props => {
     return await axios.get(`/api/stat/${characterId}`).then(response => {
       //set var for character from axios get
       setStat(response.data)
+      setStrength(response.data.strength)
+      setDexterity(response.data.dexterity)
+      setConstitution(response.data.constitution)
+      setIntelligence(response.data.intelligence)
+      setWisdom(response.data.wisdom)
+      setCharisma(response.data.charisma)
+      setStrMod(response.data.strMod)
+      setDexMod(response.data.dexMod)
+      setConMod(response.data.conMod)
+      setIntMod(response.data.intMod)
+      setWisMod(response.data.wisMod)
+      setChaMod(response.data.chaMod)
+      setInspiration(response.data.inspiration)
+      setInitiativeBonus(response.data.initiativeBonus)
+      setTotalHitDie(response.data.totalHitDie)
+      setCurrentHitDie(response.data.currentHitDie)
+      setMaxHP(response.data.maxHP)
+      setCurrentHP(response.data.currentHP)
+      setTempHP(response.data.tempHP)
+      setBaseAC(response.data.armorClass)
+      setStrSavingThrow(response.data.strSavingThrow)
+      setStrSavingThrowProf(response.data.strSavingThrowProf)
+      setDexSavingThrow(response.data.dexSavingThrow)
+      setDexSavingThrowProf(response.data.dexSavingThrowProf)
+      setConSavingThrow(response.data.conSavingThrow)
+      setConSavingThrowProf(response.data.conSavingThrowProf)
+      setIntSavingThrow(response.data.intSavingThrow)
+      setIntSavingThrowProf(response.data.intSavingThrowProf)
+      setWisSavingThrow(response.data.wisSavingThrow)
+      setWisSavingThrowProf(response.data.wisSavingThrowProf)
+      setChaSavingThrow(response.data.chaSavingThrow)
+      setChaSavingThrowProf(response.data.chaSavingThrowProf)
+      setProficiencyBonus(response.data.proficiencyBonus)
+
       console.log('stat get' + response.data)
-    })
-  }
-  // axios get for skill details
-  const getSkillDetails = async characterId => {
-    return await axios.get(`/api/skill/${characterId}`).then(response => {
-      //set var for character from axios get
-      setSkill(response.data)
-      console.log('Skill get' + response.data)
     })
   }
 
   //call useEffect to getStats when page loads
   useEffect(() => {
     getStatDetails(characterId)
-    getSkillDetails(characterId)
   }, [])
 
   //function to update proficiencyBonus state
@@ -224,7 +249,7 @@ const StatUpdate = props => {
       strMod: strMod,
       armorClass: baseAC,
       initiativeBonus: initiativeBonus,
-      characterId: parseInt(characterId),
+      characterId: characterId,
     })
     setSubmitIsEnabled(true)
   }
@@ -261,7 +286,7 @@ const StatUpdate = props => {
                   <input
                     name="strength"
                     type="number"
-                    defaultValue={stat.strength}
+                    defaultValue={strength}
                     className="Strength"
                     onChange={updateStr}
                   />
@@ -276,7 +301,7 @@ const StatUpdate = props => {
                   <input
                     name="dexterity"
                     type="number"
-                    defaultValue={stat.dexterity}
+                    defaultValue={dexterity}
                     className="Dexterity"
                     onBlur={updateDex}
                   />
@@ -291,7 +316,7 @@ const StatUpdate = props => {
                   <input
                     name="constitution"
                     type="number"
-                    defaultValue={stat.constitution}
+                    defaultValue={constitution}
                     className="Constitution"
                     onChange={updateCon}
                   />
@@ -306,7 +331,7 @@ const StatUpdate = props => {
                   <input
                     name="intelligence"
                     type="number"
-                    defaultValue={stat.intelligence}
+                    defaultValue={intelligence}
                     className="Intelligence"
                     onChange={updateInt}
                   />
@@ -321,7 +346,7 @@ const StatUpdate = props => {
                   <input
                     name="wisdom"
                     type="number"
-                    defaultValue={stat.wisdom}
+                    defaultValue={wisdom}
                     className="Wisdom"
                     onChange={updateWis}
                   />
@@ -336,7 +361,7 @@ const StatUpdate = props => {
                   <input
                     name="charisma"
                     type="number"
-                    defaultValue={stat.charisma}
+                    defaultValue={charisma}
                     className="Charisma"
                     onChange={updateCha}
                   />
@@ -350,7 +375,7 @@ const StatUpdate = props => {
                 <input
                   name="proficiencyBonus"
                   type="number"
-                  defaultValue="0"
+                  defaultValue={proficiencyBonus}
                   onChange={e => setProficiencyBonus(parseInt(e.target.value))}
                 />
               </h5>
@@ -375,12 +400,13 @@ const StatUpdate = props => {
               </h5>
               <h5>Base Armor Class: {baseAC}</h5>
               <h5>Initiative Bonus: {initiativeBonus}</h5>
+              <h5>Hit Die: {stat.hitDie}</h5>
               <h5>
                 Total Hit Dice:
                 <input
                   name="totalHitDie"
                   type="number"
-                  defaultValue="0"
+                  defaultValue={totalHitDie}
                   onChange={e => setTotalHitDie(parseInt(e.target.value))}
                 />
               </h5>
@@ -389,7 +415,7 @@ const StatUpdate = props => {
                 <input
                   name="currentHitDie"
                   type="number"
-                  defaultValue="0"
+                  defaultValue={currentHitDie}
                   onChange={e => setCurrentHitDie(parseInt(e.target.value))}
                 />
               </h5>
@@ -398,7 +424,7 @@ const StatUpdate = props => {
                 <input
                   name="maxHP"
                   type="number"
-                  defaultValue="0"
+                  defaultValue={maxHP}
                   onChange={e => setMaxHP(parseInt(e.target.value))}
                 />
               </h5>
@@ -407,7 +433,7 @@ const StatUpdate = props => {
                 <input
                   name="currentHP"
                   type="number"
-                  defaultValue="0"
+                  defaultValue={currentHP}
                   onChange={e => setCurrentHP(parseInt(e.target.value))}
                 />
               </h5>
@@ -416,7 +442,7 @@ const StatUpdate = props => {
                 <input
                   name="tempHP"
                   type="number"
-                  defaultValue="0"
+                  defaultValue={tempHP}
                   onChange={e => setTempHP(parseInt(e.target.value))}
                 />
               </h5>

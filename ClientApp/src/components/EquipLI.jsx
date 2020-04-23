@@ -10,7 +10,6 @@ const EquipLI = props => {
     const resp = await axios.put('api/equip/delete', id)
     if (resp.status === 200 || resp.status === 201) {
       // redirect page to char details
-      setShouldRedirect(true)
       console.log(resp.data)
     } else {
       //display an error message

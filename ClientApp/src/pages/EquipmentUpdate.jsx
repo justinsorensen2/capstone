@@ -108,10 +108,6 @@ const EquipmentUpdate = props => {
     }
   }
 
-  //redirect after put
-  if (shouldRedirect) {
-    return <Redirect to={`/CharacterDetails/${characterId}`} />
-  }
   //render
   return (
     <div className="Equipment-Update">

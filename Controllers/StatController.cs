@@ -42,7 +42,7 @@ namespace capstone.Controllers
       return await _context.Stats.Where(s => s.CharacterId == characterId).FirstAsync();
     }
 
-    // PUT: api/Stat/5
+    // PUT: api/Stat/put, {JSON stat object}
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see https://aka.ms/RazorPagesCRUD.
     [HttpPut("put")]
