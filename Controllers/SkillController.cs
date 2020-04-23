@@ -48,10 +48,9 @@ namespace capstone.Controllers
     [HttpPut("put")]
     public async Task<IActionResult> PutSkill(Skill skill)
     {
-      _context.Entry(skill).State = EntityState.Modified;
-
       try
       {
+        _context.Entry(skill).State = EntityState.Modified;
         await _context.SaveChangesAsync();
       }
       catch (DbUpdateConcurrencyException)

@@ -211,9 +211,9 @@ const StatUpdate = props => {
     }
   }, [chaSavingThrowProf, chaMod, proficiencyBonus])
 
-  const updateStat = () => {
-    //set stat items equal to vars created in app
-    setStat({
+  //axios put to save stats to database
+  const putStat = async e => {
+    const statToUpdateOnServer = {
       inspiration: inspiration,
       proficiencyBonus: proficiencyBonus,
       baseSpeed: stat.baseSpeed,
@@ -250,14 +250,10 @@ const StatUpdate = props => {
       armorClass: baseAC,
       initiativeBonus: initiativeBonus,
       characterId: characterId,
-    })
-    setSubmitIsEnabled(true)
-  }
-
-  //axios put to save stats to database
-  const putStat = async e => {
+      id: stat.id,
+    }
     e.preventDefault()
-    const resp = await axios.put('api/stat/put', stat)
+    const resp = await axios.put('/api/Stat/put', statToUpdateOnServer)
     if (resp.status === 200 || resp.status === 201) {
       // redirect page to char details
       setShouldRedirect(true)
@@ -569,16 +565,7 @@ const StatUpdate = props => {
               </h5>
               <h5>Charisma Saving Throw: {chaSavingThrow}</h5>
               <div className="Create-Stat-Button-Div">
-                <button className="Create-Stat-Button" onClick={updateStat}>
-                  Save Stats
-                </button>
-              </div>
-              <div className="Create-Stat-Button-Div">
-                <button
-                  disabled={!submitIsEnabled}
-                  className="Create-Stat-Button"
-                  onClick={putStat}
-                >
+                <button className="Create-Stat-Button" onClick={putStat}>
                   Submit
                 </button>
               </div>

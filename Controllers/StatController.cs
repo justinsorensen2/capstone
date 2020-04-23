@@ -48,16 +48,16 @@ namespace capstone.Controllers
     [HttpPut("put")]
     public async Task<IActionResult> PutStat(Stat stat)
     {
-      _context.Entry(stat).State = EntityState.Modified;
-
       try
       {
+        _context.Entry(stat).State = EntityState.Modified;
         await _context.SaveChangesAsync();
       }
       catch (DbUpdateConcurrencyException)
       {
         if (!StatExists(stat.Id))
         {
+          Console.WriteLine($"*************** the id is {stat.Id}");
           return NotFound();
         }
         else

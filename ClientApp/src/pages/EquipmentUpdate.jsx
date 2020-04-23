@@ -15,8 +15,8 @@ const EquipmentUpdate = props => {
   const [goldPieces, setGoldPieces] = useState()
   const [platinumPieces, setPlatinumPieces] = useState()
   const [moneyExists, setMoneyExists] = useState(false)
-  let equipArr = []
-  let item = {}
+  const [item, setItem] = useState({ characterId: characterId })
+  const [moneyId, setMoneyId] = useState()
 
   //axios get for Equip details
   const getEquipDetails = async characterId => {
@@ -42,6 +42,7 @@ const EquipmentUpdate = props => {
         setMoneyExists(false)
       } else {
         setMoneyExists(true)
+        setMoneyId(response.data.id)
       }
     })
   }
@@ -52,22 +53,29 @@ const EquipmentUpdate = props => {
     getMoneyDetails(characterId)
   }, [])
 
-  //take user inputs from item and push to equipArr
-  const saveItem = item => {
-    item.characterId = characterId
-    equipArr.push(item)
-    console.log(equipArr)
-    item = {}
+  //create equip data from user inputs
+  const updateItem = e => {
+    const key = e.target.name
+    const value = e.target.value
+    setItem(prevItem => {
+      return { ...prevItem, [key]: value }
+    })
+  }
+
+  //create equip data from user inputs
+  const updateBoolItem = e => {
+    const key = e.target.name
+    const value = e.target.value === 'true'
+    setItem(prevItem => {
+      return { ...prevItem, [key]: value }
+    })
   }
 
   //call axios put to update equip
-  const putEquip = async e => {
-    setEquip(equipArr)
-    console.log(equip)
+  const postEquip = async e => {
     e.preventDefault()
-    const resp = await axios.post('api/equip/create', equip)
+    const resp = await axios.post('/api/equip/create', item)
     if (resp.status === 200 || resp.status === 201) {
-      // redirect page to char details
       console.log(resp.data)
     } else {
       //display an error message
@@ -75,19 +83,21 @@ const EquipmentUpdate = props => {
     }
   }
 
-  //call axios put to update money
+  //call axios put or post to update money
   const putMoney = async e => {
-    setMoney({
-      copperPieces: copperPieces,
-      silverPieces: silverPieces,
-      electrumPieces: electrumPieces,
-      goldPieces: goldPieces,
-      platinumPieces: platinumPieces,
-    })
     e.preventDefault()
-    if (moneyExists) {
-      //if money already in db, run put
-      const resp = await axios.put('api/money/put', money)
+    console.log(money)
+    console.log(moneyExists)
+    if (!moneyExists) {
+      setMoney({
+        copperPieces: copperPieces,
+        silverPieces: silverPieces,
+        electrumPieces: electrumPieces,
+        goldPieces: goldPieces,
+        platinumPieces: platinumPieces,
+      })
+      //else - (no money in db) run post
+      const resp = await axios.post('/api/money/create', money)
       if (resp.status === 200 || resp.status === 201) {
         // redirect page to char details
         console.log(resp.data)
@@ -96,8 +106,16 @@ const EquipmentUpdate = props => {
         throw new MessageEvent()
       }
     } else {
-      //else - (no money in db) run post
-      const resp = await axios.post('api/money/create', money)
+      setMoney({
+        copperPieces: copperPieces,
+        silverPieces: silverPieces,
+        electrumPieces: electrumPieces,
+        goldPieces: goldPieces,
+        platinumPieces: platinumPieces,
+        id: moneyId,
+      })
+      //if money already in db, run put
+      const resp = await axios.put('/api/money/put', money)
       if (resp.status === 200 || resp.status === 201) {
         // redirect page to char details
         console.log(resp.data)
@@ -113,11 +131,6 @@ const EquipmentUpdate = props => {
     <div className="Equipment-Update">
       <article className="Equip-Update-Flex">
         <section className="Equip-Update-Parent">
-          <div className="Put-Money-Button-Parent">
-            <button className="Put-Money-Button" onclick={putMoney}>
-              Submit Money
-            </button>
-          </div>
           <div className="Current-Money">
             <div className="Money-List-Parent">
               <div className="Money-List">
@@ -129,7 +142,10 @@ const EquipmentUpdate = props => {
               </div>
             </div>
           </div>
-          <div className="Add-Money">
+          <form className="Add-Money" onSubmit={putMoney}>
+            <div className="Put-Money-Button-Parent">
+              <button className="Put-Money-Button">Submit Money</button>
+            </div>
             <div className="Add-Copper">
               <h5>
                 Copper Pieces:
@@ -137,7 +153,7 @@ const EquipmentUpdate = props => {
                   name="copperPieces"
                   type="number"
                   defaultValue={copperPieces}
-                  onChange={e => setCopperPieces(e.target.value)}
+                  onChange={e => setCopperPieces(parseInt(e.target.value))}
                 />
               </h5>
             </div>
@@ -148,7 +164,7 @@ const EquipmentUpdate = props => {
                   name="silverPieces"
                   type="number"
                   defaultValue={silverPieces}
-                  onChange={e => setSilverPieces(e.target.value)}
+                  onChange={e => setSilverPieces(parseInt(e.target.value))}
                 />
               </h5>
             </div>
@@ -159,7 +175,7 @@ const EquipmentUpdate = props => {
                   name="electrumPieces"
                   type="number"
                   defaultValue={electrumPieces}
-                  onChange={e => setElectrumPieces(e.target.value)}
+                  onChange={e => setElectrumPieces(parseInt(e.target.value))}
                 />
               </h5>
             </div>
@@ -170,7 +186,7 @@ const EquipmentUpdate = props => {
                   name="goldPieces"
                   type="number"
                   defaultValue={goldPieces}
-                  onChange={e => setGoldPieces(e.target.value)}
+                  onChange={e => setGoldPieces(parseInt(e.target.value))}
                 />
               </h5>
             </div>
@@ -181,18 +197,16 @@ const EquipmentUpdate = props => {
                   name="platinumPieces"
                   type="number"
                   defaultValue={platinumPieces}
-                  onChange={e => setPlatinumPieces(e.target.value)}
+                  onChange={e => setPlatinumPieces(parseInt(e.target.value))}
                 />
               </h5>
             </div>
             <div className="Put-Money-Button-Parent">
-              <button className="Put-Money-Button" onclick={putMoney}>
-                Submit Money
-              </button>
+              <button className="Put-Money-Button">Submit Money</button>
             </div>
-          </div>
+          </form>
           <div className="Put-Equip-Button-Parent">
-            <button className="Put-Equip-Button-Parent" onclick={putEquip}>
+            <button className="Put-Equip-Button-Parent" onclick={postEquip}>
               Submit Equipment
             </button>
             <div className="Current-Equipment">
@@ -210,59 +224,42 @@ const EquipmentUpdate = props => {
                 })}
               </ul>
             </div>
-            <div className="Add-Equipment">
+            <form className="Add-Equipment" onSubmit={postEquip}>
               <div className="Adding-Item">
                 <h5>
                   Name or Type of Item:
-                  <input
-                    name="equipName"
-                    type="text"
-                    onChange={e => (item.name = e.target.value)}
-                  />
+                  <input name="equipName" type="text" onChange={updateItem} />
                   <br></br>
                   Bonuses Conferred (if any):
-                  <input
-                    name="bonus"
-                    type="text"
-                    onChange={e => (item.bonus = e.target.value)}
-                  />
+                  <input name="bonus" type="text" onChange={updateItem} />
                   <br></br>
                   Item Description:
-                  <input
-                    name="description"
-                    type="text"
-                    onChange={e => (item.description = e.target.value)}
-                  />
+                  <input name="description" type="text" onChange={updateItem} />
                   Is This Item a Weapon?
                   <input
                     className="isWeapon"
                     name="isWeapon"
                     type="radio"
-                    checked={item.isWeapon === true}
-                    onChange={e => (item.isWeapon = true)}
+                    value="true"
+                    onChange={updateBoolItem}
                   />{' '}
                   Yes
                   <input
                     className="isWeapon"
                     name="isWeapon"
                     type="radio"
-                    checked={item.isWeapon === false}
-                    onChange={e => (item.isWeapon = false)}
+                    value="false"
+                    onChange={updateBoolItem}
                   />{' '}
                   No
                 </h5>
               </div>
-              <div className="Save-Item-Button-Parent">
-                <button className="Save-Item-Button" onclick={saveItem}>
-                  Save Item
+              <div className="Put-Equip-Button-Parent">
+                <button className="Put-Equip-Button-Parent">
+                  Submit Equipment
                 </button>
               </div>
-            </div>
-          </div>
-          <div className="Put-Equip-Button-Parent">
-            <button className="Put-Equip-Button-Parent" onclick={putEquip}>
-              Submit Equipment
-            </button>
+            </form>
           </div>
         </section>
       </article>

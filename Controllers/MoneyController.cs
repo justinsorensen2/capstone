@@ -21,18 +21,18 @@ namespace capstone.Controllers
       _context = context;
     }
 
-    // // GET: api/Money
-    // [HttpGet]
-    // public async Task<ActionResult<Money>> GetMoneyPieces(int characterId)
-    // {
-    //   return await _context.MoneyPieces.Where(m => m.CharacterId == characterId)FirstAsync();
-    // }
+    // GET: api/Money
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Money>>> GetMoneyPieces()
+    {
+      return await _context.MoneyPieces.ToListAsync();
+    }
 
     // GET: api/Money/5
     [HttpGet("{characterId}")]
     public async Task<ActionResult<Money>> GetMoney(int characterId)
     {
-      var money = await _context.MoneyPieces.FindAsync(characterId);
+      var money = await _context.MoneyPieces.Where(m => m.CharacterId == characterId).FirstAsync();
 
       if (money == null)
       {
@@ -49,10 +49,10 @@ namespace capstone.Controllers
     public async Task<IActionResult> PutMoney(Money money)
     {
 
-      _context.Entry(money).State = EntityState.Modified;
 
       try
       {
+        _context.Entry(money).State = EntityState.Modified;
         await _context.SaveChangesAsync();
       }
       catch (DbUpdateConcurrencyException)
