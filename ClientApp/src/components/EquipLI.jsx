@@ -6,8 +6,9 @@ const EquipLI = props => {
 
   //axios call to delete item
   const deleteItem = async e => {
-    const id = e.target.id
-    const resp = await axios.put('api/equip/delete', id)
+    const id = equip.id
+    console.log('id before delete', id)
+    const resp = await axios.delete(`/api/Equip/delete?id=${id}`)
     if (resp.status === 200 || resp.status === 201) {
       // redirect page to char details
       console.log(resp.data)

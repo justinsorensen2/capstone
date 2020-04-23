@@ -17,13 +17,13 @@ const EquipmentUpdate = props => {
   const [moneyExists, setMoneyExists] = useState(false)
   const [item, setItem] = useState({ characterId: characterId })
   const [moneyId, setMoneyId] = useState()
+  const [newMoney, setNewMoney] = useState({})
 
   //axios get for Equip details
   const getEquipDetails = async characterId => {
     return await axios.get(`/api/equip/${characterId}`).then(response => {
       //set var for Equip from axios get
       setEquip(response.data)
-      console.log('Equip get' + response.data)
     })
   }
 
@@ -37,7 +37,6 @@ const EquipmentUpdate = props => {
       setElectrumPieces(response.data.electrumPieces)
       setGoldPieces(response.data.goldPieces)
       setPlatinumPieces(response.data.platinumPieces)
-      console.log('Money get' + response.data)
       if (response.data === {}) {
         setMoneyExists(false)
       } else {
@@ -46,6 +45,7 @@ const EquipmentUpdate = props => {
       }
     })
   }
+  console.log(copperPieces)
 
   //useEffect to call axios get when page loads
   useEffect(() => {
@@ -89,35 +89,37 @@ const EquipmentUpdate = props => {
     console.log(money)
     console.log(moneyExists)
     if (!moneyExists) {
-      setMoney({
+      setNewMoney({
         copperPieces: copperPieces,
         silverPieces: silverPieces,
         electrumPieces: electrumPieces,
         goldPieces: goldPieces,
         platinumPieces: platinumPieces,
+        characterId: characterId,
       })
-      //else - (no money in db) run post
-      const resp = await axios.post('/api/money/create', money)
+      console.log(newMoney)
+      //(no money in db) run post
+      const resp = await axios.post('/api/money/create', newMoney)
       if (resp.status === 200 || resp.status === 201) {
-        // redirect page to char details
         console.log(resp.data)
       } else {
         //display an error message
         throw new MessageEvent()
       }
     } else {
-      setMoney({
+      setNewMoney({
         copperPieces: copperPieces,
         silverPieces: silverPieces,
         electrumPieces: electrumPieces,
         goldPieces: goldPieces,
         platinumPieces: platinumPieces,
         id: moneyId,
+        characterId: characterId,
       })
+      console.log(newMoney)
       //if money already in db, run put
-      const resp = await axios.put('/api/money/put', money)
+      const resp = await axios.put('/api/money/put', newMoney)
       if (resp.status === 200 || resp.status === 201) {
-        // redirect page to char details
         console.log(resp.data)
       } else {
         //display an error message
@@ -215,6 +217,7 @@ const EquipmentUpdate = props => {
                   return (
                     <EquipLI
                       key={item.id}
+                      id={item.id}
                       equipName={item.equipName}
                       bonus={item.bonus}
                       description={item.description}

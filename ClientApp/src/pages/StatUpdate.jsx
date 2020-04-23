@@ -43,7 +43,6 @@ const StatUpdate = props => {
   const [chaSavingThrow, setChaSavingThrow] = useState()
   const [chaSavingThrowProf, setChaSavingThrowProf] = useState()
   const [shouldRedirect, setShouldRedirect] = useState(false)
-  const [submitIsEnabled, setSubmitIsEnabled] = useState(false)
 
   // api call to pull in stats from db
   const getStatDetails = async characterId => {

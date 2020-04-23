@@ -53,12 +53,6 @@ const CreateStat = props => {
   let rolled = new Array()
   let droppedLowest = new Array()
 
-  //function to update proficiencyBonus state
-  const updateProficiencyBonus = e => {
-    const score = parseInt(e.target.value)
-    setProficiencyBonus(score)
-  }
-
   //function to update str and strmod state
   const updateStr = e => {
     const score = parseInt(e.target.value) + parseInt(strBonus)
@@ -580,9 +574,8 @@ const CreateStat = props => {
                     name="hitPointBonus"
                     type="number"
                     defaultValue="0"
-                    defaultValue="0"
                     className="Hit-Point-Bonus"
-                    onChange={e => setHitPointBonus(e.target.value)}
+                    onChange={e => setHitPointBonus(parseInt(e.target.value))}
                   />
                 </div>
               </div>

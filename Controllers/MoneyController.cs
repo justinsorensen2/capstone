@@ -46,18 +46,18 @@ namespace capstone.Controllers
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see https://aka.ms/RazorPagesCRUD.
     [HttpPut("put")]
-    public async Task<IActionResult> PutMoney(Money money)
+    public async Task<IActionResult> PutMoney(Money newMoney)
     {
-
+      Console.WriteLine($"******************************************{newMoney}");
 
       try
       {
-        _context.Entry(money).State = EntityState.Modified;
+        _context.Entry(newMoney).State = EntityState.Modified;
         await _context.SaveChangesAsync();
       }
       catch (DbUpdateConcurrencyException)
       {
-        if (!MoneyExists(money.Id))
+        if (!MoneyExists(newMoney.Id))
         {
           return NotFound();
         }
@@ -67,7 +67,7 @@ namespace capstone.Controllers
         }
       }
 
-      return Ok(money);
+      return Ok(newMoney);
     }
 
     // POST: api/Money
