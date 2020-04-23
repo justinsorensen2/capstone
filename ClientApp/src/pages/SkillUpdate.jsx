@@ -8,6 +8,13 @@ const SkillUpdate = props => {
   const [skill, setSkill] = useState()
   const [shouldRedirect, setShouldRedirect] = useState(false)
   const [stat, setStat] = useState({})
+  const [strMod, setStrMod] = useState()
+  const [dexMod, setDexMod] = useState()
+  const [conMod, setConMod] = useState()
+  const [intMod, setIntMod] = useState()
+  const [wisMod, setWisMod] = useState()
+  const [chaMod, setChaMod] = useState()
+  const [proficiencyBonus, setProficiencyBonus] = useState()
   const [acrobaticsProf, setAcrobaticsProf] = useState()
   const [acrobatics, setAcrobatics] = useState()
   const [animalHandlingProf, setAnimalHandlingProf] = useState()
@@ -47,128 +54,178 @@ const SkillUpdate = props => {
   const [passivePerception, setPassivePerception] = useState()
   const [submitIsEnabled, setSubmitIsEnabled] = useState(false)
 
+  // axios get for stat details
+  const getStatDetails = async characterId => {
+    return await axios.get(`/api/stat/${characterId}`).then(response => {
+      //set var for character from axios get
+      setStat(response.data)
+      setStrMod(response.data.strMod)
+      setDexMod(response.data.dexMod)
+      setConMod(response.data.conMod)
+      setIntMod(response.data.intMod)
+      setWisMod(response.data.wisMod)
+      setChaMod(response.data.chaMod)
+      setProficiencyBonus(response.data.proficiencyBonus)
+      console.log('stat get' + response.data)
+    })
+  }
+
+  // axios get for skill details
+  const getSkillDetails = async characterId => {
+    return await axios.get(`/api/skill/${characterId}`).then(response => {
+      //set var for character from axios get
+      setSkill(response.data)
+      setAcrobaticsProf(response.data.acrobaticsProf)
+      setAnimalHandlingProf(response.data.animalHandlingProf)
+      setArcanaProf(response.data.arcanaProf)
+      setAthleticsProf(response.data.athleticsProf)
+      setDeceptionProf(response.data.deceptionProf)
+      setHistoryProf(response.data.historyProf)
+      setInsightProf(response.data.insightProf)
+      setIntimidationProf(response.data.intimidationProf)
+      setInvestigationProf(response.data.investigationProf)
+      setMedicineProf(response.data.medicineProf)
+      setNatureProf(response.data.natureProf)
+      setPerceptionProf(response.data.perceptionProf)
+      setPerformanceProf(response.data.performanceProf)
+      setPersuasionProf(response.data.persuasionProf)
+      setReligionProf(response.data.religionProf)
+      setSleightOfHandProf(response.data.sleightOfHandProf)
+      setStealthProf(response.data.stealthProf)
+      setSurvivalProf(response.data.survivalProf)
+      setPassivePerception(response.data.passivePerception)
+      console.log('Skill get' + response.data)
+    })
+  }
+
+  //useEffect to call axios get when page loads
+  useEffect(() => {
+    getStatDetails(characterId)
+    getSkillDetails(characterId)
+  }, [])
+
   //call useEffect to update acrobatics
   //whenever acrobaticsProf is updated
   useEffect(() => {
-    console.log(stat.dexMod)
-    console.log(stat.proficiencyBonus)
+    console.log(dexMod)
+    console.log(proficiencyBonus)
     console.log(stat)
     if (acrobaticsProf) {
-      setAcrobatics(stat.dexMod + stat.proficiencyBonus)
+      setAcrobatics(dexMod + proficiencyBonus)
     } else {
-      setAcrobatics(stat.dexMod)
+      setAcrobatics(dexMod)
     }
-  }, [acrobaticsProf])
+  }, [acrobaticsProf, dexMod])
 
   //call useEffect to update animalHandling
   //whenever animalHandlingProf is updated
   useEffect(() => {
     if (animalHandlingProf) {
-      setAnimalHandling(stat.wisMod + stat.proficiencyBonus)
+      setAnimalHandling(wisMod + proficiencyBonus)
     } else {
-      setAnimalHandling(stat.wisMod)
+      setAnimalHandling(wisMod)
     }
-  }, [animalHandlingProf])
+  }, [animalHandlingProf, wisMod])
 
   //call useEffect to update arcana
   //whenever arcanaProf is updated
   useEffect(() => {
     if (arcanaProf) {
-      setArcana(stat.intMod + stat.proficiencyBonus)
+      setArcana(intMod + proficiencyBonus)
     } else {
-      setArcana(stat.intMod)
+      setArcana(intMod)
     }
-  }, [arcanaProf])
+  }, [arcanaProf, intMod])
 
   //call useEffect to update athletics
   //whenever athleticsProf is updated
   useEffect(() => {
     if (athleticsProf) {
-      setAthletics(stat.strMod + stat.proficiencyBonus)
+      setAthletics(strMod + proficiencyBonus)
     } else {
-      setAthletics(stat.strMod)
+      setAthletics(strMod)
     }
-  }, [athleticsProf])
+  }, [athleticsProf, strMod])
 
   //call useEffect to update deception
   //whenever deceptionProf is updated
   useEffect(() => {
     if (deceptionProf) {
-      setDeception(stat.chaMod + stat.proficiencyBonus)
+      setDeception(chaMod + proficiencyBonus)
     } else {
-      setDeception(stat.chaMod)
+      setDeception(chaMod)
     }
-  }, [deceptionProf])
+  }, [deceptionProf, chaMod])
 
   //call useEffect to update history
   //whenever historyProf is updated
   useEffect(() => {
     if (historyProf) {
-      setHistory(stat.intMod + stat.proficiencyBonus)
+      setHistory(intMod + proficiencyBonus)
     } else {
-      setHistory(stat.intMod)
+      setHistory(intMod)
     }
-  }, [historyProf])
+  }, [historyProf, intMod])
 
   //call useEffect to update insight
   //whenever insightProf is updated
   useEffect(() => {
     if (insightProf) {
-      setInsight(stat.wisMod + stat.proficiencyBonus)
+      setInsight(wisMod + proficiencyBonus)
     } else {
-      setInsight(stat.wisMod)
+      setInsight(wisMod)
     }
-  }, [insightProf])
+  }, [insightProf, wisMod])
 
   //call useEffect to update intimidation
   //whenever intimidationProf is updated
   useEffect(() => {
     if (intimidationProf) {
-      setIntimidation(stat.chaMod + stat.proficiencyBonus)
+      setIntimidation(chaMod + proficiencyBonus)
     } else {
-      setIntimidation(stat.chaMod)
+      setIntimidation(chaMod)
     }
-  }, [intimidationProf])
+  }, [intimidationProf, chaMod])
 
   //call useEffect to update investigation
   //whenever investigationProf is updated
   useEffect(() => {
     if (investigationProf) {
-      setInvestigation(stat.intMod + stat.proficiencyBonus)
+      setInvestigation(intMod + proficiencyBonus)
     } else {
-      setInvestigation(stat.intMod)
+      setInvestigation(intMod)
     }
-  }, [investigationProf])
+  }, [investigationProf, intMod])
 
   //call useEffect to update medicine
   //whenever medicineProf is updated
   useEffect(() => {
     if (medicineProf) {
-      setMedicine(stat.wisMod + stat.proficiencyBonus)
+      setMedicine(wisMod + proficiencyBonus)
     } else {
-      setMedicine(stat.wisMod)
+      setMedicine(wisMod)
     }
-  }, [medicineProf])
+  }, [medicineProf, wisMod])
 
   //call useEffect to update nature
   //whenever natureProf is updated
   useEffect(() => {
     if (natureProf) {
-      setNature(stat.intMod + stat.proficiencyBonus)
+      setNature(intMod + proficiencyBonus)
     } else {
-      setNature(stat.intMod)
+      setNature(intMod)
     }
-  }, [natureProf])
+  }, [natureProf, intMod])
 
   //call useEffect to update perception
   //whenever perceptionProf is updated
   useEffect(() => {
     if (perceptionProf) {
-      setPerception(stat.wisMod + stat.proficiencyBonus)
+      setPerception(wisMod + proficiencyBonus)
     } else {
-      setPerception(stat.wisMod)
+      setPerception(wisMod)
     }
-  }, [perceptionProf])
+  }, [perceptionProf, wisMod])
 
   //call useEffect to update passive perception whenever perception changes
   useEffect(() => {
@@ -179,61 +236,61 @@ const SkillUpdate = props => {
   //whenever performanceProf is updated
   useEffect(() => {
     if (performanceProf) {
-      setPerformance(stat.chaMod + stat.proficiencyBonus)
+      setPerformance(chaMod + proficiencyBonus)
     } else {
-      setPerformance(stat.chaMod)
+      setPerformance(chaMod)
     }
-  }, [performanceProf])
+  }, [performanceProf, chaMod])
 
   //call useEffect to update persuasion
   //whenever persuasionProf is updated
   useEffect(() => {
     if (persuasionProf) {
-      setPersuasion(stat.chaMod + stat.proficiencyBonus)
+      setPersuasion(chaMod + proficiencyBonus)
     } else {
-      setPersuasion(stat.chaMod)
+      setPersuasion(chaMod)
     }
-  }, [persuasionProf])
+  }, [persuasionProf, chaMod])
 
   //call useEffect to update religion
   //whenever religionProf is updated
   useEffect(() => {
     if (religionProf) {
-      setReligion(stat.intMod + stat.proficiencyBonus)
+      setReligion(intMod + proficiencyBonus)
     } else {
-      setReligion(stat.intMod)
+      setReligion(intMod)
     }
-  }, [religionProf])
+  }, [religionProf, intMod])
 
   //call useEffect to update sleightOfHand
   //whenever sleightOfHandProf is updated
   useEffect(() => {
     if (sleightOfHandProf) {
-      setSleightOfHand(stat.dexMod + stat.proficiencyBonus)
+      setSleightOfHand(dexMod + proficiencyBonus)
     } else {
-      setSleightOfHand(stat.dexMod)
+      setSleightOfHand(dexMod)
     }
-  }, [sleightOfHandProf])
+  }, [sleightOfHandProf, dexMod])
 
   //call useEffect to update stealth
   //whenever stealthProf is updated
   useEffect(() => {
     if (stealthProf) {
-      setStealth(stat.dexMod + stat.proficiencyBonus)
+      setStealth(dexMod + proficiencyBonus)
     } else {
-      setStealth(stat.dexMod)
+      setStealth(dexMod)
     }
-  }, [stealthProf])
+  }, [stealthProf, dexMod])
 
   //call useEffect to update survival
   //whenever survivalProf is updated
   useEffect(() => {
     if (survivalProf) {
-      setSurvival(stat.wisMod + stat.proficiencyBonus)
+      setSurvival(wisMod + proficiencyBonus)
     } else {
-      setSurvival(stat.wisMod)
+      setSurvival(wisMod)
     }
-  }, [survivalProf])
+  }, [survivalProf, wisMod])
 
   //take user inputs and setSkill
   const updateSkill = () => {
