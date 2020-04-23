@@ -50,6 +50,7 @@ namespace capstone.Controllers
     {
       try
       {
+        _context.Entry(character).State = EntityState.Modified;
         await _context.SaveChangesAsync();
       }
       catch (DbUpdateConcurrencyException)

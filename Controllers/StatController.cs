@@ -45,14 +45,9 @@ namespace capstone.Controllers
     // PUT: api/Stat/5
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see https://aka.ms/RazorPagesCRUD.
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutStat(int id, Stat stat)
+    [HttpPut("put")]
+    public async Task<IActionResult> PutStat(Stat stat)
     {
-      if (id != stat.Id)
-      {
-        return BadRequest();
-      }
-
       _context.Entry(stat).State = EntityState.Modified;
 
       try
@@ -61,7 +56,7 @@ namespace capstone.Controllers
       }
       catch (DbUpdateConcurrencyException)
       {
-        if (!StatExists(id))
+        if (!StatExists(stat.Id))
         {
           return NotFound();
         }
@@ -71,7 +66,7 @@ namespace capstone.Controllers
         }
       }
 
-      return NoContent();
+      return Ok(stat);
     }
 
     // POST: api/Stat

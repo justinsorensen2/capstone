@@ -232,7 +232,7 @@ const StatUpdate = props => {
   //axios put to save stats to database
   const putStat = async e => {
     e.preventDefault()
-    const resp = await axios.put('api/stat', stat)
+    const resp = await axios.put('api/stat/put', stat)
     if (resp.status === 200 || resp.status === 201) {
       // redirect page to char details
       setShouldRedirect(true)

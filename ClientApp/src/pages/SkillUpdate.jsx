@@ -280,10 +280,10 @@ const SkillUpdate = props => {
     setSubmitIsEnabled(true)
   }
 
-  //post skills to db
+  //update skills in db
   const putSkill = async e => {
     e.preventDefault()
-    const resp = await axios.put('api/skill', skill)
+    const resp = await axios.put('api/skill/put', skill)
     if (resp.status === 200 || resp.status === 201) {
       // redirect page to char details
       setShouldRedirect(true)

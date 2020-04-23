@@ -12,43 +12,44 @@ namespace capstone.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
-  public class SkillController : ControllerBase
+  public class MoneyController : ControllerBase
   {
     private readonly DatabaseContext _context;
 
-    public SkillController(DatabaseContext context)
+    public MoneyController(DatabaseContext context)
     {
       _context = context;
     }
 
-    // // GET: api/Skill
+    // // GET: api/Money
     // [HttpGet]
-    // public async Task<ActionResult<IEnumerable<Skill>>> GetSkills()
+    // public async Task<ActionResult<Money>> GetMoneyPieces(int characterId)
     // {
-    //   return await _context.Skills.ToListAsync();
+    //   return await _context.MoneyPieces.Where(m => m.CharacterId == characterId)FirstAsync();
     // }
 
-    // GET: api/Skill/5
+    // GET: api/Money/5
     [HttpGet("{characterId}")]
-    public async Task<ActionResult<Skill>> GetSkill(int characterId)
+    public async Task<ActionResult<Money>> GetMoney(int characterId)
     {
-      var skill = await _context.Skills.Where(s => s.CharacterId == characterId).FirstAsync();
+      var money = await _context.MoneyPieces.FindAsync(characterId);
 
-      if (skill == null)
+      if (money == null)
       {
         return NotFound();
       }
 
-      return skill;
+      return money;
     }
 
-    // PUT: api/Skill/5
+    // PUT: api/Money/5
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see https://aka.ms/RazorPagesCRUD.
     [HttpPut("put")]
-    public async Task<IActionResult> PutSkill(Skill skill)
+    public async Task<IActionResult> PutMoney(Money money)
     {
-      _context.Entry(skill).State = EntityState.Modified;
+
+      _context.Entry(money).State = EntityState.Modified;
 
       try
       {
@@ -56,7 +57,7 @@ namespace capstone.Controllers
       }
       catch (DbUpdateConcurrencyException)
       {
-        if (!SkillExists(skill.Id))
+        if (!MoneyExists(money.Id))
         {
           return NotFound();
         }
@@ -66,40 +67,40 @@ namespace capstone.Controllers
         }
       }
 
-      return Ok(skill);
+      return Ok(money);
     }
 
-    // POST: api/Skill
+    // POST: api/Money
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see https://aka.ms/RazorPagesCRUD.
     [HttpPost("create")]
-    public async Task<ActionResult<Skill>> PostSkill(Skill skill)
+    public async Task<ActionResult<Money>> PostMoney(Money money)
     {
-      _context.Skills.Add(skill);
+      _context.MoneyPieces.Add(money);
       await _context.SaveChangesAsync();
 
-      return CreatedAtAction("GetSkill", new { id = skill.Id }, skill);
+      return CreatedAtAction("GetMoney", new { id = money.Id }, money);
     }
 
-    // DELETE: api/Skill/5
-    [HttpDelete("{id}")]
-    public async Task<ActionResult<Skill>> DeleteSkill(int id)
+    // DELETE: api/Money/5
+    [HttpDelete("delete")]
+    public async Task<ActionResult<Money>> DeleteMoney(int id)
     {
-      var skill = await _context.Skills.FindAsync(id);
-      if (skill == null)
+      var money = await _context.MoneyPieces.FindAsync(id);
+      if (money == null)
       {
         return NotFound();
       }
 
-      _context.Skills.Remove(skill);
+      _context.MoneyPieces.Remove(money);
       await _context.SaveChangesAsync();
 
-      return skill;
+      return money;
     }
 
-    private bool SkillExists(int id)
+    private bool MoneyExists(int id)
     {
-      return _context.Skills.Any(e => e.Id == id);
+      return _context.MoneyPieces.Any(e => e.Id == id);
     }
   }
 }

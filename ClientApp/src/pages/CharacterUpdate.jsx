@@ -24,6 +24,12 @@ const CharacterUpdate = props => {
     return await axios.get(`/api/character/${characterId}`).then(response => {
       //set var for character from axios get
       setCharacter(response.data)
+      setPrimaryClassLevel(response.data.primaryClassLevel)
+      setExperiencePoints(response.data.experiencePoints)
+      setCharacterAge(response.data.characterAge)
+      setSecondaryClass(response.data.secondaryClass)
+      setSecondaryClassLevel(response.data.secondaryClassLevel)
+
       console.log('character get' + response.data)
     })
   }
@@ -31,7 +37,6 @@ const CharacterUpdate = props => {
   //call useEffect to load character details when component loads
   useEffect(() => {
     getCharacterDetails(characterId)
-    updateMultiClass()
   }, [])
 
   const updateMultiClass = () => {
@@ -42,6 +47,11 @@ const CharacterUpdate = props => {
     }
   }
 
+  //call use effect to update secondary class/level when multiclass=false
+  useEffect(() => {
+    updateMultiClass()
+  }, [multiClass])
+
   //create character data from user inputs
   const updateCharacter = e => {
     const key = e.target.name
@@ -51,7 +61,7 @@ const CharacterUpdate = props => {
     })
   }
 
-  //axios patch to update character
+  //axios put to update character
   const putCharacter = async e => {
     character.multiClass = multiClass
     character.characterAge = parseInt(characterAge)
@@ -60,8 +70,7 @@ const CharacterUpdate = props => {
     character.secondaryClassLevel = parseInt(secondaryClassLevel)
     character.experiencePoints = parseInt(experiencePoints)
     e.preventDefault()
-    console.log(character)
-    const resp = await axios.put('api/character', characterId, character)
+    const resp = await axios.put('api/character/put', character)
     if (resp.status === 200 || resp.status === 201) {
       // redirect page to the stat creator
       console.log(resp.data)
@@ -95,7 +104,7 @@ const CharacterUpdate = props => {
                 <input
                   name="experiencePoints"
                   type="number"
-                  defaultValue={character.experiencePoints}
+                  defaultValue={experiencePoints}
                   onChange={e => setExperiencePoints(e.target.value)}
                 />
               </h5>
@@ -106,7 +115,7 @@ const CharacterUpdate = props => {
                 <input
                   name="primaryClassLevel"
                   type="number"
-                  defaultValue={character.primaryClassLevel}
+                  defaultValue={primaryClassLevel}
                   onChange={e => setPrimaryClassLevel(e.target.value)}
                 />
               </h5>
@@ -165,7 +174,7 @@ const CharacterUpdate = props => {
                     <input
                       name="secondaryClassLevel"
                       type="number"
-                      defaultValue={character.secondaryClassLevel}
+                      defaultValue={secondaryClassLevel}
                       onChange={e => setSecondaryClassLevel(e.target.value)}
                     />
                   </h5>
@@ -197,7 +206,7 @@ const CharacterUpdate = props => {
                 <input
                   name="characterAge"
                   type="number"
-                  defaultValue={character.characterAge}
+                  defaultValue={characterAge}
                   onChange={e => setCharacterAge(e.target.value)}
                 />
               </h5>
