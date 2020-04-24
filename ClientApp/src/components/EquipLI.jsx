@@ -11,7 +11,8 @@ const EquipLI = props => {
     const resp = await axios.delete(`/api/Equip/delete?id=${id}`)
     if (resp.status === 200 || resp.status === 201) {
       // redirect page to char details
-      console.log(resp.data)
+      const response = await axios.delete(`/api/Attack/delete?id=${id}`)
+      console.log(response)
     } else {
       //display an error message
       throw new MessageEvent()
@@ -21,17 +22,12 @@ const EquipLI = props => {
     <div>
       <li className="Equip-List">
         <div className="Equip-List-Item">
-          <h5>Equipment Name: {equip.equipName}</h5>
-          <h5>Bonus(if any): {equip.bonus}</h5>
-          <p>Equipment Description: {equip.description}</p>
           <p>
-            Weapon?{' '}
-            <input
-              name="isWeapon"
-              value={equip.isWeapon}
-              type="checkbox"
-              checked={equip.isWeapon === true}
-            ></input>
+            {equip.equipName} {equip.bonus}
+            <br></br>
+            Damage Type: {equip.damageType} <br></br> Range: {equip.range}
+            <br></br>
+            Description: {equip.description}
           </p>
           <div className="Delete-Equip-Button-Parent">
             <button

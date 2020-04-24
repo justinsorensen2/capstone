@@ -4,7 +4,7 @@ namespace capstone
   {
     public int Id { get; set; }
     public string AttackName { get; set; }
-    public int AtkBonus { get; set; }
+    public string AtkBonus { get; set; }
     public string DamageType { get; set; }
     public string Range { get; set; }
     //navigation

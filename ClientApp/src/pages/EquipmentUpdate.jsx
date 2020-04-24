@@ -21,6 +21,7 @@ const EquipmentUpdate = props => {
   const [moneyId, setMoneyId] = useState()
   const [equipChanged, setEquipChanged] = useState(false)
   const [moneyChanged, setMoneyChanged] = useState(false)
+  const [isAttack, setIsAttack] = useState(false)
 
   //axios get for Equip details
   const getEquipDetails = async characterId => {
@@ -74,6 +75,9 @@ const EquipmentUpdate = props => {
   const updateBoolItem = e => {
     const key = e.target.name
     const value = e.target.value === 'true'
+    if (e.target.value === 'true') {
+      setIsAttack(true)
+    }
     setItem(prevItem => {
       return { ...prevItem, [key]: value }
     })
@@ -88,24 +92,44 @@ const EquipmentUpdate = props => {
     })
   }
 
+  //create atk obj from relevant
+  const updateAttack = () => {
+    setAttack({
+      characterId: characterId,
+      attackName: item.equipName,
+      atkBonus: item.bonus,
+      damageType: item.damageType,
+      range: item.range,
+    })
+  }
+  console.log(attack)
+
+  useEffect(() => {
+    updateAttack()
+  }, [isAttack])
+
   //call axios put to update equip
   const postEquip = async e => {
     e.preventDefault()
-    const resp = await axios.post('/api/equip/create', item)
-    if (resp.status === 200 || resp.status === 201) {
-      setEquipChanged(true)
-      setAttack({
-        characterId: characterId,
-        attackName: item.equipName,
-        atkBonus: item.bonus,
-        damageType: item.damageType,
-        range: item.range,
-      })
-      const response = await axios.post('/api/attack/create', attack)
-      console.log(response)
+    if (isAttack) {
+      const resp = await axios.post('/api/equip/create', item)
+      if (resp.status === 200 || resp.status === 201) {
+        attack.equipId = parseInt(resp.data.id)
+        const response = await axios.post('/api/attack/create', attack)
+        console.log(response)
+        setEquipChanged(true)
+      } else {
+        //display an error message
+        throw new MessageEvent()
+      }
     } else {
-      //display an error message
-      throw new MessageEvent()
+      const resp = await axios.post('/api/equip/create', item)
+      if (resp.status === 200 || resp.status === 201) {
+        setEquipChanged(true)
+      } else {
+        //display an error message
+        throw new MessageEvent()
+      }
     }
   }
 
@@ -244,6 +268,8 @@ const EquipmentUpdate = props => {
                     equipName={item.equipName}
                     bonus={item.bonus}
                     description={item.description}
+                    damageType={item.damageType}
+                    range={item.range}
                     isWeapon={item.isWeapon}
                   />
                 )
@@ -264,8 +290,10 @@ const EquipmentUpdate = props => {
                 <br></br>
                 Damage Type (blank if not a weapon):
                 <input name="damageType" type="text" onChange={updateItem} />
+                <br></br>
                 Range (blank if not a weapon):
                 <input name="range" type="text" onChange={updateItem} />
+                <br></br>
                 Is This Item a Weapon?
                 <input
                   className="isWeapon"

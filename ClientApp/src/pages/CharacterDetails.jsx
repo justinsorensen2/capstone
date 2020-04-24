@@ -522,6 +522,8 @@ const CharacterDetails = props => {
                               equipName={item.equipName}
                               bonus={item.bonus}
                               description={item.description}
+                              damageType={item.damageType}
+                              range={item.range}
                               isWeapon={item.isWeapon}
                             />
                           )
