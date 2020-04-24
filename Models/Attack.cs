@@ -7,7 +7,7 @@ namespace capstone
     public int AtkBonus { get; set; }
     public string DamageType { get; set; }
     //navigation
-    public int CharacterId { get; set; }
-    public Character Character { get; set; }
+    public int EquipId { get; set; }
+    public Equip Equip { get; set; }
   }
 }

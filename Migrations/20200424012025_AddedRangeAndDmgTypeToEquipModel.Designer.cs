@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using capstone.Models;
@@ -9,9 +10,10 @@ using capstone.Models;
 namespace capstone.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200424012025_AddedRangeAndDmgTypeToEquipModel")]
+    partial class AddedRangeAndDmgTypeToEquipModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,15 +34,15 @@ namespace capstone.Migrations
                     b.Property<string>("AttackName")
                         .HasColumnType("text");
 
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("DamageType")
                         .HasColumnType("text");
 
-                    b.Property<int>("EquipId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("EquipId");
+                    b.HasIndex("CharacterId");
 
                     b.ToTable("Attacks");
                 });
@@ -495,9 +497,9 @@ namespace capstone.Migrations
 
             modelBuilder.Entity("capstone.Attack", b =>
                 {
-                    b.HasOne("capstone.Equip", "Equip")
+                    b.HasOne("capstone.Character", "Character")
                         .WithMany("Attacks")
-                        .HasForeignKey("EquipId")
+                        .HasForeignKey("CharacterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

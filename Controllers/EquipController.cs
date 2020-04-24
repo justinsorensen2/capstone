@@ -77,7 +77,6 @@ namespace capstone.Controllers
     {
       _context.Equipment.Add(equip);
       await _context.SaveChangesAsync();
-      Console.WriteLine($"*****************************{equip}");
       return CreatedAtAction("GetEquip", new { id = equip.Id }, equip);
     }
 
