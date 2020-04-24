@@ -47,7 +47,6 @@ const EquipmentUpdate = props => {
       }
     })
   }
-  console.log(copperPieces)
 
   //useEffect to call axios get when page loads
   useEffect(() => {
@@ -99,15 +98,10 @@ const EquipmentUpdate = props => {
       throw new MessageEvent()
     }
   }
-  console.log(characterId)
-  console.log(moneyId)
-  console.log(money)
 
   //call axios put or post to update money
   const putMoney = async e => {
     e.preventDefault()
-    console.log(money)
-    console.log(moneyExists)
     if (!moneyExists) {
       setMoney({
         copperPieces: copperPieces,

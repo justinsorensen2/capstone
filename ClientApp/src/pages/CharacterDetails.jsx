@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import EquipLI from '../components/EquipLI'
 
 const CharacterDetails = props => {
   //set charId based on props from url
@@ -9,7 +10,8 @@ const CharacterDetails = props => {
   const [character, setCharacter] = useState({})
   const [stat, setStat] = useState({})
   const [skill, setSkill] = useState({})
-  const [equip, setEquip] = useState({})
+  const [equip, setEquip] = useState([])
+  const [money, setMoney] = useState({})
 
   //axios get for character details
   const getCharacterDetails = async characterId => {
@@ -46,12 +48,21 @@ const CharacterDetails = props => {
     })
   }
 
+  //axios get for Money details
+  const getMoneyDetails = async characterId => {
+    return await axios.get(`/api/money/${characterId}`).then(response => {
+      //set var for Money from axios get
+      setMoney(response.data)
+    })
+  }
+
   //useEffect to call axios get when page loads
   useEffect(() => {
     getCharacterDetails(characterId)
     getStatDetails(characterId)
     getSkillDetails(characterId)
     getEquipDetails(characterId)
+    getMoneyDetails(characterId)
   }, [])
 
   //render
@@ -145,7 +156,13 @@ const CharacterDetails = props => {
                     <div className="Char-Details-Left-Bar-Skills">
                       <div className="Char-Details-Inspiration-Parent">
                         <div className="Char-Details-Inspiration">
-                          Inspiration: {stat.inspiration}
+                          Inspiration:{' '}
+                          <input
+                            name="Inspiration"
+                            value={stat.inspiration}
+                            type="checkbox"
+                            checked={stat.inspiration === true}
+                          ></input>
                         </div>
                       </div>
                       <div className="Char-Details-Proficiency-Bonus-Parent">
@@ -428,20 +445,17 @@ const CharacterDetails = props => {
                         {stat.armorClass}
                       </div>
                       <div className="Initiative">
-                        Initiative<br></br>
-                        {stat.initiativeBonus}
+                        Initiative Bonus: {stat.initiativeBonus}
                       </div>
-                      <div className="Speed">
-                        Speed<br></br>
-                        {stat.baseSpeed}
-                      </div>
+                      <div className="Speed">Speed: {stat.baseSpeed}ft.</div>
                     </div>
                     <div className="HP-And-Temp-HP">
                       <div className="Temp-HP">Temp HP: {stat.tempHP}</div>
                     </div>
                     <div className="Hit-Die-And-Death-Saves">
                       <div className="Hit-Dice">
-                        Total Hit Dice: {stat.totalHitDie} <br></br>
+                        Total Hit Dice: {stat.totalHitDie} {stat.hitDie}
+                        <br></br>
                         Current Hit Dice: {stat.currentHitDie} {stat.hitDie}
                       </div>
                       <div className="Death-Saves">
@@ -497,13 +511,29 @@ const CharacterDetails = props => {
                     </div>
                   </div>
                   <div className="Equipment">
-                    Equipment
+                    <div className="Current-Equipment">
+                      Equipment
+                      <ul className="Equip-List">
+                        {equip.map(item => {
+                          return (
+                            <EquipLI
+                              key={item.id}
+                              id={item.id}
+                              equipName={item.equipName}
+                              bonus={item.bonus}
+                              description={item.description}
+                              isWeapon={item.isWeapon}
+                            />
+                          )
+                        })}
+                      </ul>
+                    </div>
                     <div className="Money">
-                      <div className="CP">CP</div>
-                      <div className="SP">SP</div>
-                      <div className="EP">EP</div>
-                      <div className="GP">GP</div>
-                      <div className="PP">PP</div>
+                      <div className="CP">CP: {money.copperPieces}</div>
+                      <div className="SP">SP: {money.silverPieces}</div>
+                      <div className="EP">EP: {money.electrumPieces}</div>
+                      <div className="GP">GP: {money.goldPieces}</div>
+                      <div className="PP">PP: {money.platinumPieces}</div>
                     </div>
                   </div>
                 </div>
