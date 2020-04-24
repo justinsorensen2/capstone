@@ -8,6 +8,7 @@ const SkillUpdate = props => {
   const [skill, setSkill] = useState()
   const [shouldRedirect, setShouldRedirect] = useState(false)
   const [stat, setStat] = useState({})
+  const [skillId, setSkillId] = useState()
   const [strMod, setStrMod] = useState()
   const [dexMod, setDexMod] = useState()
   const [conMod, setConMod] = useState()
@@ -52,52 +53,70 @@ const SkillUpdate = props => {
   const [survivalProf, setSurvivalProf] = useState()
   const [survival, setSurvival] = useState()
   const [passivePerception, setPassivePerception] = useState()
-  const [submitIsEnabled, setSubmitIsEnabled] = useState(false)
 
   // axios get for stat details
   const getStatDetails = async characterId => {
     return await axios.get(`/api/stat/${characterId}`).then(response => {
       //set var for character from axios get
       setStat(response.data)
-      setStrMod(response.data.strMod)
-      setDexMod(response.data.dexMod)
-      setConMod(response.data.conMod)
-      setIntMod(response.data.intMod)
-      setWisMod(response.data.wisMod)
-      setChaMod(response.data.chaMod)
-      setProficiencyBonus(response.data.proficiencyBonus)
-      console.log('stat get' + response.data)
+      setStrMod(parseInt(response.data.strMod))
+      setDexMod(parseInt(response.data.dexMod))
+      setConMod(parseInt(response.data.conMod))
+      setIntMod(parseInt(response.data.intMod))
+      setWisMod(parseInt(response.data.wisMod))
+      setChaMod(parseInt(response.data.chaMod))
+      setProficiencyBonus(parseInt(response.data.proficiencyBonus))
+      setSkillId(parseInt(response.data.id))
     })
   }
-
+  console.log(proficiencyBonus)
   // axios get for skill details
   const getSkillDetails = async characterId => {
     return await axios.get(`/api/skill/${characterId}`).then(response => {
       //set var for character from axios get
       setSkill(response.data)
       setAcrobaticsProf(response.data.acrobaticsProf)
+      setAcrobatics(parseInt(response.data.acrobatics))
       setAnimalHandlingProf(response.data.animalHandlingProf)
+      setAnimalHandling(parseInt(response.data.animalHandling))
       setArcanaProf(response.data.arcanaProf)
+      setArcana(parseInt(response.data.arcana))
       setAthleticsProf(response.data.athleticsProf)
+      setAthletics(parseInt(response.data.athletics))
       setDeceptionProf(response.data.deceptionProf)
+      setDeception(parseInt(response.data.deception))
       setHistoryProf(response.data.historyProf)
+      setHistory(parseInt(response.data.history))
       setInsightProf(response.data.insightProf)
+      setInsight(parseInt(response.data.insight))
       setIntimidationProf(response.data.intimidationProf)
+      setIntimidation(parseInt(response.data.intimidation))
       setInvestigationProf(response.data.investigationProf)
+      setInvestigation(parseInt(response.data.investigation))
       setMedicineProf(response.data.medicineProf)
+      setMedicine(parseInt(response.data.medicine))
       setNatureProf(response.data.natureProf)
+      setNature(parseInt(response.data.nature))
       setPerceptionProf(response.data.perceptionProf)
+      setPerception(parseInt(response.data.perception))
       setPerformanceProf(response.data.performanceProf)
+      setPerformance(parseInt(response.data.performance))
       setPersuasionProf(response.data.persuasionProf)
+      setPersuasion(parseInt(response.data.persuasion))
       setReligionProf(response.data.religionProf)
+      setReligion(parseInt(response.data.religion))
       setSleightOfHandProf(response.data.sleightOfHandProf)
+      setSleightOfHand(parseInt(response.data.sleightOfHand))
       setStealthProf(response.data.stealthProf)
+      setStealth(parseInt(response.data.stealth))
       setSurvivalProf(response.data.survivalProf)
-      setPassivePerception(response.data.passivePerception)
-      console.log('Skill get' + response.data)
+      setSurvival(parseInt(response.data.survival))
+      setPassivePerception(parseInt(response.data.passivePerception))
+      console.log('Skill get' + response.data.athletics)
     })
   }
-
+  console.log(athletics)
+  console.log(perception)
   //useEffect to call axios get when page loads
   useEffect(() => {
     getStatDetails(characterId)
@@ -107,9 +126,6 @@ const SkillUpdate = props => {
   //call useEffect to update acrobatics
   //whenever acrobaticsProf is updated
   useEffect(() => {
-    console.log(dexMod)
-    console.log(proficiencyBonus)
-    console.log(stat)
     if (acrobaticsProf) {
       setAcrobatics(dexMod + proficiencyBonus)
     } else {
@@ -293,54 +309,50 @@ const SkillUpdate = props => {
   }, [survivalProf, wisMod])
 
   //take user inputs and setSkill
-  const updateSkill = () => {
-    setSkill({
-      characterId: characterId,
-      acrobaticsProf: acrobaticsProf,
-      acrobatics: acrobatics,
-      animalHandlingProf: animalHandlingProf,
-      animalHandling: animalHandling,
-      arcanaProf: arcanaProf,
-      arcana: arcana,
-      athleticsProf: athleticsProf,
-      athletics: athletics,
-      deceptionProf: deceptionProf,
-      deception: deception,
-      historyProf: historyProf,
-      history: history,
-      insightProf: insightProf,
-      insight: insight,
-      investigationProf: investigationProf,
-      investigation: investigation,
-      intimidationProf: intimidationProf,
-      intimidation: intimidation,
-      medicineProf: medicineProf,
-      medicine: medicine,
-      natureProf: natureProf,
-      nature: nature,
-      perceptionProf: perceptionProf,
-      perception: perception,
-      performanceProf: performanceProf,
-      performance: performance,
-      persuasionProf: persuasionProf,
-      persuasion: persuasion,
-      religionProf: religionProf,
-      religion: religion,
-      sleightOfHandProf: sleightOfHandProf,
-      sleightOfHand: sleightOfHand,
-      stealthProf: stealthProf,
-      stealth: stealth,
-      survivalProf: survivalProf,
-      survival: survival,
-      passivePerception: passivePerception,
-    })
-    setSubmitIsEnabled(true)
-  }
-
-  //update skills in db
   const putSkill = async e => {
+    const skillToUpdateOnServer = {
+      characterId: parseInt(characterId),
+      acrobaticsProf: acrobaticsProf,
+      acrobatics: parseInt(acrobatics),
+      animalHandlingProf: animalHandlingProf,
+      animalHandling: parseInt(animalHandling),
+      arcanaProf: arcanaProf,
+      arcana: parseInt(arcana),
+      athleticsProf: athleticsProf,
+      athletics: parseInt(athletics),
+      deceptionProf: deceptionProf,
+      deception: parseInt(deception),
+      historyProf: historyProf,
+      history: parseInt(history),
+      insightProf: insightProf,
+      insight: parseInt(insight),
+      investigationProf: investigationProf,
+      investigation: parseInt(investigation),
+      intimidationProf: intimidationProf,
+      intimidation: parseInt(intimidation),
+      medicineProf: medicineProf,
+      medicine: parseInt(medicine),
+      natureProf: natureProf,
+      nature: parseInt(nature),
+      perceptionProf: perceptionProf,
+      perception: parseInt(perception),
+      performanceProf: performanceProf,
+      performance: parseInt(performance),
+      persuasionProf: persuasionProf,
+      persuasion: parseInt(persuasion),
+      religionProf: religionProf,
+      religion: parseInt(religion),
+      sleightOfHandProf: sleightOfHandProf,
+      sleightOfHand: parseInt(sleightOfHand),
+      stealthProf: stealthProf,
+      stealth: parseInt(stealth),
+      survivalProf: survivalProf,
+      survival: parseInt(survival),
+      passivePerception: parseInt(passivePerception),
+      id: skillId,
+    }
     e.preventDefault()
-    const resp = await axios.put('api/skill/put', skill)
+    const resp = await axios.put('/api/Skill/put', skillToUpdateOnServer)
     if (resp.status === 200 || resp.status === 201) {
       // redirect page to char details
       setShouldRedirect(true)
@@ -358,10 +370,10 @@ const SkillUpdate = props => {
   //render
   return (
     <div>
-      <article className="Create-Skill-Flex">
-        <section className="Create-Skill-Parent">
-          <div className="Create-Skill">
-            <form className="Create-Skill-Form" onSubmit={putSkill}>
+      <article className="Create-Char-Flex">
+        <section className="Create-Char-Parent">
+          <div className="Create-Char">
+            <form className="Create-Char-Form">
               <div className="Site-Icon"></div>
               <h3>Skills:</h3>
               <h5>
@@ -725,17 +737,8 @@ const SkillUpdate = props => {
               </h5>
               <h5>Survival: {survival}</h5>
               <h5>Passive Perception: {passivePerception}</h5>
-              <div className="Create-Skill-Button-Div">
-                <button className="Create-Skill-Button" onClick={updateSkill}>
-                  Save Skills
-                </button>
-              </div>
-              <div className="Create-Skill-Button-Div">
-                <button
-                  disabled={!submitIsEnabled}
-                  className="Create-Skill-Button"
-                  onClick={putSkill}
-                >
+              <div className="Login-Button-Div">
+                <button className="Login-Button" onClick={putSkill}>
                   Submit
                 </button>
               </div>

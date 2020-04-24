@@ -57,7 +57,6 @@ namespace capstone.Controllers
       {
         if (!StatExists(stat.Id))
         {
-          Console.WriteLine($"*************** the id is {stat.Id}");
           return NotFound();
         }
         else

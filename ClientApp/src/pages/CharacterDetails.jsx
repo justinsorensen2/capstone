@@ -569,25 +569,31 @@ const CharacterDetails = props => {
                 </div>
               </h5>
               <h5 className="Update-Buttons">
-                <div className="Update-Char-Button-Div">
+                <div className="Login-Button-Div">
                   <Link to={`/CharacterUpdate/${characterId}`}>
-                    <button name="CharacterUpdate">Update Character</button>
+                    <button className="Login-Button" name="CharacterUpdate">
+                      Update Character
+                    </button>
                   </Link>
                 </div>
-                <div className="Update-Stat-Button-Div">
+                <div className="Login-Button-Div">
                   <Link to={`/StatUpdate/${characterId}`}>
-                    <button name="StatUpdate">Update Stats</button>
+                    <button className="Login-Button" name="StatUpdate">
+                      Update Stats
+                    </button>
                   </Link>
                 </div>
-                <div className="Update-Skill-Button-Div">
+                <div className="Login-Button-Div">
                   <Link to={`/SkillUpdate/${characterId}`}>
-                    <button name="SkillUpdate">Update Skills</button>
+                    <button className="Login-Button" name="SkillUpdate">
+                      Update Skills
+                    </button>
                   </Link>
                 </div>
-                <div className="Update-Equip-Button-Div">
+                <div className="Login-Button-Div">
                   <Link to={`/EquipmentUpdate/${characterId}`}>
-                    <button name="EquipmentUpdate">
-                      Update Equipment & Money
+                    <button className="Login-Button" name="EquipmentUpdate">
+                      Update Equip & Money
                     </button>
                   </Link>
                 </div>

@@ -7,12 +7,12 @@ const EquipLI = props => {
   //axios call to delete item
   const deleteItem = async e => {
     const id = equip.id
+    const characterId = equip.characterId
     console.log('id before delete', id)
     const resp = await axios.delete(`/api/Equip/delete?id=${id}`)
     if (resp.status === 200 || resp.status === 201) {
       // redirect page to char details
       const response = await axios.delete(`/api/Attack/delete?id=${id}`)
-      console.log(response)
     } else {
       //display an error message
       throw new MessageEvent()
@@ -29,12 +29,8 @@ const EquipLI = props => {
             <br></br>
             Description: {equip.description}
           </p>
-          <div className="Delete-Equip-Button-Parent">
-            <button
-              className="Delete-Equip-Button"
-              id={equip.id}
-              onClick={deleteItem}
-            >
+          <div className="Login-Button-Div">
+            <button className="Login-Button" id={equip.id} onClick={deleteItem}>
               Delete Item
             </button>
           </div>

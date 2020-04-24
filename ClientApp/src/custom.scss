@@ -128,9 +128,13 @@ img {
   object-fit: contain;
 }
 
+.Login-Button-Div {
+  padding-top: 1rem;
+}
+
 .Login-Button {
-  height: 3rem;
-  width: 5rem;
+  height: auto;
+  width: auto;
   border-radius: 1rem;
   background: #9dd4fd;
   box-shadow: 7px 7px 10px #e1e2e4, -7px -7px 10px #ffffff;

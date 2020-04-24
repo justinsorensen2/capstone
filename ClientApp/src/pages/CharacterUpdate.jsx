@@ -24,11 +24,11 @@ const CharacterUpdate = props => {
     return await axios.get(`/api/character/${characterId}`).then(response => {
       //set var for character from axios get
       setCharacter(response.data)
-      setPrimaryClassLevel(response.data.primaryClassLevel)
-      setExperiencePoints(response.data.experiencePoints)
-      setCharacterAge(response.data.characterAge)
+      setPrimaryClassLevel(parseInt(response.data.primaryClassLevel))
+      setExperiencePoints(parseInt(response.data.experiencePoints))
+      setCharacterAge(parseInt(response.data.characterAge))
       setSecondaryClass(response.data.secondaryClass)
-      setSecondaryClassLevel(response.data.secondaryClassLevel)
+      setSecondaryClassLevel(parseInt(response.data.secondaryClassLevel))
 
       console.log('character get' + response.data)
     })
@@ -88,14 +88,14 @@ const CharacterUpdate = props => {
   //render
   return (
     <>
-      <div className="Update-Char">
-        <article className="Char-Details-Flex">
-          <section className="Char-Details-Parent">
-            <form className="Update-Char-Form" onSubmit={putCharacter}>
+      <div className="Create-Char-Flex">
+        <article className="Create-Char-Parent">
+          <section className="Create-Char">
+            <form className="Create-Char-Form" onSubmit={putCharacter}>
               <div className="Site-Icon" />
               <h3>Update Character Details</h3>
-              <div className="Update-Char-Button-Div">
-                <button className="Update-Char-Button" onClick={putCharacter}>
+              <div className="Login-Button-Div">
+                <button className="Login-Button" onClick={putCharacter}>
                   Submit
                 </button>
               </div>
@@ -318,8 +318,8 @@ const CharacterUpdate = props => {
                   />
                 </div>
               </div>
-              <div className="Update-Char-Button-Div">
-                <button className="Update-Char-Button" onClick={putCharacter}>
+              <div className="Login-Button-Div">
+                <button className="Login-Button" onClick={putCharacter}>
                   Submit
                 </button>
               </div>

@@ -42,7 +42,7 @@ namespace capstone.Controllers
       return skill;
     }
 
-    // PUT: api/Skill/5
+    // PUT: api/Skill/put/{skill JSON Obj}
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see https://aka.ms/RazorPagesCRUD.
     [HttpPut("put")]
@@ -57,6 +57,7 @@ namespace capstone.Controllers
       {
         if (!SkillExists(skill.Id))
         {
+          Console.WriteLine($"*************** the id is {skill.Id}");
           return NotFound();
         }
         else

@@ -182,6 +182,7 @@ const EquipmentUpdate = props => {
           <div className="Current-Money">
             <div className="Money-List-Parent">
               <div className="Money-List">
+                <h5>Current Money</h5>
                 <h5>CP: {money.copperPieces}</h5>
                 <h5>SP: {money.silverPieces}</h5>
                 <h5>EP: {money.electrumPieces}</h5>
@@ -191,8 +192,8 @@ const EquipmentUpdate = props => {
             </div>
           </div>
           <form className="Add-Money" onSubmit={putMoney}>
-            <div className="Put-Money-Button-Parent">
-              <button className="Put-Money-Button">Submit Money</button>
+            <div className="Login-Button-Div">
+              <button className="Login-Button">Submit Money</button>
             </div>
             <div className="Add-Copper">
               <h5>
@@ -249,16 +250,17 @@ const EquipmentUpdate = props => {
                 />
               </h5>
             </div>
-            <div className="Put-Money-Button-Parent">
-              <button className="Put-Money-Button">Submit Money</button>
+            <div className="Login-Button-Div">
+              <button className="Login-Button">Submit Money</button>
             </div>
           </form>
-          <div className="Put-Equip-Button-Parent">
-            <button className="Put-Equip-Button" onclick={postEquip}>
-              Submit Equipment
+          <div className="Login-Button-Div">
+            <button className="Login-Button" onclick={postEquip}>
+              Submit Item
             </button>
           </div>
           <div className="Current-Equipment">
+            <h5>Current Equipment:</h5>
             <ul className="Equip-List">
               {equip.map(item => {
                 return (
@@ -271,6 +273,7 @@ const EquipmentUpdate = props => {
                     damageType={item.damageType}
                     range={item.range}
                     isWeapon={item.isWeapon}
+                    characterId={characterId}
                   />
                 )
               })}
@@ -313,15 +316,13 @@ const EquipmentUpdate = props => {
                 No
               </h5>
             </div>
-            <div className="Put-Equip-Button-Parent">
-              <button className="Put-Equip-Button">Submit Equipment</button>
+            <div className="Login-Button-Div">
+              <button className="Login-Button">Submit Item</button>
             </div>
           </form>
-          <div className="Return-To-Char-Details-Parent">
+          <div className="Login-Button-Div">
             <Link to={`/CharacterDetails/${characterId}`}>
-              <button className="Return-To-Char-Details">
-                Return to Character Sheet
-              </button>
+              <button className="Login-Button">Back</button>
             </Link>
           </div>
         </section>
