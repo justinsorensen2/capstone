@@ -94,6 +94,11 @@ const SkillUpdate = props => {
       setInvestigationProf(response.data.investigationProf)
       setInvestigation(parseInt(response.data.investigation))
       setMedicineProf(response.data.medicineProf)
+      console.log({
+        where: 'first',
+        value: response.data.medicine,
+        responseData: response.data,
+      })
       setMedicine(parseInt(response.data.medicine))
       setNatureProf(response.data.natureProf)
       setNature(parseInt(response.data.nature))
@@ -217,8 +222,10 @@ const SkillUpdate = props => {
   //whenever medicineProf is updated
   useEffect(() => {
     if (medicineProf) {
+      console.log({ where: 'second', value1: wisMod, value2: proficiencyBonus })
       setMedicine(wisMod + proficiencyBonus)
     } else {
+      console.log({ where: 'third', value1: wisMod })
       setMedicine(wisMod)
     }
   }, [medicineProf, wisMod])

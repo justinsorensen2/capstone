@@ -21,8 +21,8 @@ namespace capstone
     public bool IntimidationProf { get; set; }
     public int Investigation { get; set; }
     public bool InvestigationProf { get; set; }
-    public int Medecine { get; set; }
-    public bool MedecineProf { get; set; }
+    public int Medicine { get; set; }
+    public bool MedicineProf { get; set; }
     public int Nature { get; set; }
     public bool NatureProf { get; set; }
     public int Perception { get; set; }
