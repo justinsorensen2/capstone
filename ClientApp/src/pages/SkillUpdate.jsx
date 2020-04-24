@@ -11,7 +11,6 @@ const SkillUpdate = props => {
   const [skillId, setSkillId] = useState()
   const [strMod, setStrMod] = useState()
   const [dexMod, setDexMod] = useState()
-  const [conMod, setConMod] = useState()
   const [intMod, setIntMod] = useState()
   const [wisMod, setWisMod] = useState()
   const [chaMod, setChaMod] = useState()
@@ -61,7 +60,6 @@ const SkillUpdate = props => {
       setStat(response.data)
       setStrMod(parseInt(response.data.strMod))
       setDexMod(parseInt(response.data.dexMod))
-      setConMod(parseInt(response.data.conMod))
       setIntMod(parseInt(response.data.intMod))
       setWisMod(parseInt(response.data.wisMod))
       setChaMod(parseInt(response.data.chaMod))
@@ -94,15 +92,15 @@ const SkillUpdate = props => {
       setInvestigationProf(response.data.investigationProf)
       setInvestigation(parseInt(response.data.investigation))
       setMedicineProf(response.data.medicineProf)
-      console.log({
-        where: 'first',
-        value: response.data.medicine,
-        responseData: response.data,
-      })
       setMedicine(parseInt(response.data.medicine))
       setNatureProf(response.data.natureProf)
       setNature(parseInt(response.data.nature))
       setPerceptionProf(response.data.perceptionProf)
+      console.log({
+        where: 'first',
+        value: response.data.perception,
+        responseData: response.data,
+      })
       setPerception(parseInt(response.data.perception))
       setPerformanceProf(response.data.performanceProf)
       setPerformance(parseInt(response.data.performance))
@@ -117,7 +115,6 @@ const SkillUpdate = props => {
       setSurvivalProf(response.data.survivalProf)
       setSurvival(parseInt(response.data.survival))
       setPassivePerception(parseInt(response.data.passivePerception))
-      console.log('Skill get' + response.data.athletics)
     })
   }
   console.log(athletics)
@@ -222,10 +219,8 @@ const SkillUpdate = props => {
   //whenever medicineProf is updated
   useEffect(() => {
     if (medicineProf) {
-      console.log({ where: 'second', value1: wisMod, value2: proficiencyBonus })
       setMedicine(wisMod + proficiencyBonus)
     } else {
-      console.log({ where: 'third', value1: wisMod })
       setMedicine(wisMod)
     }
   }, [medicineProf, wisMod])
@@ -244,8 +239,10 @@ const SkillUpdate = props => {
   //whenever perceptionProf is updated
   useEffect(() => {
     if (perceptionProf) {
+      console.log({ where: 'second', value1: wisMod, value2: proficiencyBonus })
       setPerception(wisMod + proficiencyBonus)
     } else {
+      console.log({ where: 'third', value1: wisMod })
       setPerception(wisMod)
     }
   }, [perceptionProf, wisMod])
