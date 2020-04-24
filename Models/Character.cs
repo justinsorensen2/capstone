@@ -32,6 +32,7 @@ namespace capstone
     //navigation
     public List<Stat> Stats { get; set; } = new List<Stat>();
     public List<Skill> Skills { get; set; } = new List<Skill>();
+    public List<Attack> Attacks { get; set; } = new List<Attack>();
     public List<Equip> Equipment { get; set; } = new List<Equip>();
     public List<Money> MoneyPieces { get; set; } = new List<Money>();
     public int UserId { get; set; }

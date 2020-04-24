@@ -28,21 +28,7 @@ namespace capstone.Controllers
       return await _context.Equipment.Where(w => w.CharacterId == characterId).ToListAsync();
     }
 
-    // // GET: api/Equip/5
-    // [HttpGet("{id}")]
-    // public async Task<ActionResult<Equip>> GetEquip(int id)
-    // {
-    //     var equip = await _context.Equipment.FindAsync(id);
-
-    //     if (equip == null)
-    //     {
-    //         return NotFound();
-    //     }
-
-    //     return equip;
-    // }
-
-    // PUT: api/Equip/5
+    // PUT: api/Equip/put/5
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see https://aka.ms/RazorPagesCRUD.
     [HttpPut("put")]

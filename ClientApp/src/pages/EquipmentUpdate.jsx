@@ -9,6 +9,7 @@ const EquipmentUpdate = props => {
   //set useState for equipment and money from axios get
   const [equip, setEquip] = useState([])
   const [money, setMoney] = useState({ characterId: characterId })
+  const [attack, setAttack] = useState({ characterId: characterId })
   //set vars for user inputs
   const [copperPieces, setCopperPieces] = useState()
   const [silverPieces, setSilverPieces] = useState()
@@ -93,6 +94,15 @@ const EquipmentUpdate = props => {
     const resp = await axios.post('/api/equip/create', item)
     if (resp.status === 200 || resp.status === 201) {
       setEquipChanged(true)
+      setAttack({
+        characterId: characterId,
+        attackName: item.equipName,
+        atkBonus: item.bonus,
+        damageType: item.damageType,
+        range: item.range,
+      })
+      const response = await axios.post('/api/attack/create', attack)
+      console.log(response)
     } else {
       //display an error message
       throw new MessageEvent()
@@ -252,6 +262,10 @@ const EquipmentUpdate = props => {
                 Item Description:
                 <input name="description" type="text" onChange={updateItem} />
                 <br></br>
+                Damage Type (blank if not a weapon):
+                <input name="damageType" type="text" onChange={updateItem} />
+                Range (blank if not a weapon):
+                <input name="range" type="text" onChange={updateItem} />
                 Is This Item a Weapon?
                 <input
                   className="isWeapon"
