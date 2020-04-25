@@ -210,31 +210,25 @@ const CreateCharacter = () => {
               </h5>
               <h5>
                 Alignment:
-                <input
+                <select
+                  className="Char-Alignment"
                   name="alignment"
                   type="text"
-                  onChange={updateAlignment}
-                />
+                  defaultValue={character.alignment}
+                  onChange={updateCharacter}
+                >
+                  <option value={null}>{''}</option>
+                  <option value="LG">LG - Lawful Good</option>
+                  <option value="NG">NG - Neutral Good</option>
+                  <option value="CG">CG - Chaotic Good</option>
+                  <option value="LN">LN - Lawful Neutral</option>
+                  <option value="N">N - True Neutral</option>
+                  <option value="CN">CN - Chaotic Neutral</option>
+                  <option value="LE">LE - Lawful Evil</option>
+                  <option value="NE">NE - Neutral Evil</option>
+                  <option value="CE">CE - Chaotic Evil</option>
+                </select>
               </h5>
-              {alignmentIsValid === false ? (
-                <>
-                  <div>
-                    <h5>
-                      <span>
-                        That is not a valid alignment.<br></br>Please enter one
-                        of: <br></br>LG for lawful good, <br></br>NG for neutral
-                        good, <br></br>CG for chaotic good, <br></br>LN for
-                        lawful neutral, <br></br>N for true neutral,
-                        <br></br>CN for chaotic neutral, <br></br>LE for lawful
-                        evil, <br></br>NE for neutral evil, <br></br>CE for
-                        chaotic evil.
-                      </span>
-                    </h5>
-                  </div>
-                </>
-              ) : (
-                <></>
-              )}
               <h5>
                 Age:
                 <input
