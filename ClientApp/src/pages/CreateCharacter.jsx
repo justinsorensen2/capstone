@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import Subrace from '../components/Subrace'
 import { Link, Redirect } from 'react-router-dom'
 
-const CreateCharacter = () => {
+const CreateCharacter = props => {
+  const userId = parseInt(props.match.params.id)
+  console.log(userId)
   const email = localStorage.getItem('email')
 
   //set variables to hold user inputs in state
   const [shouldRedirect, setShouldRedirect] = useState(false)
   const [multiClass, setMultiClass] = useState()
   const [characterRace, setCharacterRace] = useState()
+  const [raceWasSelected, setRaceWasSelected] = useState(false)
   const [character, setCharacter] = useState({})
   const [user, setUser] = useState()
   const [characterAge, setCharacterAge] = useState()
@@ -19,48 +23,6 @@ const CreateCharacter = () => {
   const [alignment, setAlignment] = useState()
   const [alignmentIsValid, setAlignmentIsValid] = useState(true)
   const [newlyCreatedCharId, setNewlyCreatedCharId] = useState()
-
-  // const [languages, setLanguages] = useState('')
-  // let [language] = [
-  //   { name: 'Common', isChecked: false, category: 'Standard' },
-  //   { name: 'Dwarvish', isChecked: false, category: 'Standard' },
-  //   { name: 'Elvish', isChecked: false, category: 'Standard' },
-  //   { name: 'Giant', isChecked: false, category: 'Standard' },
-  //   { name: 'Gnomish', isChecked: false, category: 'Standard' },
-  //   { name: 'Goblin', isChecked: false, category: 'Standard' },
-  //   { name: 'Halfling', isChecked: false, category: 'Standard' },
-  //   { name: 'Orc', isChecked: false, category: 'Standard' },
-  //   { name: 'Abyssal', isChecked: false, category: 'Exotic' },
-  //   { name: 'Celestial', isChecked: false, category: 'Exotic' },
-  //   { name: 'Draconic', isChecked: false, category: 'Exotic' },
-  //   { name: 'Deep Speech', isChecked: false, category: 'Exotic' },
-  //   { name: 'Infernal', isChecked: false, category: 'Exotic' },
-  //   { name: 'Primordial', isChecked: false, category: 'Exotic' },
-  //   { name: 'Sylvan', isChecked: false, category: 'Exotic' },
-  //   { name: 'Undercommon', isChecked: false, category: 'Exotic' },
-  // ]
-  // //update value of languages when checked
-  // const setLanguage = props => {
-  //   const langName = toString(props)
-  //   const id = language.indexOf(langName)
-  //   console.log(langName)
-  //   language[id].isChecked = true
-  // }
-
-  // //add the name of the checked language
-  // const addCheckedToString = () => {
-  //   for (let i = 0; (i = language.length); i++) {
-  //     if (language.isChecked === true) {
-  //       languages += language.name
-  //     }
-  //   }
-  //   console.log(languages)
-  // }
-
-  //run the addCheckedToString function each time language.isChecked changes
-  // useEffect(() => {
-  //   addCheckedToString()
-  // }, [language.isChecked])
 
   //parse age to int
   const updateCharacterAge = e => {
@@ -130,12 +92,34 @@ const CreateCharacter = () => {
     } else {
       setDarkvision(0)
     }
+  }
+
+  //update size based on race
+  const updateSize = characterRace => {
     if (characterRace === 'Gnome' || 'Halfling') {
       setSize('Small')
     } else {
       setSize('Medium')
     }
   }
+
+  const updateRaceWasSelected = characterRace => {
+    if (characterRace === null) {
+      setRaceWasSelected(false)
+    } else {
+      setRaceWasSelected(true)
+    }
+  }
+
+  //call useEffect to update size and racewasselected
+  //when characterRace changes
+  useEffect(() => {
+    updateSize(characterRace)
+    updateRaceWasSelected(characterRace)
+  }, [characterRace])
+
+  console.log(size)
+  console.log(raceWasSelected)
 
   //create character data from user inputs
   const updateCharacterData = e => {
@@ -214,8 +198,7 @@ const CreateCharacter = () => {
                   className="Char-Alignment"
                   name="alignment"
                   type="text"
-                  defaultValue={character.alignment}
-                  onChange={updateCharacter}
+                  onChange={updateCharacterData}
                 >
                   <option value={null}>{''}</option>
                   <option value="LG">LG - Lawful Good</option>
@@ -257,6 +240,14 @@ const CreateCharacter = () => {
                   <option value="Tiefling">Tiefling</option>
                 </select>
               </h5>
+              {raceWasSelected === true ? (
+                <>
+                  <Subrace race={characterRace}></Subrace>
+                </>
+              ) : (
+                <></>
+              )}
+
               <h5>Size: {size}</h5>
               <h5>
                 Class:

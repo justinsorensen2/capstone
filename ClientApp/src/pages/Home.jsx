@@ -16,12 +16,10 @@ const Home = () => {
       .then(response => {
         //set var for character from axios get
         setCharacters(response.data)
-        console.log('character get' + characters)
       })
   }
-
+  //call useEffect to getCharacters when page loads
   useEffect(() => {
-    console.log(userProfile, user)
     const userId = parseInt(user.id)
     if (userId) {
       getCharacters(userId)
@@ -41,7 +39,7 @@ const Home = () => {
         <div className="Nothing-Here">
           You have not created any characters. Click{' '}
           <span>
-            <Link to="/CreateCharacter/">
+            <Link to={`/CreateCharacter/${user.id}`}>
               <span className="Landing-Span">here</span>
             </Link>
           </span>{' '}

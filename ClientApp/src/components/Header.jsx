@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Header = () => {
+const Header = props => {
+  // const userId = parseInt(props.match.params.id)
   return (
     <main className="Header">
       <header>

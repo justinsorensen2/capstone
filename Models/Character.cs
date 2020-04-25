@@ -29,6 +29,7 @@ namespace capstone
     public int Darkvision { get; set; }
     public int ExperiencePoints { get; set; }
     public string Size { get; set; }
+    public string Subrace { get; set; }
     //navigation
     public List<Stat> Stats { get; set; } = new List<Stat>();
     public List<Skill> Skills { get; set; } = new List<Skill>();

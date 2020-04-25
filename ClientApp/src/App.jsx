@@ -51,7 +51,7 @@ const App = () => {
   return (
     <>
       <UserProfileContext.Provider value={userProfile}>
-        <Header userId={id}></Header>
+        <Header id={id}></Header>
         <Router>
           <Switch>
             <Route exact path="/" component={Landing}></Route>
@@ -63,7 +63,7 @@ const App = () => {
             ></Route>
             <Route
               exact
-              path="/CreateCharacter:id"
+              path="/CreateCharacter/:id"
               component={CreateCharacter}
             ></Route>
             <Route exact path="/CreateStat/:id" component={CreateStat}></Route>
