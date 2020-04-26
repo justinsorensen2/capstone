@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Subrace from '../components/Subrace'
 import { Link, Redirect } from 'react-router-dom'
 
 const CreateCharacter = props => {
@@ -21,8 +20,17 @@ const CreateCharacter = props => {
   const [darkvision, setDarkvision] = useState()
   const [size, setSize] = useState()
   const [alignment, setAlignment] = useState()
-  const [alignmentIsValid, setAlignmentIsValid] = useState(true)
   const [newlyCreatedCharId, setNewlyCreatedCharId] = useState()
+  const [abilityScoreIncrease, setAbilityScoreIncrease] = useState()
+  const [speed, setSpeed] = useState()
+  const [racePlural, setRacePlural] = useState('')
+  const [savingThrowBonuses, setSavingThrowBonuses] = useState()
+  const [weaponProficiencies, setWeaponProficiencies] = useState('')
+  const [toolProficiencies, setToolProficiencies] = useState({})
+  const [subrace, setSubrace] = useState({})
+  const [skillBonuses, setSkillBonuses] = useState('')
+  const [racialLanguages, setRacialLanguages] = useState('')
+  const [toolProf, setToolProf] = useState('')
 
   //parse age to int
   const updateCharacterAge = e => {
@@ -39,26 +47,45 @@ const CreateCharacter = props => {
     setSecondaryClassLevel(parseInt(e.target.value))
   }
 
-  const updateAlignment = e => {
-    const alignmentText = e.target.value
-    const alignmentUpper = alignmentText.toUpperCase()
-    if (
-      alignmentUpper === 'LG' ||
-      alignmentUpper === 'NG' ||
-      alignmentUpper === 'CG' ||
-      alignmentUpper === 'LN' ||
-      alignmentUpper === 'N' ||
-      alignmentUpper === 'CN' ||
-      alignmentUpper === 'LE' ||
-      alignmentUpper === 'NE' ||
-      alignmentUpper === 'CE'
-    ) {
-      setAlignment(alignmentUpper)
-      setAlignmentIsValid(true)
-    } else {
-      setAlignmentIsValid(false)
+  const updateRacialBonus = characterRace => {
+    if (characterRace === 'Dwarf') {
+      setRaceWasSelected(true)
+      setRacePlural('Dwarves')
+      setDarkvision(60)
+      setAbilityScoreIncrease()
+      setSavingThrowBonuses('Advantage on saving throws against poison,')
+      setWeaponProficiencies('BattleAxe, Handaxe, Light Hammer, Warhammer,')
+      setToolProficiencies({
+        toolChoice1: 'Smithing Tools',
+        toolChoice2: 'Brewing Supplies',
+        toolChoice3: 'Masonry Tools',
+      })
+      setSkillBonuses(
+        'Stonecunning: add double proficiency bonus to any history check related to origin of stonework,'
+      )
+      setRacialLanguages('Common, Dwarven,')
+      setSubrace({
+        subrace1: 'Hill Dwarf',
+        subrace2: 'Mountain Dwarf',
+      })
+    } else if (characterRace === null) {
+      setRaceWasSelected(false)
+    } else if (characterRace === 'Elf') {
     }
   }
+
+  const updateSize = characterRace => {
+    if (characterRace === 'Gnome' || 'Halfling') {
+      setSize('Small')
+    } else {
+      setSize('Medium')
+    }
+  }
+
+  useEffect(() => {
+    updateSize(characterRace)
+    updateRacialBonus(characterRace)
+  }, [characterRace])
 
   //use api to get user
   const getUser = async email => {
@@ -75,51 +102,7 @@ const CreateCharacter = props => {
   //call useEffect to set user each time email changes
   useEffect(() => {
     getUser(email)
-  }, [email, alignment])
-
-  //update race and darkvision
-  const updateCharacterRace = e => {
-    setCharacterRace(e.target.value)
-    if (
-      characterRace === 'Gnome' ||
-      'Elf' ||
-      'Half-Elf' ||
-      'Dwarf' ||
-      'Half-Orc' ||
-      'Tiefling'
-    ) {
-      setDarkvision(60)
-    } else {
-      setDarkvision(0)
-    }
-  }
-
-  //update size based on race
-  const updateSize = characterRace => {
-    if (characterRace === 'Gnome' || 'Halfling') {
-      setSize('Small')
-    } else {
-      setSize('Medium')
-    }
-  }
-
-  const updateRaceWasSelected = characterRace => {
-    if (characterRace === null) {
-      setRaceWasSelected(false)
-    } else {
-      setRaceWasSelected(true)
-    }
-  }
-
-  //call useEffect to update size and racewasselected
-  //when characterRace changes
-  useEffect(() => {
-    updateSize(characterRace)
-    updateRaceWasSelected(characterRace)
-  }, [characterRace])
-
-  console.log(size)
-  console.log(raceWasSelected)
+  }, [email])
 
   //create character data from user inputs
   const updateCharacterData = e => {
@@ -226,7 +209,7 @@ const CreateCharacter = props => {
                   className="Char-Race"
                   name="characterRace"
                   type="text"
-                  onChange={updateCharacterRace}
+                  onChange={e => setCharacterRace(e.target.value)}
                 >
                   <option value={null}>{''}</option>
                   <option value="Dragonborn">Dragonborn</option>
@@ -242,7 +225,69 @@ const CreateCharacter = props => {
               </h5>
               {raceWasSelected === true ? (
                 <>
-                  <Subrace race={characterRace}></Subrace>
+                  <div className="Race-Bonus-Parent">
+                    <div className="Race-Bonus">
+                      <h5>
+                        {racePlural} have the following attributes:<br></br>
+                        1. Constitution + 2<br></br>
+                        2. Size: {size}
+                        <br></br>
+                        3. Speed: {speed}ft.<br></br>
+                        4. Darkvision: {darkvision} ft.<br></br>
+                        5. Saving Throw Bonuses: {savingThrowBonuses}
+                        <br></br>
+                        6. Weapon Proficiency: {weaponProficiencies}
+                        <br></br>
+                        7. Tool Proficiency:
+                        {toolProficiencies === '' ? (
+                          <>
+                            {' '}
+                            <div>N/A</div>
+                          </>
+                        ) : (
+                          <>
+                            Choose one of:
+                            <input
+                              className="Tool-Prof"
+                              name="toolProficiency"
+                              type="radio"
+                              value={toolProficiencies.toolChoice1}
+                              onChange={e => setToolProf(e.target.value)}
+                            >
+                              {' '}
+                              {toolProficiencies.toolChoice1}{' '}
+                            </input>
+                            <input
+                              className="Tool-Prof"
+                              name="toolProficiency"
+                              type="radio"
+                              value={toolProficiencies.toolChoice2}
+                              onChange={e => setToolProf(e.target.value)}
+                            >
+                              {' '}
+                              {toolProficiencies.toolChoice2}{' '}
+                            </input>
+                            <input
+                              className="Tool-Prof"
+                              name="toolProficiency"
+                              type="radio"
+                              value={toolProficiencies.toolChoice3}
+                              onChange={e => setToolProf(e.target.value)}
+                            >
+                              {' '}
+                              {toolProficiencies.toolChoice3}{' '}
+                            </input>
+                          </>
+                        )}
+                        8. Skill Bonus(es): {skillBonuses}
+                        <br></br>
+                        9. Languages: {racialLanguages}
+                        <br></br>
+                        10. Select one of the following {characterRace}{' '}
+                        subraces:
+                      </h5>
+                    </div>
+                  </div>
                 </>
               ) : (
                 <></>
@@ -342,191 +387,13 @@ const CreateCharacter = props => {
               <div className="Char-Languages">
                 <h5>Languages</h5>
                 <div className="Char-Languages-Parent">
-                  <div className="Standard-Languages-Parent">
-                    Standard:
-                    <ul className="Standard-Languages">
-                      <li>
-                        <input
-                          name="Common"
-                          category="Standard"
-                          // onClick={e => setLanguage(e.target.id)}
-                          type="checkbox"
-                          // checked={language.isChecked}
-                        />{' '}
-                        Common
-                      </li>
-                      <li>
-                        <input
-                          id="1"
-                          name="Dwarvish"
-                          category="Standard"
-                          // onClick={e => setLanguage(e.target.id)}
-                          type="checkbox"
-                          // checked={language.isChecked}
-                        />{' '}
-                        Dwarvish
-                      </li>
-                      <li>
-                        <input
-                          id="2"
-                          name="Elvish"
-                          category="Standard"
-                          // onClick={e => setLanguage(e.target.id)}
-                          type="checkbox"
-                          // checked={language.isChecked}
-                        />{' '}
-                        Elvish
-                      </li>
-                      <li>
-                        <input
-                          id="3"
-                          name="Giant"
-                          category="Standard"
-                          // onClick={e => setLanguage(e.target.id)}
-                          type="checkbox"
-                          // checked={language.isChecked}
-                        />{' '}
-                        Giant
-                      </li>
-                      <li>
-                        <input
-                          id="4"
-                          name="Gnomish"
-                          category="Standard"
-                          // onClick={e => setLanguage(e.target.id)}
-                          type="checkbox"
-                          // checked={language.isChecked}
-                        />{' '}
-                        Gnomish
-                      </li>
-                      <li>
-                        <input
-                          id="5"
-                          name="Goblin"
-                          category="Standard"
-                          // onClick={e => setLanguage(e.target.id)}
-                          type="checkbox"
-                          // checked={language.isChecked}
-                        />{' '}
-                        Goblin
-                      </li>
-                      <li>
-                        <input
-                          id="6"
-                          name="Halfling"
-                          category="Standard"
-                          // onClick={e => setLanguage(e.target.id)}
-                          type="checkbox"
-                          // checked={language.isChecked}
-                        />{' '}
-                        Halfling
-                      </li>
-                      <li>
-                        <input
-                          id="7"
-                          name="Orc"
-                          category="Standard"
-                          // onClick={e => setLanguage(e.target.id)}
-                          type="checkbox"
-                          // checked={language.isChecked}
-                        />{' '}
-                        Orc
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="Exotic-Languages-Parent">
-                    Exotic:
-                    <ul className="Exotic-Languages">
-                      <li>
-                        <input
-                          id="8"
-                          name="Abyssal"
-                          category="Exotic"
-                          // onClick={e => setLanguage(e.target.id)}
-                          type="checkbox"
-                          // checked={language.isChecked}
-                        />{' '}
-                        Abyssal
-                      </li>
-                      <li>
-                        <input
-                          id="9"
-                          name="Celestial"
-                          category="Exotic"
-                          // onClick={e => setLanguage(e.target.id)}
-                          type="checkbox"
-                          // checked={language.isChecked}
-                        />{' '}
-                        Celestial
-                      </li>
-                      <li>
-                        <input
-                          id="10"
-                          name="Draconic"
-                          category="Exotic"
-                          // onClick={e => setLanguage(e.target.id)}
-                          type="checkbox"
-                          // checked={language.isChecked}
-                        />{' '}
-                        Draconic
-                      </li>
-                      <li>
-                        <input
-                          id="12"
-                          name="Deep Speech"
-                          category="Exotic"
-                          // onClick={e => setLanguage(e.target.id)}
-                          type="checkbox"
-                          // checked={language.isChecked}
-                        />{' '}
-                        Deep Speech
-                      </li>
-                      <li>
-                        <input
-                          id="13"
-                          name="Infernal"
-                          category="Exotic"
-                          // onClick={e => setLanguage(e.target.id)}
-                          type="checkbox"
-                          // checked={language.isChecked}
-                        />{' '}
-                        Infernal
-                      </li>
-                      <li>
-                        <input
-                          id="14"
-                          name="Primordial"
-                          category="Exotic"
-                          // onClick={e => setLanguage(e.target.id)}
-                          type="checkbox"
-                          // checked={language.isChecked}
-                        />{' '}
-                        Primordial
-                      </li>
-                      <li>
-                        <input
-                          id="15"
-                          name="Sylvan"
-                          category="Exotic"
-                          // onClick={e => setLanguage(e.target.id)}
-                          type="checkbox"
-                          // checked={language.isChecked}
-                        />{' '}
-                        Sylvan
-                      </li>
-                      <li>
-                        <input
-                          id="16"
-                          name="Undercommon"
-                          category="Exotic"
-                          // onClick={e => setLanguage(e.target.id)}
-                          type="checkbox"
-                          // checked={language.isChecked}
-                        />{' '}
-                        Undercommon
-                      </li>
-                    </ul>
-                  </div>
+                  <input
+                    type="text area"
+                    name="languages"
+                    className="Add-Languages"
+                    defaultValue={racialLanguages}
+                    onChange={updateCharacterData}
+                  />
                 </div>
               </div>
               <div className="Char-Personality-Traits">
@@ -627,9 +494,6 @@ const CreateCharacter = props => {
                     onChange={updateCharacterData}
                   />
                 </div>
-              </div>
-              <div className="Darkvision">
-                <h5>Darkvision: {darkvision}ft.</h5>
               </div>
               <div className="Create-Char-Button-Div">
                 <button
