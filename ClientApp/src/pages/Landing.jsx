@@ -41,7 +41,7 @@ const Landing = () => {
       <>
         <article className="Landing-Flex">
           <section className="Landing-Parent">
-            <div className="Landing">
+            <div className="Landing-Form">
               <div className="Site-Icon" />
               <h2>D&D Character Creator</h2>
               <h5>
