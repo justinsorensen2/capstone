@@ -67,7 +67,6 @@ const Home = props => {
                 )
               })}
             </ol>
-            <h5>Click on one of your characters above to access their info.</h5>
           </main>
         )}
       </div>
