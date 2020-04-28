@@ -29,8 +29,12 @@ const EquipLI = props => {
             <br></br>
             Description: {equip.description}
           </p>
-          <div className="Login-Button-Div">
-            <button className="Login-Button" id={equip.id} onClick={deleteItem}>
+          <div className="Delete-Item-Button-Div">
+            <button
+              className="Delete-Item-Button"
+              id={equip.id}
+              onClick={deleteItem}
+            >
               Delete Item
             </button>
           </div>

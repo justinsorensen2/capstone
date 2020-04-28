@@ -118,304 +118,302 @@ const CreateCharacter = props => {
     )
   }
   return (
-    <div>
-      <article className="Create-Char-Flex">
-        <section className="Create-Char-Parent">
-          <div className="Create-Char">
-            <form className="Create-Char-Form" onSubmit={createNewCharacter}>
-              <div className="Site-Icon" />
-              <h3>Fill in your character's details.</h3>
-              <h5>
-                First Name:
+    <>
+      <article className="Landing-Flex">
+        <section className="Landing-Parent">
+          <form className="Landing-Form" onSubmit={createNewCharacter}>
+            <div className="Site-Icon" />
+            <h3>Fill in your character's details.</h3>
+            <h5>
+              First Name:
+              <input
+                name="characterFirst"
+                type="text"
+                onChange={updateCharacterData}
+              />
+            </h5>
+            <h5>
+              Last Name:
+              <input
+                name="characterLast"
+                type="text"
+                onChange={updateCharacterData}
+              />
+            </h5>
+            <h5>
+              Alignment:
+              <select
+                className="Char-Alignment"
+                name="alignment"
+                type="text"
+                onChange={updateCharacterData}
+              >
+                <option value={null}>{''}</option>
+                <option value="LG">LG - Lawful Good</option>
+                <option value="NG">NG - Neutral Good</option>
+                <option value="CG">CG - Chaotic Good</option>
+                <option value="LN">LN - Lawful Neutral</option>
+                <option value="N">N - True Neutral</option>
+                <option value="CN">CN - Chaotic Neutral</option>
+                <option value="LE">LE - Lawful Evil</option>
+                <option value="NE">NE - Neutral Evil</option>
+                <option value="CE">CE - Chaotic Evil</option>
+              </select>
+            </h5>
+            <h5>
+              Age:
+              <input
+                name="characterAge"
+                type="number"
+                onChange={updateCharacterAge}
+              />
+            </h5>
+            <h5>
+              Race:
+              <select
+                className="Char-Race"
+                name="characterRace"
+                type="text"
+                onChange={updateCharacterRace}
+              >
+                <option value={null}>{''}</option>
+                <option value="Dragonborn">Dragonborn</option>
+                <option value="Dwarf">Dwarf</option>
+                <option value="Elf">Elf</option>
+                <option value="Gnome">Gnome</option>
+                <option value="Half-Elf">Half-Elf</option>
+                <option value="Halfling">Halfling</option>
+                <option value="Half-Orc">Half-Orc</option>
+                <option value="Human">Human</option>
+                <option value="Tiefling">Tiefling</option>
+              </select>
+            </h5>
+            <h5>
+              Class:
+              <select
+                className="Char-Class"
+                name="characterClass"
+                type="text"
+                onChange={updateCharacterData}
+              >
+                <option value={null}>{''}</option>
+                <option value="Barbarian">Barbarian</option>
+                <option value="Bard">Bard</option>
+                <option value="Cleric">Cleric</option>
+                <option value="Druid">Druid</option>
+                <option value="Fighter">Fighter</option>
+                <option value="Monk">Monk</option>
+                <option value="Paladin">Paladin</option>
+                <option value="Ranger">Ranger</option>
+                <option value="Rogue">Rogue</option>
+                <option value="Sorcerer">Sorcerer</option>
+                <option value="Warlock">Warlock</option>
+                <option value="Wizard">Wizard</option>
+              </select>
+            </h5>
+            <h5>
+              Class Level:
+              <input
+                name="primaryClassLevel"
+                type="number"
+                onChange={updatePrimaryClassLevel}
+              />
+            </h5>
+            <h5>
+              Multi-Class?
+              <input
+                className="Multi-Class"
+                name="multiClass"
+                type="radio"
+                checked={multiClass === true}
+                onChange={e => setMultiClass(true)}
+              />{' '}
+              Yes
+              <input
+                className="Multi-Class"
+                name="multiClass"
+                type="radio"
+                checked={multiClass === false}
+                onChange={e => setMultiClass(false)}
+              />{' '}
+              No
+            </h5>
+            {multiClass === false ? (
+              <>
+                <h5>Secondary Class: N/A</h5>
+                <h5>Secondary Class Level: N/A</h5>
+              </>
+            ) : (
+              <>
+                <h5>
+                  Secondary Class:
+                  <select
+                    className="Char-Class"
+                    name="secondaryClass"
+                    type="text"
+                    onChange={updateCharacterData}
+                  >
+                    <option value={null}>{''}</option>
+                    <option value="Barbarian">Barbarian</option>
+                    <option value="Bard">Bard</option>
+                    <option value="Cleric">Cleric</option>
+                    <option value="Druid">Druid</option>
+                    <option value="Fighter">Fighter</option>
+                    <option value="Monk">Monk</option>
+                    <option value="Paladin">Paladin</option>
+                    <option value="Ranger">Ranger</option>
+                    <option value="Rogue">Rogue</option>
+                    <option value="Sorcerer">Sorcerer</option>
+                    <option value="Warlock">Warlock</option>
+                    <option value="Wizard">Wizard</option>
+                  </select>
+                </h5>
+                <h5>
+                  Secondary Class Level:
+                  <input
+                    name="secondaryClassLevel"
+                    type="number"
+                    onChange={updateSecondaryClassLevel}
+                  />
+                </h5>
+              </>
+            )}
+            <div className="Char-Languages">
+              <div className="Char-Languages-Parent">
+                <h5>
+                  Enter your character's spoken languages from:<br></br>
+                  Common, Dwarvish, Elvish, Giant, Gnomish, Goblin, <br></br>
+                  Halfling, Orc, Abyssal, Celestial, Draconic, <br></br>
+                  Deep Speech, Infernal, Primordial, Sylvan, and Undercommon.
+                </h5>
                 <input
-                  name="characterFirst"
-                  type="text"
+                  type="text area"
+                  name="languages"
+                  className="Add-Languages"
+                  // defaultValue={languages}
                   onChange={updateCharacterData}
                 />
-              </h5>
-              <h5>
-                Last Name:
+              </div>
+            </div>
+            <div className="Char-Personality-Traits">
+              <h5>Personality Traits:</h5>
+              <div className="Personality-Traits-Parent">
                 <input
-                  name="characterLast"
-                  type="text"
+                  type="text area"
+                  name="personalityTraits"
+                  className="Personality-Traits"
                   onChange={updateCharacterData}
                 />
-              </h5>
-              <h5>
-                Alignment:
-                <select
-                  className="Char-Alignment"
-                  name="alignment"
-                  type="text"
+              </div>
+            </div>
+            <div className="Char-Ideals">
+              <h5>Ideals:</h5>
+              <div className="Ideals-Parent">
+                <input
+                  name="ideals"
+                  type="text area"
+                  className="Ideals"
                   onChange={updateCharacterData}
-                >
-                  <option value={null}>{''}</option>
-                  <option value="LG">LG - Lawful Good</option>
-                  <option value="NG">NG - Neutral Good</option>
-                  <option value="CG">CG - Chaotic Good</option>
-                  <option value="LN">LN - Lawful Neutral</option>
-                  <option value="N">N - True Neutral</option>
-                  <option value="CN">CN - Chaotic Neutral</option>
-                  <option value="LE">LE - Lawful Evil</option>
-                  <option value="NE">NE - Neutral Evil</option>
-                  <option value="CE">CE - Chaotic Evil</option>
-                </select>
-              </h5>
-              <h5>
-                Age:
-                <input
-                  name="characterAge"
-                  type="number"
-                  onChange={updateCharacterAge}
                 />
-              </h5>
-              <h5>
-                Race:
-                <select
-                  className="Char-Race"
-                  name="characterRace"
-                  type="text"
-                  onChange={updateCharacterRace}
-                >
-                  <option value={null}>{''}</option>
-                  <option value="Dragonborn">Dragonborn</option>
-                  <option value="Dwarf">Dwarf</option>
-                  <option value="Elf">Elf</option>
-                  <option value="Gnome">Gnome</option>
-                  <option value="Half-Elf">Half-Elf</option>
-                  <option value="Halfling">Halfling</option>
-                  <option value="Half-Orc">Half-Orc</option>
-                  <option value="Human">Human</option>
-                  <option value="Tiefling">Tiefling</option>
-                </select>
-              </h5>
-              <h5>
-                Class:
-                <select
-                  className="Char-Class"
-                  name="characterClass"
-                  type="text"
+              </div>
+            </div>
+            <div className="Char-Bonds">
+              <h5>Bonds:</h5>
+              <div className="Bonds-Parent">
+                <input
+                  name="bonds"
+                  type="text area"
+                  className="Bonds"
                   onChange={updateCharacterData}
-                >
-                  <option value={null}>{''}</option>
-                  <option value="Barbarian">Barbarian</option>
-                  <option value="Bard">Bard</option>
-                  <option value="Cleric">Cleric</option>
-                  <option value="Druid">Druid</option>
-                  <option value="Fighter">Fighter</option>
-                  <option value="Monk">Monk</option>
-                  <option value="Paladin">Paladin</option>
-                  <option value="Ranger">Ranger</option>
-                  <option value="Rogue">Rogue</option>
-                  <option value="Sorcerer">Sorcerer</option>
-                  <option value="Warlock">Warlock</option>
-                  <option value="Wizard">Wizard</option>
-                </select>
-              </h5>
-              <h5>
-                Class Level:
-                <input
-                  name="primaryClassLevel"
-                  type="number"
-                  onChange={updatePrimaryClassLevel}
                 />
-              </h5>
-              <h5>
-                Multi-Class?
+              </div>
+            </div>
+            <div className="Char-Flaws">
+              <h5>Flaws:</h5>
+              <div className="Flaws-Parent">
                 <input
-                  className="Multi-Class"
-                  name="multiClass"
-                  type="radio"
-                  checked={multiClass === true}
-                  onChange={e => setMultiClass(true)}
-                />{' '}
-                Yes
+                  name="flaws"
+                  type="text area"
+                  className="Flaws"
+                  onChange={updateCharacterData}
+                />
+              </div>
+            </div>
+            <div className="Char-Features-Traits">
+              <h5>Features and Traits:</h5>
+              <div className="Features-Traits-Parent">
                 <input
-                  className="Multi-Class"
-                  name="multiClass"
-                  type="radio"
-                  checked={multiClass === false}
-                  onChange={e => setMultiClass(false)}
-                />{' '}
-                No
-              </h5>
-              {multiClass === false ? (
-                <>
-                  <h5>Secondary Class: N/A</h5>
-                  <h5>Secondary Class Level: N/A</h5>
-                </>
-              ) : (
-                <>
-                  <h5>
-                    Secondary Class:
-                    <select
-                      className="Char-Class"
-                      name="secondaryClass"
-                      type="text"
-                      onChange={updateCharacterData}
-                    >
-                      <option value={null}>{''}</option>
-                      <option value="Barbarian">Barbarian</option>
-                      <option value="Bard">Bard</option>
-                      <option value="Cleric">Cleric</option>
-                      <option value="Druid">Druid</option>
-                      <option value="Fighter">Fighter</option>
-                      <option value="Monk">Monk</option>
-                      <option value="Paladin">Paladin</option>
-                      <option value="Ranger">Ranger</option>
-                      <option value="Rogue">Rogue</option>
-                      <option value="Sorcerer">Sorcerer</option>
-                      <option value="Warlock">Warlock</option>
-                      <option value="Wizard">Wizard</option>
-                    </select>
-                  </h5>
-                  <h5>
-                    Secondary Class Level:
-                    <input
-                      name="secondaryClassLevel"
-                      type="number"
-                      onChange={updateSecondaryClassLevel}
-                    />
-                  </h5>
-                </>
-              )}
-              <div className="Char-Languages">
-                <div className="Char-Languages-Parent">
-                  <h5>
-                    Enter your character's spoken languages from:<br></br>
-                    Common, Dwarvish, Elvish, Giant, Gnomish, Goblin, <br></br>
-                    Halfling, Orc, Abyssal, Celestial, Draconic, <br></br>
-                    Deep Speech, Infernal, Primordial, Sylvan, and Undercommon.
-                  </h5>
-                  <input
-                    type="text area"
-                    name="languages"
-                    className="Add-Languages"
-                    // defaultValue={languages}
-                    onChange={updateCharacterData}
-                  />
-                </div>
+                  name="featuresTraits"
+                  type="text area"
+                  className="Features-Traits"
+                  onChange={updateCharacterData}
+                />
               </div>
-              <div className="Char-Personality-Traits">
-                <h5>Personality Traits:</h5>
-                <div className="Personality-Traits-Parent">
-                  <input
-                    type="text area"
-                    name="personalityTraits"
-                    className="Personality-Traits"
-                    onChange={updateCharacterData}
-                  />
-                </div>
+            </div>
+            <div className="Char-BackStory">
+              <h5>Backstory:</h5>
+              <div className="BackStory-Parent">
+                <input
+                  name="backStory"
+                  type="text area"
+                  className="BackStory"
+                  onChange={updateCharacterData}
+                />
               </div>
-              <div className="Char-Ideals">
-                <h5>Ideals:</h5>
-                <div className="Ideals-Parent">
-                  <input
-                    name="ideals"
-                    type="text area"
-                    className="Ideals"
-                    onChange={updateCharacterData}
-                  />
-                </div>
+            </div>
+            <div className="Char-Allies-Orgs">
+              <h5>Allies and Organizations:</h5>
+              <div className="Allies-Orgs-Parent">
+                <input
+                  name="alliesOrganizations"
+                  type="text area"
+                  className="Allies-Orgs"
+                  onChange={updateCharacterData}
+                />
               </div>
-              <div className="Char-Bonds">
-                <h5>Bonds:</h5>
-                <div className="Bonds-Parent">
-                  <input
-                    name="bonds"
-                    type="text area"
-                    className="Bonds"
-                    onChange={updateCharacterData}
-                  />
-                </div>
+            </div>
+            <div className="Char-Other-Proficiencies">
+              <h5>Other Proficiencies:</h5>
+              <div className="Other-Proficiencies-Parent">
+                <input
+                  name="otherProficiencies"
+                  type="text area"
+                  // defaultValue={
+                  //   { toolProf } +
+                  //   { savingThrowBonuses } +
+                  //   { skillBonuses } +
+                  //   { subraceWeaponProf } +
+                  //   { subraceArmorProf } +
+                  //   { additionalRaceBonuses }
+                  // }
+                  className="Other-Proficiencies"
+                  onChange={updateCharacterData}
+                />
               </div>
-              <div className="Char-Flaws">
-                <h5>Flaws:</h5>
-                <div className="Flaws-Parent">
-                  <input
-                    name="flaws"
-                    type="text area"
-                    className="Flaws"
-                    onChange={updateCharacterData}
-                  />
-                </div>
+            </div>
+            <div className="Char-Treasure">
+              <h5>Treasure:</h5>
+              <div className="Treasure-Parent">
+                <input
+                  name="treasure"
+                  type="text area"
+                  className="Treasure"
+                  onChange={updateCharacterData}
+                />
               </div>
-              <div className="Char-Features-Traits">
-                <h5>Features and Traits:</h5>
-                <div className="Features-Traits-Parent">
-                  <input
-                    name="featuresTraits"
-                    type="text area"
-                    className="Features-Traits"
-                    onChange={updateCharacterData}
-                  />
-                </div>
-              </div>
-              <div className="Char-BackStory">
-                <h5>Backstory:</h5>
-                <div className="BackStory-Parent">
-                  <input
-                    name="backStory"
-                    type="text area"
-                    className="BackStory"
-                    onChange={updateCharacterData}
-                  />
-                </div>
-              </div>
-              <div className="Char-Allies-Orgs">
-                <h5>Allies and Organizations:</h5>
-                <div className="Allies-Orgs-Parent">
-                  <input
-                    name="alliesOrganizations"
-                    type="text area"
-                    className="Allies-Orgs"
-                    onChange={updateCharacterData}
-                  />
-                </div>
-              </div>
-              <div className="Char-Other-Proficiencies">
-                <h5>Other Proficiencies:</h5>
-                <div className="Other-Proficiencies-Parent">
-                  <input
-                    name="otherProficiencies"
-                    type="text area"
-                    // defaultValue={
-                    //   { toolProf } +
-                    //   { savingThrowBonuses } +
-                    //   { skillBonuses } +
-                    //   { subraceWeaponProf } +
-                    //   { subraceArmorProf } +
-                    //   { additionalRaceBonuses }
-                    // }
-                    className="Other-Proficiencies"
-                    onChange={updateCharacterData}
-                  />
-                </div>
-              </div>
-              <div className="Char-Treasure">
-                <h5>Treasure:</h5>
-                <div className="Treasure-Parent">
-                  <input
-                    name="treasure"
-                    type="text area"
-                    className="Treasure"
-                    onChange={updateCharacterData}
-                  />
-                </div>
-              </div>
-              <div className="Create-Char-Button-Div">
-                <button
-                  className="Create-Char-Button"
-                  onClick={createNewCharacter}
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
-          </div>
+            </div>
+            <div className="Create-Char-Button-Div">
+              <button
+                className="Create-Char-Button"
+                onClick={createNewCharacter}
+              >
+                Submit
+              </button>
+            </div>
+          </form>
         </section>
       </article>
-    </div>
+    </>
   )
 }
 

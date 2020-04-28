@@ -14,7 +14,11 @@ html {
 body {
   margin: 0;
   min-height: 100%;
-  font-family: 'Luminari-Regular', serif;
+  font-family: 'Oswald', sans-serif;
+  background-image: url('./images/papyrus.jpg');
+  height: 100%;
+  background-position: center;
+  background-size: cover;
 }
 
 header {
@@ -29,26 +33,33 @@ header {
   a {
     padding: 1rem;
     text-decoration: none;
-    color: black;
+    color: white;
     width: 100%;
     height: 100%;
   }
   a:link {
     text-decoration: none;
-    color: black;
+    color: white;
   }
   a:visited {
     text-decoration: none;
-    color: black;
+    color: white;
   }
   a:hover {
     text-decoration: none;
-    color: black;
+    color: white;
   }
   a:active {
     text-decoration: none;
-    color: black;
+    color: white;
   }
+}
+
+.Header {
+  background-image: url('./images/wood.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .Header-Button {
@@ -57,13 +68,12 @@ header {
   font-size: 2rem;
   font-weight: bold;
   border-radius: 1.5rem;
-  background: #ecf0f3;
-  box-shadow: 7px 7px 10px #cbced1, -7px -7px 10px #ffffff;
-  color: black;
-}
+  color: white;
+  background-image: url('./images/wood.jpg');
 
-span {
-  color: blue;
+  span {
+    color: blue;
+  }
 }
 
 .Landing-Form {
@@ -71,8 +81,6 @@ span {
   height: auto;
   padding: 3.75rem 2.188rem 2.188rem 2.188rem;
   border-radius: 2.5rem;
-  background: #ecf0f3;
-  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -121,11 +129,22 @@ img {
 }
 
 .Login-Button {
-  height: auto;
+  height: 2rem;
   width: auto;
   border-radius: 1rem;
-  background: #9dd4fd;
-  box-shadow: 7px 7px 10px #e1e2e4, -7px -7px 10px #ffffff;
+  background-image: url('./images/wood.jpg');
+  margin-bottom: 0.5rem;
+  color: white;
+  box-shadow: 7px 7px 10px #000000;
+}
+
+.Delete-Item-Button-Div {
+  @extend .Login-Button-Div;
+}
+
+.Delete-Item-Button {
+  @extend .Login-Button;
+  height: auto;
 }
 
 .Register-Form {
@@ -176,8 +195,6 @@ img {
   height: auto;
   padding: 3.75rem 2.188rem 2.188rem 2.188rem;
   border-radius: 2.5rem;
-  background: #ecf0f3;
-  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -215,8 +232,6 @@ img {
   height: auto;
   padding: 3.75rem 2.188rem 2.188rem 2.188rem;
   border-radius: 2.5rem;
-  background: #ecf0f3;
-  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -235,15 +250,15 @@ img {
 
 .Char-Details-Top-Bar {
   margin-top: 1rem;
-  width: auto;
+  margin-left: 1rem;
+  width: 98%;
   height: auto;
-  padding: 2rem 2rem 2rem 2rem;
+  padding: 2rem 1rem 1rem 2rem;
+  border: 5px double #a4a19f;
   border-radius: 2.5rem;
-  background: #ecf0f3;
-  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: 0;
   margin-bottom: 1rem;
 }
@@ -263,6 +278,10 @@ img {
   width: 100%;
 }
 
+.Equip-List-Item {
+  border: 1px solid black;
+}
+
 .Char-Details-Left-Bar-Stats {
   display: flex;
   flex-direction: column;
@@ -275,10 +294,10 @@ img {
   margin-left: 0.5rem;
   width: 8rem;
   height: 6rem;
+  border: 2px solid blue;
   padding: 1rem 0.5rem 0.5rem 1rem;
   border-radius: 2.5rem;
   background: #ecf0f3;
-  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
 }
 
 .Char-Details-Left-Bar-Skills {
@@ -290,10 +309,9 @@ img {
   width: 40%;
   margin-left: 2rem;
   height: auto;
+  border: 3px solid grey;
   padding: 1rem 0.5rem 0.5rem 1rem;
   border-radius: 2.5rem;
-  background: #ecf0f3;
-  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
 }
 
 .Skills {
@@ -304,11 +322,10 @@ img {
   margin-top: 1rem;
   width: 40%;
   height: auto;
+  border: 3px solid grey;
   margin-left: 2rem;
   padding: 1rem 0.5rem 0.5rem 1rem;
   border-radius: 2.5rem;
-  background: #ecf0f3;
-  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
 }
 
 .Skill-Item {
@@ -322,8 +339,6 @@ img {
   margin-top: 1rem;
   padding: 1rem 0.5rem 0.5rem 1rem;
   border-radius: 2.5rem;
-  background: #ecf0f3;
-  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
 }
 
 .Middle-Bar {
@@ -337,24 +352,28 @@ img {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  width: 48%;
+  justify-content: space-evenly;
+  width: 48vw;
   margin-left: 0.4rem;
   height: auto;
   padding: 1rem 0.5rem 0.5rem 1rem;
+  border: 5px double #a4a19f;
   border-radius: 2.5rem;
-  background: #ecf0f3;
-  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
 }
 
 .Right-Bar {
-  @extend .AC-HP-Death-Saves-Etc;
+  @extend .Skills;
   width: 90%;
   margin-top: 1rem;
   margin-left: 5%;
 }
 
+.Saving-Throw {
+  padding-top: 0.5rem;
+}
+
 .Bottom-Bar {
-  @extend .AC-HP-Death-Saves-Etc;
+  @extend .Skills;
   width: 90%;
   margin-top: 1rem;
   margin-left: 5%;
@@ -389,6 +408,17 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: left;
+}
+
+.Char-Det-Lang {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  border-left: 3px solid black;
+  border-right: 3px solid black;
+}
+
+.Site-Icon-2 {
+  @extend .Site-Icon;
 }
 
 ul {

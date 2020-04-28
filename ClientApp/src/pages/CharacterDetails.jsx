@@ -78,15 +78,17 @@ const CharacterDetails = props => {
             <div className="Char-Details-Top-Bar">
               <div className="Name-Class-Level">
                 <div className="Name">
-                  Character: {character.characterFirst}
-                  {'   '}
-                  {character.characterLast}
+                  <h5>
+                    Character: {character.characterFirst}
+                    {'   '}
+                    {character.characterLast}
+                  </h5>
                 </div>
                 <div className="Primary-Class">
-                  Class: {character.characterClass}
+                  <h5>Class: {character.characterClass}</h5>
                 </div>
                 <div className="Primary-Class-Level">
-                  Class Level: {character.primaryClassLevel}
+                  <h5>Class Level: {character.primaryClassLevel}</h5>
                 </div>
                 {character.secondaryClass === null ? (
                   <>
@@ -95,21 +97,29 @@ const CharacterDetails = props => {
                 ) : (
                   <>
                     <div className="Secondary-Class">
-                      Secondary Class: {character.secondaryClass}
+                      <h5>Secondary Class: {character.secondaryClass}</h5>
                     </div>
                     <div className="Secondary-Class-Level">
-                      Secondary Class Level: {character.secondaryClassLevel}
+                      <h5>
+                        Secondary Class Level: {character.secondaryClassLevel}
+                      </h5>
                     </div>
                   </>
                 )}
               </div>
               <div className="Race-Alignment-XP">
-                <div className="Race">Race: {character.characterRace}</div>
-                <div className="Size">Size: {character.size}</div>
-                <div className="Alignment">
-                  Alignment: {character.alignment}
+                <div className="Race">
+                  <h5>Race: {character.characterRace}</h5>
                 </div>
-                <div className="XP">XP: {character.experiencePoints}</div>
+                <div className="Size">
+                  <h5>Size: {character.size}</h5>
+                </div>
+                <div className="Alignment">
+                  <h5>Alignment: {character.alignment}</h5>
+                </div>
+                <div className="XP">
+                  <h5>XP: {character.experiencePoints}</h5>
+                </div>
               </div>
             </div>
             <div className="Full-Left-Bar">
@@ -190,8 +200,8 @@ const CharacterDetails = props => {
                   )}
                   <div className="Char-Details-Saving-Throws">
                     Saving Throws
-                    <div className="Strength-Saving-Throw">
-                      Strength Throw: {stat.strSavingThrow} Proficiency?{' '}
+                    <div className="Saving-Throw">
+                      Strength Throw: {stat.strSavingThrow} Prof?{' '}
                       <input
                         name="SSTP"
                         value={stat.strSavingThrowProf}
@@ -199,8 +209,8 @@ const CharacterDetails = props => {
                         checked={stat.strSavingThrowProf === true}
                       ></input>
                     </div>
-                    <div className="Dexterity-Saving-Throw">
-                      Dexterity Throw: {stat.dexSavingThrow} Proficiency?{' '}
+                    <div className="Saving-Throw">
+                      Dexterity Throw: {stat.dexSavingThrow} Prof?{' '}
                       <input
                         name="DSTP"
                         value={stat.dexSavingThrowProf}
@@ -208,8 +218,8 @@ const CharacterDetails = props => {
                         checked={stat.dexSavingThrowProf === true}
                       ></input>
                     </div>
-                    <div className="Constitution-Saving-Throw">
-                      Constitution Throw: {stat.conSavingThrow} Proficiency?{' '}
+                    <div className="Saving-Throw">
+                      Constitution Throw: {stat.conSavingThrow} Prof?{' '}
                       <input
                         name="CSTP"
                         value={stat.conSavingThrowProf}
@@ -217,8 +227,8 @@ const CharacterDetails = props => {
                         checked={stat.conSavingThrowProf === true}
                       ></input>
                     </div>
-                    <div className="Intelligence-Saving-Throw">
-                      Intelligence Throw: {stat.intSavingThrow} Proficiency?{' '}
+                    <div className="Saving-Throw">
+                      Intelligence Throw: {stat.intSavingThrow} Prof?{' '}
                       <input
                         name="ISTP"
                         value={stat.intSavingThrowProf}
@@ -226,8 +236,8 @@ const CharacterDetails = props => {
                         checked={stat.intSavingThrowProf === true}
                       ></input>
                     </div>
-                    <div className="Wisdom-Saving-Throw">
-                      Wisdom Throw: {stat.wisSavingThrow} Proficiency?{' '}
+                    <div className="Saving-Throw">
+                      Wisdom Throw: {stat.wisSavingThrow} Prof?{' '}
                       <input
                         name="WSTP"
                         value={stat.wisSavingThrowProf}
@@ -235,8 +245,8 @@ const CharacterDetails = props => {
                         checked={stat.wisSavingThrowProf === true}
                       ></input>
                     </div>
-                    <div className="Charisma-Saving-Throw">
-                      Charisma Throw: {stat.chaSavingThrow} Proficiency?{' '}
+                    <div className="Saving-Throw">
+                      Charisma Throw: {stat.chaSavingThrow} Prof?{' '}
                       <input
                         name="CSTP"
                         value={stat.chaSavingThrowProf}
@@ -249,7 +259,7 @@ const CharacterDetails = props => {
                 <div className="Skills">
                   Skills
                   <div className="Skill-Item">
-                    Acrobatics(Dex): {skill.acrobatics} Proficiency?{' '}
+                    Acrobatics(Dex): {skill.acrobatics} Prof?{' '}
                     <input
                       name="AcroProf"
                       value={skill.acrobaticsProf}
@@ -258,7 +268,7 @@ const CharacterDetails = props => {
                     ></input>
                   </div>
                   <div className="Skill-Item">
-                    Animal Handling(Wis): {skill.animalHandling} Proficiency?{' '}
+                    Animal Handling(Wis): {skill.animalHandling} Prof?{' '}
                     <input
                       name="AnimProf"
                       value={skill.animalHandlingProf}
@@ -267,7 +277,7 @@ const CharacterDetails = props => {
                     ></input>
                   </div>
                   <div className="Skill-Item">
-                    Arcana(Int): {skill.arcana} Proficiency?{' '}
+                    Arcana(Int): {skill.arcana} Prof?{' '}
                     <input
                       name="ArcanaProf"
                       value={skill.arcanaProf}
@@ -276,7 +286,7 @@ const CharacterDetails = props => {
                     ></input>
                   </div>
                   <div className="Skill-Item">
-                    Athletics(Str): {skill.athletics} Proficiency?{' '}
+                    Athletics(Str): {skill.athletics} Prof?{' '}
                     <input
                       name="AthleticsProf"
                       value={skill.athleticsProf}
@@ -285,7 +295,7 @@ const CharacterDetails = props => {
                     ></input>
                   </div>
                   <div className="Skill-Item">
-                    Deception(Cha): {skill.deception} Proficiency?{' '}
+                    Deception(Cha): {skill.deception} Prof?{' '}
                     <input
                       name="DeceptProf"
                       value={skill.deceptionProf}
@@ -294,7 +304,7 @@ const CharacterDetails = props => {
                     ></input>
                   </div>
                   <div className="Skill-Item">
-                    History(Int): {skill.history} Proficiency?{' '}
+                    History(Int): {skill.history} Prof?{' '}
                     <input
                       name="HistoryProf"
                       value={skill.historyProf}
@@ -303,7 +313,7 @@ const CharacterDetails = props => {
                     ></input>
                   </div>
                   <div className="Skill-Item">
-                    Insight(Wis): {skill.insight} Proficiency?{' '}
+                    Insight(Wis): {skill.insight} Prof?{' '}
                     <input
                       name="InsightProf"
                       value={skill.insightProf}
@@ -312,7 +322,7 @@ const CharacterDetails = props => {
                     ></input>
                   </div>
                   <div className="Skill-Item">
-                    Intimidation(Cha): {skill.intimidation} Proficiency?{' '}
+                    Intimidation(Cha): {skill.intimidation} Prof?{' '}
                     <input
                       name="IntimidationProf"
                       value={skill.intimidationProf}
@@ -321,7 +331,7 @@ const CharacterDetails = props => {
                     ></input>
                   </div>
                   <div className="Skill-Item">
-                    Investigation(Int): {skill.investigation} Proficiency?{' '}
+                    Investigation(Int): {skill.investigation} Prof?{' '}
                     <input
                       name="InvestigationProf"
                       value={skill.investigationProf}
@@ -330,7 +340,7 @@ const CharacterDetails = props => {
                     ></input>
                   </div>
                   <div className="Skill-Item">
-                    Medicine(Wis): {skill.medicine} Proficiency?{' '}
+                    Medicine(Wis): {skill.medicine} Prof?{' '}
                     <input
                       name="MedicineProf"
                       value={skill.medicineProf}
@@ -339,7 +349,7 @@ const CharacterDetails = props => {
                     ></input>
                   </div>
                   <div className="Skill-Item">
-                    Nature(Int): {skill.nature} Proficiency?{' '}
+                    Nature(Int): {skill.nature} Prof?{' '}
                     <input
                       name="NatureProf"
                       value={skill.natureProf}
@@ -348,7 +358,7 @@ const CharacterDetails = props => {
                     ></input>
                   </div>
                   <div className="Skill-Item">
-                    Perception(Wis): {skill.perception} Proficiency?{' '}
+                    Perception(Wis): {skill.perception} Prof?{' '}
                     <input
                       name="PerceptionProf"
                       value={skill.perceptionProf}
@@ -357,7 +367,7 @@ const CharacterDetails = props => {
                     ></input>
                   </div>
                   <div className="Skill-Item">
-                    Performance(Cha): {skill.performance} Proficiency?{' '}
+                    Performance(Cha): {skill.performance} Prof?{' '}
                     <input
                       name="PerformanceProf"
                       value={skill.performanceProf}
@@ -366,7 +376,7 @@ const CharacterDetails = props => {
                     ></input>
                   </div>
                   <div className="Skill-Item">
-                    Persuasion(Cha): {skill.persuasion} Proficiency?{' '}
+                    Persuasion(Cha): {skill.persuasion} Prof?{' '}
                     <input
                       name="PersuasionProf"
                       value={skill.persuasionProf}
@@ -375,7 +385,7 @@ const CharacterDetails = props => {
                     ></input>
                   </div>
                   <div className="Skill-Item">
-                    Religion(Int): {skill.religion} Proficiency?{' '}
+                    Religion(Int): {skill.religion} Prof?{' '}
                     <input
                       name="ReligionProf"
                       value={skill.religionProf}
@@ -384,7 +394,7 @@ const CharacterDetails = props => {
                     ></input>
                   </div>
                   <div className="Skill-Item">
-                    Sleight of Hand(Dex): {skill.sleightOfHand} Proficiency?{' '}
+                    Sleight of Hand(Dex): {skill.sleightOfHand} Prof?{' '}
                     <input
                       name="SleightOfHandProf"
                       value={skill.sleightOfHandProf}
@@ -393,7 +403,7 @@ const CharacterDetails = props => {
                     ></input>
                   </div>
                   <div className="Skill-Item">
-                    Stealth(Dex): {skill.stealth} Proficiency?{' '}
+                    Stealth(Dex): {skill.stealth} Prof?{' '}
                     <input
                       name="StealthProf"
                       value={skill.stealthProf}
@@ -402,7 +412,7 @@ const CharacterDetails = props => {
                     ></input>
                   </div>
                   <div className="Skill-Item">
-                    Survival(Wis): {skill.survival} Proficiency?{' '}
+                    Survival(Wis): {skill.survival} Prof?{' '}
                     <input
                       name="SurvivalProf"
                       value={skill.survivalProf}
@@ -419,11 +429,11 @@ const CharacterDetails = props => {
                 {character.languages === null ? (
                   <>
                     {' '}
-                    <div> nothing here </div>{' '}
+                    <div className="Char-Det-Lang"> nothing here </div>{' '}
                   </>
                 ) : (
                   <>
-                    <div>
+                    <div className="Char-Det-Lang">
                       Languages: <br></br>
                       {character.languages}
                     </div>
@@ -449,9 +459,14 @@ const CharacterDetails = props => {
                 </div>
                 <div className="HP-And-Temp-HP">
                   <div className="HP">
-                    HP: {stat.currentHP} / {stat.maxHP}
+                    HP:{' '}
+                    <span>
+                      {stat.currentHP} / {stat.maxHP}
+                    </span>
                   </div>
-                  <div className="Temp-HP">Temp HP: {stat.tempHP}</div>
+                  <div className="Temp-HP">
+                    Temp HP: <span>{stat.tempHP}</span>
+                  </div>
                 </div>
                 <div className="Hit-Die-And-Death-Saves">
                   <div className="Hit-Dice">
@@ -533,11 +548,11 @@ const CharacterDetails = props => {
                   </ul>
                 </div>
                 <div className="Money">
-                  <div className="CP">CP: {money.copperPieces}</div>
-                  <div className="SP">SP: {money.silverPieces}</div>
-                  <div className="EP">EP: {money.electrumPieces}</div>
-                  <div className="GP">GP: {money.goldPieces}</div>
-                  <div className="PP">PP: {money.platinumPieces}</div>
+                  <div className="Pieces">
+                    CP:{money.copperPieces} SP:{money.silverPieces} EP:
+                    {money.electrumPieces} GP:{money.goldPieces} PP:
+                    {money.platinumPieces}
+                  </div>
                 </div>
               </div>
             </div>

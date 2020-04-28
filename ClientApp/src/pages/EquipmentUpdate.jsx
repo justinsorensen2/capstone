@@ -176,9 +176,10 @@ const EquipmentUpdate = props => {
 
   //render
   return (
-    <div className="Equipment-Update">
-      <article className="Equip-Update-Flex">
-        <section className="Equip-Update-Parent">
+    <div className="Landing-Flex">
+      <article className="Landing-Parent">
+        <section className="Landing-Form">
+          <div className="Site-Icon"></div>
           <div className="Current-Money">
             <div className="Money-List-Parent">
               <div className="Money-List">

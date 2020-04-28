@@ -30,44 +30,46 @@ const Home = () => {
     return <div>Loading...</div>
   }
   return (
-    <div>
-      <div className="Welcome">
-        <div className="Site-Icon"></div>
-        <h4>Welcome back, {user.userFirst}.</h4>
-      </div>
-      {!characters ? (
-        <div className="Nothing-Here">
-          You have not created any characters. Click{' '}
-          <span>
-            <Link to={`/CreateCharacter/${user.id}`}>
-              <span className="Landing-Span">here</span>
-            </Link>
-          </span>{' '}
-          to create a character.
+    <div className="Landing-Flex">
+      <div className="Landing-Parent">
+        <div className="Landing-Form">
+          <div className="Site-Icon"></div>
+          <h4>Welcome back, {user.userFirst}.</h4>
         </div>
-      ) : (
-        <main className="Home-Characters">
-          <ul className="Characters-List">
-            {characters.map(character => {
-              return (
-                <Link
-                  to={`/CharacterDetails/${character.id}`}
-                  characterId={character.id}
-                >
-                  <CharacterLI
-                    key={character.id}
-                    characterFirst={character.characterFirst}
-                    characterLast={character.characterLast}
-                    characterClass={character.characterClass}
-                    characterLevel={character.primaryClassLevel}
-                    characterImage={character.imagePath}
-                  />
-                </Link>
-              )
-            })}
-          </ul>
-        </main>
-      )}
+        {!characters ? (
+          <div className="Nothing-Here">
+            You have not created any characters. Click{' '}
+            <span>
+              <Link to={`/CreateCharacter/${user.id}`}>
+                <span className="Landing-Span">here</span>
+              </Link>
+            </span>{' '}
+            to create a character.
+          </div>
+        ) : (
+          <main className="Home-Characters">
+            <ul className="Characters-List">
+              {characters.map(character => {
+                return (
+                  <Link
+                    to={`/CharacterDetails/${character.id}`}
+                    characterId={character.id}
+                  >
+                    <CharacterLI
+                      key={character.id}
+                      characterFirst={character.characterFirst}
+                      characterLast={character.characterLast}
+                      characterClass={character.characterClass}
+                      characterLevel={character.primaryClassLevel}
+                      characterImage={character.imagePath}
+                    />
+                  </Link>
+                )
+              })}
+            </ul>
+          </main>
+        )}
+      </div>
     </div>
   )
 }

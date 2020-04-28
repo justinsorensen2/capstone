@@ -32,7 +32,7 @@ const CreateAccount = () => {
     }
   }
   //set var to hold data from user profile context
-  const { userProfile } = useUserProfile()
+  const userProfile = useUserProfile()
 
   //render
   if (shouldRedirect) {
