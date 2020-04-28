@@ -74,7 +74,7 @@ const CharacterDetails = props => {
       <article className="Create-Char-Flex">
         <section className="Create-Char-Parent">
           <div className="Create-Char">
-            <div className="Site-Icon" />
+            Character Sheet:
             <div className="Char-Details-Top-Bar">
               <div className="Name-Class-Level">
                 <div className="Name">

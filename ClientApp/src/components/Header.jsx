@@ -12,6 +12,9 @@ const Header = props => {
         <a href={`/CreateCharacter/${id}`}>
           <button className="Header-Button">Create</button>
         </a>
+        <a href="/">
+          <button className="Header-Button">Log Out</button>
+        </a>
       </header>
     </main>
   )

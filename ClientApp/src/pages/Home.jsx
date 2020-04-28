@@ -4,11 +4,14 @@ import CharacterLI from '../components/CharacterLI'
 import { useUserProfile } from '../components/UserProfileContext'
 import axios from 'axios'
 
-const Home = () => {
+const Home = props => {
+  const userId = parseInt(props.match.params.id)
   //set var for use of user profile context
   const userProfile = useUserProfile()
   const user = userProfile.user
   const [characters, setCharacters] = useState()
+
+  console.log(userId)
 
   const getCharacters = async userId => {
     return await axios
@@ -20,10 +23,7 @@ const Home = () => {
   }
   //call useEffect to getCharacters when page loads
   useEffect(() => {
-    const userId = parseInt(user.id)
-    if (userId) {
-      getCharacters(userId)
-    }
+    getCharacters(userId)
   }, [])
 
   if (!userProfile) {
@@ -40,7 +40,7 @@ const Home = () => {
           <div className="Nothing-Here">
             You have not created any characters. Click{' '}
             <span>
-              <Link to={`/CreateCharacter/${user.id}`}>
+              <Link to={`/CreateCharacter/${userId}`}>
                 <span className="Landing-Span">here</span>
               </Link>
             </span>{' '}
@@ -48,7 +48,7 @@ const Home = () => {
           </div>
         ) : (
           <main className="Home-Characters">
-            <ul className="Characters-List">
+            <ol className="Characters-List">
               {characters.map(character => {
                 return (
                   <Link
@@ -66,7 +66,8 @@ const Home = () => {
                   </Link>
                 )
               })}
-            </ul>
+            </ol>
+            <h5>Click on one of your characters above to access their info.</h5>
           </main>
         )}
       </div>

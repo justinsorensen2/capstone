@@ -70,14 +70,13 @@ header {
   border-radius: 1.5rem;
   color: white;
   background-image: url('./images/wood.jpg');
-
   span {
     color: blue;
   }
 }
 
 .Landing-Form {
-  width: auto;
+  width: 28.75rem;
   height: auto;
   padding: 3.75rem 2.188rem 2.188rem 2.188rem;
   border-radius: 2.5rem;
@@ -114,6 +113,15 @@ header {
   margin-bottom: 1rem;
   box-shadow: 0px 0px 2px #9dd4fd, 0px 0px 0px 5px #ecf0f3, 8px 8px 15px #9dd4fd,
     -8px -8px 15px #ffffff;
+}
+
+.Character-Icon {
+  background-image: url('./images/dagger.jpg');
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  margin: 0 auto;
+  margin-bottom: 1rem;
 }
 
 .Landing-Span {
@@ -290,14 +298,13 @@ img {
 }
 
 .Char-Details-Strength {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   margin-left: 0.5rem;
   width: 8rem;
   height: 6rem;
-  border: 2px solid blue;
-  padding: 1rem 0.5rem 0.5rem 1rem;
+  border: 1px solid blue;
+  padding: 1rem 1rem 1rem 1rem;
   border-radius: 2.5rem;
-  background: #ecf0f3;
 }
 
 .Char-Details-Left-Bar-Skills {
@@ -336,6 +343,8 @@ img {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
   margin-top: 1rem;
   padding: 1rem 0.5rem 0.5rem 1rem;
   border-radius: 2.5rem;
