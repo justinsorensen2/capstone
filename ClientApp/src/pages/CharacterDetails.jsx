@@ -88,7 +88,7 @@ const CharacterDetails = props => {
                 <div className="Primary-Class-Level">
                   Class Level: {character.primaryClassLevel}
                 </div>
-                {character.secondaryClass === '' ? (
+                {character.secondaryClass === null ? (
                   <>
                     <div></div>
                   </>
@@ -116,38 +116,38 @@ const CharacterDetails = props => {
               <div className="Char-Details-Left-Bar-Stats-And-Skills">
                 <div className="Char-Details-Left-Bar-Stats">
                   <div className="Char-Details-Strength">
-                    Strength<br></br>
-                    {stat.strMod}
+                    Str<br></br>
+                    Mod: {stat.strMod}
                     <br></br>
                     {stat.strength}
                   </div>
-                  <div className="Char-Details-Dexterity">
-                    Dexterity<br></br>
-                    {stat.dexMod}
+                  <div className="Char-Details-Strength">
+                    Dex<br></br>
+                    Mod: {stat.dexMod}
                     <br></br>
                     {stat.dexterity}
                   </div>
-                  <div className="Char-Details-Constitution">
-                    Constitution<br></br>
-                    {stat.conMod}
+                  <div className="Char-Details-Strength">
+                    Con<br></br>
+                    Mod: {stat.conMod}
                     <br></br>
                     {stat.constitution}
                   </div>
-                  <div className="Char-Details-Intelligence">
-                    Intelligence<br></br>
-                    {stat.intMod}
+                  <div className="Char-Details-Strength">
+                    Int<br></br>
+                    Mod: {stat.intMod}
                     <br></br>
                     {stat.intelligence}
                   </div>
-                  <div className="Char-Details-Wisdom">
-                    Wisdom<br></br>
-                    {stat.wisMod}
+                  <div className="Char-Details-Strength">
+                    Wis<br></br>
+                    Mod: {stat.wisMod}
                     <br></br>
                     {stat.wisdom}
                   </div>
-                  <div className="Char-Details-Charisma">
-                    Charisma<br></br>
-                    {stat.chaMod}
+                  <div className="Char-Details-Strength">
+                    Cha<br></br>
+                    Mod: {stat.chaMod}
                     <br></br>
                     {stat.charisma}
                   </div>
@@ -248,7 +248,7 @@ const CharacterDetails = props => {
                 </div>
                 <div className="Skills">
                   Skills
-                  <div className="Skills-Acrobatics">
+                  <div className="Skill-Item">
                     Acrobatics(Dex): {skill.acrobatics} Proficiency?{' '}
                     <input
                       name="AcroProf"
@@ -257,7 +257,7 @@ const CharacterDetails = props => {
                       checked={skill.acrobaticsProf === true}
                     ></input>
                   </div>
-                  <div className="Skills-Animal-Handling">
+                  <div className="Skill-Item">
                     Animal Handling(Wis): {skill.animalHandling} Proficiency?{' '}
                     <input
                       name="AnimProf"
@@ -266,7 +266,7 @@ const CharacterDetails = props => {
                       checked={skill.animalHandlingProf === true}
                     ></input>
                   </div>
-                  <div className="Skills-Arcana">
+                  <div className="Skill-Item">
                     Arcana(Int): {skill.arcana} Proficiency?{' '}
                     <input
                       name="ArcanaProf"
@@ -275,7 +275,7 @@ const CharacterDetails = props => {
                       checked={skill.arcanaProf === true}
                     ></input>
                   </div>
-                  <div className="Skills-Athletics">
+                  <div className="Skill-Item">
                     Athletics(Str): {skill.athletics} Proficiency?{' '}
                     <input
                       name="AthleticsProf"
@@ -284,7 +284,7 @@ const CharacterDetails = props => {
                       checked={skill.athleticsProf === true}
                     ></input>
                   </div>
-                  <div className="Skills-Deception">
+                  <div className="Skill-Item">
                     Deception(Cha): {skill.deception} Proficiency?{' '}
                     <input
                       name="DeceptProf"
@@ -293,7 +293,7 @@ const CharacterDetails = props => {
                       checked={skill.deceptionProf === true}
                     ></input>
                   </div>
-                  <div className="Skills-History">
+                  <div className="Skill-Item">
                     History(Int): {skill.history} Proficiency?{' '}
                     <input
                       name="HistoryProf"
@@ -302,7 +302,7 @@ const CharacterDetails = props => {
                       checked={skill.historyProf === true}
                     ></input>
                   </div>
-                  <div className="Skills-Insight">
+                  <div className="Skill-Item">
                     Insight(Wis): {skill.insight} Proficiency?{' '}
                     <input
                       name="InsightProf"
@@ -311,7 +311,7 @@ const CharacterDetails = props => {
                       checked={skill.insightProf === true}
                     ></input>
                   </div>
-                  <div className="Skills-Intimidation">
+                  <div className="Skill-Item">
                     Intimidation(Cha): {skill.intimidation} Proficiency?{' '}
                     <input
                       name="IntimidationProf"
@@ -320,7 +320,7 @@ const CharacterDetails = props => {
                       checked={skill.intimidationProf === true}
                     ></input>
                   </div>
-                  <div className="Skills-Investigation">
+                  <div className="Skill-Item">
                     Investigation(Int): {skill.investigation} Proficiency?{' '}
                     <input
                       name="InvestigationProf"
@@ -329,7 +329,7 @@ const CharacterDetails = props => {
                       checked={skill.investigationProf === true}
                     ></input>
                   </div>
-                  <div className="Skills-Medicine">
+                  <div className="Skill-Item">
                     Medicine(Wis): {skill.medicine} Proficiency?{' '}
                     <input
                       name="MedicineProf"
@@ -338,7 +338,7 @@ const CharacterDetails = props => {
                       checked={skill.medicineProf === true}
                     ></input>
                   </div>
-                  <div className="Skills-Nature">
+                  <div className="Skill-Item">
                     Nature(Int): {skill.nature} Proficiency?{' '}
                     <input
                       name="NatureProf"
@@ -347,7 +347,7 @@ const CharacterDetails = props => {
                       checked={skill.natureProf === true}
                     ></input>
                   </div>
-                  <div className="Skills-Perception">
+                  <div className="Skill-Item">
                     Perception(Wis): {skill.perception} Proficiency?{' '}
                     <input
                       name="PerceptionProf"
@@ -356,7 +356,7 @@ const CharacterDetails = props => {
                       checked={skill.perceptionProf === true}
                     ></input>
                   </div>
-                  <div className="Skills-Performance">
+                  <div className="Skill-Item">
                     Performance(Cha): {skill.performance} Proficiency?{' '}
                     <input
                       name="PerformanceProf"
@@ -365,7 +365,7 @@ const CharacterDetails = props => {
                       checked={skill.performanceProf === true}
                     ></input>
                   </div>
-                  <div className="Skills-Persuasion">
+                  <div className="Skill-Item">
                     Persuasion(Cha): {skill.persuasion} Proficiency?{' '}
                     <input
                       name="PersuasionProf"
@@ -374,7 +374,7 @@ const CharacterDetails = props => {
                       checked={skill.persuasionProf === true}
                     ></input>
                   </div>
-                  <div className="Skills-Religion">
+                  <div className="Skill-Item">
                     Religion(Int): {skill.religion} Proficiency?{' '}
                     <input
                       name="ReligionProf"
@@ -383,7 +383,7 @@ const CharacterDetails = props => {
                       checked={skill.religionProf === true}
                     ></input>
                   </div>
-                  <div className="Skills-Sleight-Of-Hand">
+                  <div className="Skill-Item">
                     Sleight of Hand(Dex): {skill.sleightOfHand} Proficiency?{' '}
                     <input
                       name="SleightOfHandProf"
@@ -392,7 +392,7 @@ const CharacterDetails = props => {
                       checked={skill.sleightOfHandProf === true}
                     ></input>
                   </div>
-                  <div className="Skills-Stealth">
+                  <div className="Skill-Item">
                     Stealth(Dex): {skill.stealth} Proficiency?{' '}
                     <input
                       name="StealthProf"
@@ -401,7 +401,7 @@ const CharacterDetails = props => {
                       checked={skill.stealthProf === true}
                     ></input>
                   </div>
-                  <div className="Skills-Survival">
+                  <div className="Skill-Item">
                     Survival(Wis): {skill.survival} Proficiency?{' '}
                     <input
                       name="SurvivalProf"

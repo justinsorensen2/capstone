@@ -19,10 +19,22 @@ const CreateCharacter = props => {
   const [secondaryClassLevel, setSecondaryClassLevel] = useState()
   const [alignment, setAlignment] = useState()
   const [newlyCreatedCharId, setNewlyCreatedCharId] = useState()
+  const [darkvision, setDarkvision] = useState(0)
 
   //update race from input
   const updateCharacterRace = e => {
     setCharacterRace(e.target.value)
+    if (
+      e.target.value === 'Elf' ||
+      'Half-Elf' ||
+      'Gnome' ||
+      'Half-Orc' ||
+      'Tiefling'
+    ) {
+      setDarkvision(60)
+    } else {
+      setDarkvision(0)
+    }
   }
 
   //parse age to int
@@ -75,6 +87,7 @@ const CreateCharacter = props => {
     character.characterRace = characterRace
     character.primaryClassLevel = primaryClassLevel
     character.secondaryClassLevel = secondaryClassLevel
+    character.darkvision = darkvision
     e.preventDefault()
     const resp = await axios.post(
       'api/character/create',

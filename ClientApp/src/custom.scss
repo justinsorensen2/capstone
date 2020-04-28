@@ -237,7 +237,7 @@ img {
   margin-top: 1rem;
   width: auto;
   height: auto;
-  padding: 3.75rem 2.188rem 2.188rem 2.188rem;
+  padding: 2rem 2rem 2rem 2rem;
   border-radius: 2.5rem;
   background: #ecf0f3;
   box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
@@ -254,6 +254,119 @@ img {
 
 .Race-Alignment-XP {
   padding-left: 0.4rem;
+}
+
+.Char-Details-Left-Bar-Stats-And-Skills {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.Char-Details-Left-Bar-Stats {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+}
+
+.Char-Details-Strength {
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  width: 8rem;
+  height: 6rem;
+  padding: 1rem 0.5rem 0.5rem 1rem;
+  border-radius: 2.5rem;
+  background: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+}
+
+.Char-Details-Left-Bar-Skills {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  margin-top: 1rem;
+  width: 40%;
+  margin-left: 2rem;
+  height: auto;
+  padding: 1rem 0.5rem 0.5rem 1rem;
+  border-radius: 2.5rem;
+  background: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+}
+
+.Skills {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  margin-top: 1rem;
+  width: 40%;
+  height: auto;
+  margin-left: 2rem;
+  padding: 1rem 0.5rem 0.5rem 1rem;
+  border-radius: 2.5rem;
+  background: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+}
+
+.Skill-Item {
+  padding-top: 0.5rem;
+}
+
+.Left-Bar-Perception-And-Lang-And-Other {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-top: 1rem;
+  padding: 1rem 0.5rem 0.5rem 1rem;
+  border-radius: 2.5rem;
+  background: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+}
+
+.Middle-Bar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-top: 1rem;
+}
+
+.AC-HP-Death-Saves-Etc {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 25%;
+  margin-left: 0.4rem;
+  height: auto;
+  padding: 1rem 0.5rem 0.5rem 1rem;
+  border-radius: 2.5rem;
+  background: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+}
+
+.Right-Bar {
+  @extend .AC-HP-Death-Saves-Etc;
+  width: 90%;
+  margin-top: 1rem;
+  margin-left: 5%;
+}
+
+.Bottom-Bar {
+  @extend .AC-HP-Death-Saves-Etc;
+  width: 90%;
+  margin-top: 1rem;
+  margin-left: 5%;
+}
+
+.Attacks-And-Spells {
+  @extend .AC-HP-Death-Saves-Etc;
+  width: 48%;
+}
+
+.Equipment {
+  @extend .AC-HP-Death-Saves-Etc;
 }
 
 .Roll-Stat-Button {
