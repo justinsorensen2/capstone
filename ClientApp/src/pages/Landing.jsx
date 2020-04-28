@@ -12,7 +12,8 @@ const Landing = () => {
   const [userPass, setUserPass] = useState('')
   const [shouldRedirect, setShouldRedirect] = useState(false)
   const userProfile = useUserProfile()
-
+  const userID = userProfile.user.id
+  console.log(userProfile)
   //set function for authorization via API and token
   const loginToAPI = async () => {
     const resp = await axios.post('/auth/login', {

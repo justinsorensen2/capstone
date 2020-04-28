@@ -51,7 +51,7 @@ const App = () => {
   return (
     <>
       <UserProfileContext.Provider value={userProfile}>
-        <Header id={id}></Header>
+        <Header id={id} email={email}></Header>
         <Router>
           <Switch>
             <Route exact path="/" component={Landing}></Route>

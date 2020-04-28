@@ -314,10 +314,10 @@ const CreateSkill = props => {
   }
   return (
     <div>
-      <article className="Create-Skill-Flex">
-        <section className="Create-Skill-Parent">
-          <div className="Create-Skill">
-            <form className="Create-Skill-Form" onSubmit={createNewSkill}>
+      <article className="Landing-Flex">
+        <section className="Landing-Parent">
+          <div className="Landing">
+            <form className="Landing-Form" onSubmit={createNewSkill}>
               <div className="Site-Icon"></div>
               <h3>Skills:</h3>
               <h5>
@@ -681,18 +681,9 @@ const CreateSkill = props => {
               </h5>
               <h5>Survival: {survival}</h5>
               <h5>Passive Perception: {passivePerception}</h5>
-              <div className="Create-Skill-Button-Div">
-                <button className="Create-Skill-Button" onClick={updateSkill}>
+              <div className="Login-Button-Div">
+                <button className="Login-Button" onClick={updateSkill}>
                   Save Skills
-                </button>
-              </div>
-              <div className="Create-Skill-Button-Div">
-                <button
-                  disabled={!submitIsEnabled}
-                  className="Create-Skill-Button"
-                  onClick={createNewSkill}
-                >
-                  Submit
                 </button>
               </div>
             </form>

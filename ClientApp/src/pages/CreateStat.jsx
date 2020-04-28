@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom'
 
 const CreateStat = props => {
   const characterId = props.match.params.id
-  const [entryType, setEntryType] = useState('manual')
   const [strMod, setStrMod] = useState()
   const [strength, setStrength] = useState()
   const [strBonus, setStrBonus] = useState(0)
@@ -279,203 +278,162 @@ const CreateStat = props => {
             <form className="Create-Stat-Form" onSubmit={createNewStat}>
               <div className="Site-Icon" />
               <h3>Statistics:</h3>
-              <h5>
-                Would your like to enter manually or roll for stats?
-                <input
-                  className="Stat-Entry-Type"
-                  name="Manual"
-                  type="radio"
-                  checked={entryType === 'manual'}
-                  onChange={e => setEntryType('manual')}
-                />{' '}
-                Manual{' '}
-                <input
-                  className="Stat-Entry-Type"
-                  name="entryType"
-                  type="radio"
-                  checked={entryType === 'rolled'}
-                  onChange={e => setEntryType('rolled')}
-                />{' '}
-                Roll{' '}
-              </h5>
-              {entryType === 'manual' ? (
-                <>
-                  <div className="Race-Class-Other">
-                    <h5>Race/Class/Other Strength Bonus:</h5>
-                    <div className="Race-Class-Other-Parent">
-                      <input
-                        name="strBonus"
-                        defaultValue="0"
-                        type="number"
-                        className="Strength-Bonus"
-                        onChange={e => setStrBonus(parseInt(e.target.value))}
-                      />
-                    </div>
-                  </div>
-                  <div className="Strength-Stat">
-                    <h5>Strength:</h5>
-                    <div className="Strength-Parent">
-                      <input
-                        name="strength"
-                        type="number"
-                        className="Strength"
-                        onChange={updateStr}
-                      />
-                    </div>
-                  </div>
-                  <div className="Strength-Mod">
-                    <h5>Strength Mod: {strMod}</h5>
-                  </div>
-                  <div className="Race-Class-Other">
-                    <h5>Race/Class/Other Dexterity Bonus:</h5>
-                    <div className="Race-Class-Other-Parent">
-                      <input
-                        name="dexBonus"
-                        type="number"
-                        defaultValue="0"
-                        className="Dexterity-Bonus"
-                        onChange={e => setDexBonus(parseInt(e.target.value))}
-                      />
-                    </div>
-                  </div>
-                  <div className="Dexterity-Stat">
-                    <h5>Dexterity:</h5>
-                    <div className="Dexterity-Parent">
-                      <input
-                        name="dexterity"
-                        type="number"
-                        className="Dexterity"
-                        onBlur={updateDex}
-                      />
-                    </div>
-                  </div>
-                  <div className="Dexterity-Mod">
-                    <h5>Dexterity Mod: {dexMod}</h5>
-                  </div>
-                  <div className="Race-Class-Other">
-                    <h5>Race/Class/Other Constitution Bonus:</h5>
-                    <div className="Race-Class-Other-Parent">
-                      <input
-                        name="conBonus"
-                        type="number"
-                        defaultValue="0"
-                        className="Constitution-Bonus"
-                        onChange={e => setConBonus(parseInt(e.target.value))}
-                      />
-                    </div>
-                  </div>
-                  <div className="Constitution-Stat">
-                    <h5>Constitution:</h5>
-                    <div className="Constitution-Parent">
-                      <input
-                        name="constitution"
-                        type="number"
-                        className="Constitution"
-                        onChange={updateCon}
-                      />
-                    </div>
-                  </div>
-                  <div className="Constitution-Mod">
-                    <h5>Constitution Mod: {conMod}</h5>
-                  </div>
-                  <div className="Race-Class-Other">
-                    <h5>Race/Class/Other Intelligence Bonus:</h5>
-                    <div className="Race-Class-Other-Parent">
-                      <input
-                        name="intBonus"
-                        type="number"
-                        defaultValue="0"
-                        className="Intelligence-Bonus"
-                        onChange={e => setIntBonus(parseInt(e.target.value))}
-                      />
-                    </div>
-                  </div>
-                  <div className="Intelligence-Stat">
-                    <h5>Intelligence:</h5>
-                    <div className="Intelligence-Parent">
-                      <input
-                        name="intelligence"
-                        type="number"
-                        className="Intelligence"
-                        onChange={updateInt}
-                      />
-                    </div>
-                  </div>
-                  <div className="Intelligence-Mod">
-                    <h5>Intelligence Mod: {intMod}</h5>
-                  </div>
-                  <div className="Race-Class-Other">
-                    <h5>Race/Class/Other Wisdom Bonus:</h5>
-                    <div className="Race-Class-Other-Parent">
-                      <input
-                        name="wisBonus"
-                        type="number"
-                        defaultValue="0"
-                        className="Wisdom-Bonus"
-                        onChange={e => setWisBonus(parseInt(e.target.value))}
-                      />
-                    </div>
-                  </div>
-                  <div className="Wisdom-Stat">
-                    <h5>Wisdom:</h5>
-                    <div className="Wisdom-Parent">
-                      <input
-                        name="wisdom"
-                        type="number"
-                        className="Wisdom"
-                        onChange={updateWis}
-                      />
-                    </div>
-                  </div>
-                  <div className="Wisdom-Mod">
-                    <h5>Wisdom Mod: {wisMod}</h5>
-                  </div>
-                  <div className="Race-Class-Other">
-                    <h5>Race/Class/Other Charisma Bonus:</h5>
-                    <div className="Race-Class-Other-Parent">
-                      <input
-                        name="chaBonus"
-                        type="number"
-                        defaultValue="0"
-                        className="Charisma-Bonus"
-                        onChange={e => setChaBonus(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="Charisma-Stat">
-                    <h5>Charisma:</h5>
-                    <div className="Charisma-Parent">
-                      <input
-                        name="charisma"
-                        type="number"
-                        className="Charisma"
-                        onChange={updateCha}
-                      />
-                    </div>
-                  </div>
-                  <div className="Charisma-Mod">
-                    <h5>Charisma Mod: {chaMod}</h5>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="Roll-Stat-Button-Div">
-                    <button
-                      id="btnRoll"
-                      className="Roll-Stat-Button"
-                      type="button"
-                      onClick={rollStats}
-                    >
-                      Roll Stats
-                    </button>
-                  </div>
-                  <ul className="Display-Rolled">
-                    {droppedLowest.map(roll => (
-                      <li>{roll}</li>
-                    ))}
-                  </ul>
-                </>
-              )}
+              <div className="Race-Class-Other">
+                <h5>Race/Class/Other Strength Bonus:</h5>
+                <div className="Race-Class-Other-Parent">
+                  <input
+                    name="strBonus"
+                    defaultValue="0"
+                    type="number"
+                    className="Strength-Bonus"
+                    onChange={e => setStrBonus(parseInt(e.target.value))}
+                  />
+                </div>
+              </div>
+              <div className="Strength-Stat">
+                <h5>Strength:</h5>
+                <div className="Strength-Parent">
+                  <input
+                    name="strength"
+                    type="number"
+                    className="Strength"
+                    onChange={updateStr}
+                  />
+                </div>
+              </div>
+              <div className="Strength-Mod">
+                <h5>Strength Mod: {strMod}</h5>
+              </div>
+              <div className="Race-Class-Other">
+                <h5>Race/Class/Other Dexterity Bonus:</h5>
+                <div className="Race-Class-Other-Parent">
+                  <input
+                    name="dexBonus"
+                    type="number"
+                    defaultValue="0"
+                    className="Dexterity-Bonus"
+                    onChange={e => setDexBonus(parseInt(e.target.value))}
+                  />
+                </div>
+              </div>
+              <div className="Dexterity-Stat">
+                <h5>Dexterity:</h5>
+                <div className="Dexterity-Parent">
+                  <input
+                    name="dexterity"
+                    type="number"
+                    className="Dexterity"
+                    onBlur={updateDex}
+                  />
+                </div>
+              </div>
+              <div className="Dexterity-Mod">
+                <h5>Dexterity Mod: {dexMod}</h5>
+              </div>
+              <div className="Race-Class-Other">
+                <h5>Race/Class/Other Constitution Bonus:</h5>
+                <div className="Race-Class-Other-Parent">
+                  <input
+                    name="conBonus"
+                    type="number"
+                    defaultValue="0"
+                    className="Constitution-Bonus"
+                    onChange={e => setConBonus(parseInt(e.target.value))}
+                  />
+                </div>
+              </div>
+              <div className="Constitution-Stat">
+                <h5>Constitution:</h5>
+                <div className="Constitution-Parent">
+                  <input
+                    name="constitution"
+                    type="number"
+                    className="Constitution"
+                    onChange={updateCon}
+                  />
+                </div>
+              </div>
+              <div className="Constitution-Mod">
+                <h5>Constitution Mod: {conMod}</h5>
+              </div>
+              <div className="Race-Class-Other">
+                <h5>Race/Class/Other Intelligence Bonus:</h5>
+                <div className="Race-Class-Other-Parent">
+                  <input
+                    name="intBonus"
+                    type="number"
+                    defaultValue="0"
+                    className="Intelligence-Bonus"
+                    onChange={e => setIntBonus(parseInt(e.target.value))}
+                  />
+                </div>
+              </div>
+              <div className="Intelligence-Stat">
+                <h5>Intelligence:</h5>
+                <div className="Intelligence-Parent">
+                  <input
+                    name="intelligence"
+                    type="number"
+                    className="Intelligence"
+                    onChange={updateInt}
+                  />
+                </div>
+              </div>
+              <div className="Intelligence-Mod">
+                <h5>Intelligence Mod: {intMod}</h5>
+              </div>
+              <div className="Race-Class-Other">
+                <h5>Race/Class/Other Wisdom Bonus:</h5>
+                <div className="Race-Class-Other-Parent">
+                  <input
+                    name="wisBonus"
+                    type="number"
+                    defaultValue="0"
+                    className="Wisdom-Bonus"
+                    onChange={e => setWisBonus(parseInt(e.target.value))}
+                  />
+                </div>
+              </div>
+              <div className="Wisdom-Stat">
+                <h5>Wisdom:</h5>
+                <div className="Wisdom-Parent">
+                  <input
+                    name="wisdom"
+                    type="number"
+                    className="Wisdom"
+                    onChange={updateWis}
+                  />
+                </div>
+              </div>
+              <div className="Wisdom-Mod">
+                <h5>Wisdom Mod: {wisMod}</h5>
+              </div>
+              <div className="Race-Class-Other">
+                <h5>Race/Class/Other Charisma Bonus:</h5>
+                <div className="Race-Class-Other-Parent">
+                  <input
+                    name="chaBonus"
+                    type="number"
+                    defaultValue="0"
+                    className="Charisma-Bonus"
+                    onChange={e => setChaBonus(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="Charisma-Stat">
+                <h5>Charisma:</h5>
+                <div className="Charisma-Parent">
+                  <input
+                    name="charisma"
+                    type="number"
+                    className="Charisma"
+                    onChange={updateCha}
+                  />
+                </div>
+              </div>
+              <div className="Charisma-Mod">
+                <h5>Charisma Mod: {chaMod}</h5>
+              </div>
               <h5>
                 Proficiency Bonus:
                 <input
@@ -731,15 +689,6 @@ const CreateStat = props => {
               <div className="Create-Stat-Button-Div">
                 <button className="Create-Stat-Button" onClick={updateStat}>
                   Save Stats
-                </button>
-              </div>
-              <div className="Create-Stat-Button-Div">
-                <button
-                  disabled={!submitIsEnabled}
-                  className="Create-Stat-Button"
-                  onClick={createNewStat}
-                >
-                  Submit
                 </button>
               </div>
             </form>

@@ -2,19 +2,16 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Header = props => {
-  // const userId = parseInt(props.match.params.id)
+  const id = parseInt(props.id)
   return (
     <main className="Header">
       <header>
-        <Link to="/Home:userId">
+        <a href={`/Home/${id}`}>
           <button className="Header-Button">Home</button>
-        </Link>
-        <Link to="/CreateCharacter:userId">
+        </a>
+        <a href={`/CreateCharacter/${id}`}>
           <button className="Header-Button">Create</button>
-        </Link>
-        <Link to="/Account:userId">
-          <button className="Header-Button">Account</button>
-        </Link>
+        </a>
       </header>
     </main>
   )
