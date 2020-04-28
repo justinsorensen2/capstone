@@ -448,13 +448,17 @@ const CharacterDetails = props => {
                   <div className="Speed">Speed: {stat.baseSpeed}ft.</div>
                 </div>
                 <div className="HP-And-Temp-HP">
+                  <div className="HP">
+                    HP: {stat.currentHP} / {stat.maxHP}
+                  </div>
                   <div className="Temp-HP">Temp HP: {stat.tempHP}</div>
                 </div>
                 <div className="Hit-Die-And-Death-Saves">
                   <div className="Hit-Dice">
-                    Total Hit Dice: {stat.totalHitDie} {stat.hitDie}
+                    Hit Dice: {stat.currentHitDie}
+                    {stat.hitDie} /{stat.totalHitDie}
+                    {stat.hitDie}
                     <br></br>
-                    Current Hit Dice: {stat.currentHitDie} {stat.hitDie}
                   </div>
                   <div className="Death-Saves">
                     Death Saves

@@ -337,7 +337,7 @@ img {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  width: 25%;
+  width: 48%;
   margin-left: 0.4rem;
   height: auto;
   padding: 1rem 0.5rem 0.5rem 1rem;
@@ -361,12 +361,12 @@ img {
 }
 
 .Attacks-And-Spells {
-  @extend .AC-HP-Death-Saves-Etc;
-  width: 48%;
+  visibility: hidden;
 }
 
 .Equipment {
   @extend .AC-HP-Death-Saves-Etc;
+  width: 48%;
 }
 
 .Roll-Stat-Button {
